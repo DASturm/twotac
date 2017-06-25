@@ -1,0 +1,5 @@
+myhostname = [WEBPLACEHOLDER]
+myorigin = $mydomain
+relayhost = [SMTPPLACEHOLDER]
+inet_interfaces = loopback-only
+mydestination =

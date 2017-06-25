@@ -1,0 +1,5 @@
+myhostname = tacacs.wr.usgs.gov
+myorigin = $mydomain
+relayhost = smtp.usgs.gov
+inet_interfaces = loopback-only
+mydestination =
