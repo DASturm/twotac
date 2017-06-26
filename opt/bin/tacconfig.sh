@@ -1,6 +1,6 @@
 #!/bin/bash
 #Files variable may need work and may need to automatically gather file names/paths from a function
-FILES="/opt/bin/* /var/www/html/* /etc/tacacs+/tac_plus.conf /etc/pam.d/tac_plus /etc/postfix/main.cf"
+FILES="\"/opt/bin/*\" \"/var/www/html/*\" /etc/tacacs+/tac_plus.conf /etc/pam.d/tac_plus /etc/postfix/main.cf"
 #This is where the current variables will be stored
 source tac.conf
 trap '' 2
@@ -30,19 +30,22 @@ echo "====================================================="
 echo -e "\n"
 read answer
 case $answer in
-	[Aa] ) 	echo "========================================================================================="
+	[Aa] ) 	until [[ "$yn" =~ ^[Yy]$ ]]; do
+			echo "========================================================================================="
 			echo "                                    Organization Name                                    "
 			echo "========================================================================================="
 			echo -e " Currently, the organization name is $ORG \n What would you like to change it to?"
-#Test $newvar if true then show $newvar before prompt
 				if [ $NEWORG ]; then
 					echo -e "The current replacement is $NEWORG"
 				fi
 			read NEWORG
 			echo -e "\n"
 			echo "$NEWORG will be your new organization name"
-			read -p "Press enter to continue"
-			echo -e "\n"
+			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+  			read yn
+		done
+
+	 	until [[ "$yn" =~ ^[Yy]$ ]]; do
 			echo "========================================================================================="
 			echo "                                      Web Host Name                                      "
 			echo "========================================================================================="
@@ -54,8 +57,12 @@ case $answer in
 			read NEWWEB
 			echo -e "\n"
 			echo "$NEWWEB will be your new host address"
-			read -p "Press enter to continue"
-			echo -e "\n"
+			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+  			read yn
+		done
+			echo -e "\n" 
+
+	 	until [[ "$yn" =~ ^[Yy]$ ]]; do
 			echo "========================================================================================="
 			echo "                                   Administrator Mail                                    "
 			echo "========================================================================================="
@@ -66,8 +73,11 @@ case $answer in
 			read NEWMAIL
 			echo -e "\n"
 			echo "$NEWMAIL will be your new admin's e-mail"
-			read -p "Press enter to continue"
-			echo -e "\n"
+			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+  			read yn
+		done
+				
+	 	until [[ "$yn" =~ ^[Yy]$ ]]; do
 			echo "========================================================================================="
 			echo "                                     SMTP Relay Host                                     "
 			echo "========================================================================================="
@@ -78,8 +88,11 @@ case $answer in
 			read NEWSMTP
 			echo -e "\n"
 			echo "$NEWSMTP will be your new SMTP host"
-			read -p "Press enter to continue"
-			echo -e "\n"
+			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+  			read yn
+		done
+		
+	 	until [[ "$yn" =~ ^[Yy]$ ]]; do
 			echo "========================================================================================="
 			echo "                                       TACACS+ Key                                       "
 			echo "========================================================================================="
@@ -89,10 +102,13 @@ case $answer in
 					echo -e "The current replacement is $NEWKEY"
 				fi
 			read NEWKEY
-			echo -e "\n"
+			echo -e "\n"			
 			echo "$NEWKEY is your new TACACS+ key. If your routers don't match, they will be inaccessible"
-			read -p "Press enter to continue"
-			echo -e "\n"
+			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+  			read yn
+		done
+
+	    clear
 			echo "====================================================="
 			echo "                   Current Changes                   "
 			echo "====================================================="
@@ -103,21 +119,49 @@ case $answer in
 			echo -e " $SMTP    ::::    $NEWSMTP"
 			echo -e " $KEY    ::::    $NEWKEY"
 			echo "====================================================="
-			read -p "Press enter to continue"
+			read -p "Press enter to continue" 
 			echo -e "\n"
+
 			read -p "Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
-    			case $yn in
-        			[Yy]* )
-						find -type f -name '$FILES' | xargs sed -i 's/\$ORG/\$NEWORG/g'
-						find -type f -name '$FILES' | xargs sed -i 's/\$WEB/\$NEWWEB/g'
-						find -type f -name '$FILES' | xargs sed -i 's/\$MAIL/\$NEWMAIL/g'
-						find -type f -name '$FILES' | xargs sed -i 's/\$SMTP/\$NEWSMTP/g'
-						find -type f -name '$FILES' | xargs sed -i 's/\$KEY/\$NEWKEY/g'
-						;;
-					[Nn]* ) exit
-						;;
-        			* ) echo "Please answer yes or no.";;
-    			esac
+    		case $yn in
+        		[Yy]* )
+					if [ $NEWORG ]; then
+						for f in $FILES; do
+							find -type f -name $f | xargs sed -i 's/\$ORG/\$NEWORG/g'
+						done
+						fi
+
+					if [ $NEWWEB ]; then
+						for f in $FILES; do
+							find -type f -name $f | xargs sed -i 's/\$WEB/\$NEWWEB/g'
+						done
+						fi
+					
+					if [ $NEWMAIL ]; then
+						for f in $FILES; do
+							find -type f -name $f | xargs sed -i 's/\$MAIL/\$NEWMAIL/g'
+						done
+						fi
+						
+					if [ $NEWSMTP ]; then
+						for f in $FILES; do
+							find -type f -name $f | xargs sed -i 's/\$SMTP/\$NEWSMTP/g'
+						done
+						fi
+					
+					if [ $NEWKEY ]; then
+						for f in $FILES; do
+							find -type f -name $f | xargs sed -i 's/\$KEY/\$NEWKEY/g'
+						done
+						fi
+					;;
+				[Nn]* ) exit
+					;;
+        		* ) 
+				;;
+    		esac
+
+			;;
 			;;
 	1) 	until [[ "$yn" =~ ^[Yy]$ ]]; do
 			echo "========================================================================================="
