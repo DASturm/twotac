@@ -154,31 +154,31 @@ case $answer in
         		[Yy]* )
 					if [ $NEWORG ]; then
 						for f in $FILES; do
-							find $f -type f | xargs sed -i "s/$ORG/$NEWORG/g"
+							find $f -type f | xargs sed -i 's/'"$ORG"'/'"$NEWORG"'/g'
 						done
 						fi
 
 					if [ $NEWWEB ]; then
 						for f in $FILES; do
-							find $f -type f | xargs sed -i "s/$WEB/$NEWWEB/g"
+							find $f -type f | xargs sed -i 's/'"$WEB"'/'"$NEWWEB"'/g'
 						done
 						fi
 
 					if [ $NEWMAIL ]; then
 						for f in $FILES; do
-							find $f -type f | xargs sed -i "s/$MAIL/$NEWMAIL/g"
+							find $f -type f | xargs sed -i 's/'"$MAIL"'/'"$NEWMAIL"'/g'
 						done
 						fi
 
 					if [ $NEWSMTP ]; then
 						for f in $FILES; do
-							find $f -type f | xargs sed -i "s/$SMTP/$NEWSMTP/g"
+							find $f -type f | xargs sed -i 's/'"$SMTP"'/'"$NEWSMTP"'/g'
 						done
 						fi
 
 					if [ $NEWKEY ]; then
 						for f in $FILES; do
-							find $f -type f | xargs sed -i "s/$KEY/$NEWKEY/g"
+							find $f -type f | xargs sed -i 's/'"$KEY"'/'"$NEWKEY"'/g'
 						done
 						fi
 					;;
