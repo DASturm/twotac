@@ -1,5 +1,5 @@
-myhostname = tacacs.wr.usgs.gov
+myhostname = [WEBPLACEHOLDER]
 myorigin = $mydomain
-relayhost = smtp.usgs.gov
+relayhost = [SMTPPLACEHOLDER]
 inet_interfaces = loopback-only
 mydestination =
