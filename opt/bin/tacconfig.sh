@@ -1,12 +1,12 @@
 #!/bin/bash
 #Files variable may need work and may need to automatically gather file names/paths from a function
-FILES="\"/opt/bin/*\" \"/var/www/html/*\" /etc/tacacs+/tac_plus.conf /etc/pam.d/tac_plus /etc/postfix/main.cf"
-#This is where the current variables will be stored
+FILES="/opt/bin/* /var/www/html/* /etc/tacacs+/tac_plus.conf /etc/pam.d/tac_plus /etc/postfix/main.cf"
+#This is where the current variables will be stored NOTE CHANGE TO /OPT/BIN/TAC.CONF WHEN TESTING IS OVER
 source tac.conf
-trap '' 2
+#trap '' 2
 while true
 do
-clear
+#clear
 yn="n"
 echo "========================================================================================="
 echo "                                    Twotac Management                                    "
@@ -30,7 +30,7 @@ echo "====================================================="
 echo -e "\n"
 read answer
 case $answer in
-	[Aa] ) 	until [[ "$yn" =~ ^[Yy]$ ]]; do
+	[Aa] ) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 			echo "========================================================================================="
 			echo "                                    Organization Name                                    "
 			echo "========================================================================================="
@@ -38,14 +38,20 @@ case $answer in
 				if [ $NEWORG ]; then
 					echo -e "The current replacement is $NEWORG"
 				fi
-			read NEWORG
-			echo -e "\n"
-			echo "$NEWORG will be your new organization name"
-			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+			echo ""
+			read TEMPORG
+			echo ""
+			echo " $TEMPORG will be your new organization name"
+			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   			read yn
+  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  				break
+  			else
+  				NEWORG="$TEMPORG"
+  			fi
 		done
-
-	 	until [[ "$yn" =~ ^[Yy]$ ]]; do
+		yn="n"
+	 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 			echo "========================================================================================="
 			echo "                                      Web Host Name                                      "
 			echo "========================================================================================="
@@ -54,15 +60,20 @@ case $answer in
 				if [ $NEWWEB ]; then
 					echo -e "The current replacement is $NEWWEB"
 				fi
-			read NEWWEB
-			echo -e "\n"
-			echo "$NEWWEB will be your new host address"
-			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+			echo ""
+			read TEMPWEB
+			echo ""
+			echo " $TEMPWEB will be your new host address"
+			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   			read yn
+  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  				break
+  			else
+  				NEWWEB="$TEMPWEB"
+  			fi
 		done
-			echo -e "\n" 
-
-	 	until [[ "$yn" =~ ^[Yy]$ ]]; do
+		yn="n"
+	 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 			echo "========================================================================================="
 			echo "                                   Administrator Mail                                    "
 			echo "========================================================================================="
@@ -70,14 +81,20 @@ case $answer in
 				if [ $NEWMAIL ]; then
 					echo -e "The current replacement is $NEWMAIL"
 				fi
-			read NEWMAIL
-			echo -e "\n"
-			echo "$NEWMAIL will be your new admin's e-mail"
-			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+			echo ""
+			read TEMPMAIL
+			echo ""
+			echo " $TEMPMAIL will be your new admin's e-mail"
+			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   			read yn
+  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  				break
+  			else
+  				NEWMAIL="$TEMPMAIL"
+  			fi
 		done
-				
-	 	until [[ "$yn" =~ ^[Yy]$ ]]; do
+		yn="n"
+	 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 			echo "========================================================================================="
 			echo "                                     SMTP Relay Host                                     "
 			echo "========================================================================================="
@@ -85,14 +102,20 @@ case $answer in
 				if [ $NEWSMTP ]; then
 					echo -e "The current replacement is $NEWSMTP"
 				fi
-			read NEWSMTP
-			echo -e "\n"
-			echo "$NEWSMTP will be your new SMTP host"
-			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+			echo ""
+			read TEMPSMTP
+			echo ""
+			echo " $TEMPSMTP will be your new SMTP host"
+			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   			read yn
+  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  				break
+  			else
+  				NEWSMTP="$TEMPSMTP"
+  			fi
 		done
-		
-	 	until [[ "$yn" =~ ^[Yy]$ ]]; do
+		yn="n"
+	 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 			echo "========================================================================================="
 			echo "                                       TACACS+ Key                                       "
 			echo "========================================================================================="
@@ -101,69 +124,69 @@ case $answer in
 				if [ $NEWKEY ]; then
 					echo -e "The current replacement is $NEWKEY"
 				fi
-			read NEWKEY
-			echo -e "\n"			
-			echo "$NEWKEY is your new TACACS+ key. If your routers don't match, they will be inaccessible"
-			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+			echo ""
+			read TEMPKEY
+			echo ""			
+			echo " $TEMPKEY is your new TACACS+ key. If your routers don't match, they will be inaccessible"
+			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   			read yn
+  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  				break
+  			else
+  				NEWKEY="$TEMPKEY"
+  			fi
 		done
-
+		yn="n"
 	    clear
 			echo "====================================================="
 			echo "                   Current Changes                   "
 			echo "====================================================="
-			echo " Original    ::::    New"
-			echo -e " $ORG    ::::    $NEWORG"
-			echo -e " $WEB    ::::    $NEWWEB"
-			echo -e " $MAIL    ::::    $NEWMAIL"
-			echo -e " $SMTP    ::::    $NEWSMTP"
-			echo -e " $KEY    ::::    $NEWKEY"
+			echo -e " Original    \t\t::::\t    New"
+			echo -e " $ORG    \t::::\t    $NEWORG"
+			echo -e " $WEB    \t::::\t    $NEWWEB"
+			echo -e " $MAIL    \t::::\t    $NEWMAIL"
+			echo -e " $SMTP    \t::::\t    $NEWSMTP"
+			echo -e " $KEY    \t\t::::\t    $NEWKEY"
 			echo "====================================================="
-			read -p "Press enter to continue" 
 			echo -e "\n"
-
-			read -p "Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
+			read -p " Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
     		case $yn in
         		[Yy]* )
 					if [ $NEWORG ]; then
 						for f in $FILES; do
-							find -type f -name $f | xargs sed -i 's/\$ORG/\$NEWORG/g'
+							find $f -type f | xargs sed -i "s/$ORG/$NEWORG/g"
 						done
 						fi
 
 					if [ $NEWWEB ]; then
 						for f in $FILES; do
-							find -type f -name $f | xargs sed -i 's/\$WEB/\$NEWWEB/g'
+							find $f -type f | xargs sed -i "s/$WEB/$NEWWEB/g"
 						done
 						fi
-					
+
 					if [ $NEWMAIL ]; then
 						for f in $FILES; do
-							find -type f -name $f | xargs sed -i 's/\$MAIL/\$NEWMAIL/g'
+							find $f -type f | xargs sed -i "s/$MAIL/$NEWMAIL/g"
 						done
 						fi
-						
+
 					if [ $NEWSMTP ]; then
 						for f in $FILES; do
-							find -type f -name $f | xargs sed -i 's/\$SMTP/\$NEWSMTP/g'
+							find $f -type f | xargs sed -i "s/$SMTP/$NEWSMTP/g"
 						done
 						fi
-					
+
 					if [ $NEWKEY ]; then
 						for f in $FILES; do
-							find -type f -name $f | xargs sed -i 's/\$KEY/\$NEWKEY/g'
+							find $f -type f | xargs sed -i "s/$KEY/$NEWKEY/g"
 						done
 						fi
 					;;
-				[Nn]* ) exit
+				[Nn]* ) break
 					;;
-        		* ) 
-				;;
     		esac
-
 			;;
-			;;
-	1) 	until [[ "$yn" =~ ^[Yy]$ ]]; do
+	1) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 			echo "========================================================================================="
 			echo "                                    Organization Name                                    "
 			echo "========================================================================================="
@@ -171,14 +194,20 @@ case $answer in
 				if [ $NEWORG ]; then
 					echo -e "The current replacement is $NEWORG"
 				fi
-			read NEWORG
-			echo -e "\n"
-			echo "$NEWORG will be your new organization name"
-			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+			echo ""
+			read TEMPORG
+			echo ""
+			echo " $TEMPORG will be your new organization name"
+			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   			read yn
+  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  				break
+  			else
+  				NEWORG="$TEMPORG"
+  			fi
 		done
 				;;
-	2) 	until [[ "$yn" =~ ^[Yy]$ ]]; do
+	2) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 			echo "========================================================================================="
 			echo "                                      Web Host Name                                      "
 			echo "========================================================================================="
@@ -187,15 +216,20 @@ case $answer in
 				if [ $NEWWEB ]; then
 					echo -e "The current replacement is $NEWWEB"
 				fi
-			read NEWWEB
-			echo -e "\n"
-			echo "$NEWWEB will be your new host address"
-			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+			echo ""
+			read TEMPWEB
+			echo ""
+			echo " $TEMPWEB will be your new host address"
+			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   			read yn
+  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  				break
+  			else
+  				NEWWEB="$TEMPWEB"
+  			fi
 		done
-			echo -e "\n" 
 				;;
-	3) 	until [[ "$yn" =~ ^[Yy]$ ]]; do
+	3) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 			echo "========================================================================================="
 			echo "                                   Administrator Mail                                    "
 			echo "========================================================================================="
@@ -203,14 +237,20 @@ case $answer in
 				if [ $NEWMAIL ]; then
 					echo -e "The current replacement is $NEWMAIL"
 				fi
-			read NEWMAIL
-			echo -e "\n"
-			echo "$NEWMAIL will be your new admin's e-mail"
-			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+			echo ""
+			read TEMPMAIL
+			echo ""
+			echo " $TEMPMAIL will be your new admin's e-mail"
+			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   			read yn
+  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  				break
+  			else
+  				NEWMAIL="$TEMPMAIL"
+  			fi
 		done
 				;;
-	4) 	until [[ "$yn" =~ ^[Yy]$ ]]; do
+	4) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 			echo "========================================================================================="
 			echo "                                     SMTP Relay Host                                     "
 			echo "========================================================================================="
@@ -218,14 +258,20 @@ case $answer in
 				if [ $NEWSMTP ]; then
 					echo -e "The current replacement is $NEWSMTP"
 				fi
-			read NEWSMTP
-			echo -e "\n"
-			echo "$NEWSMTP will be your new SMTP host"
-			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+			echo ""
+			read TEMPSMTP
+			echo ""
+			echo " $TEMPSMTP will be your new SMTP host"
+			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   			read yn
+  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  				break
+  			else
+  				NEWSMTP="$TEMPSMTP"
+  			fi
 		done
 				;;
-	5) 	until [[ "$yn" =~ ^[Yy]$ ]]; do
+	5) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 			echo "========================================================================================="
 			echo "                                       TACACS+ Key                                       "
 			echo "========================================================================================="
@@ -234,25 +280,31 @@ case $answer in
 				if [ $NEWKEY ]; then
 					echo -e "The current replacement is $NEWKEY"
 				fi
-			read NEWKEY
-			echo -e "\n"			
-			echo "$NEWKEY is your new TACACS+ key. If your routers don't match, they will be inaccessible"
-			echo "Would you like to continue? \"No\" will restart this section (yes/no)"
+			echo ""
+			read TEMPKEY
+			echo ""			
+			echo " $TEMPKEY is your new TACACS+ key. If your routers don't match, they will be inaccessible"
+			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   			read yn
+  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  				break
+  			else
+  				NEWKEY="$TEMKEY"
+  			fi
 		done
 				;;
 	[Vv] ) clear
 			echo "====================================================="
 			echo "                   Current Changes                   "
 			echo "====================================================="
-			echo " Original    ::::    New"
-			echo -e " $ORG    ::::    $NEWORG"
-			echo -e " $WEB    ::::    $NEWWEB"
-			echo -e " $MAIL    ::::    $NEWMAIL"
-			echo -e " $SMTP    ::::    $NEWSMTP"
-			echo -e " $KEY    ::::    $NEWKEY"
+			echo -e " Original    \t\t::::\t    New"
+			echo -e " $ORG    \t::::\t    $NEWORG"
+			echo -e " $WEB    \t::::\t    $NEWWEB"
+			echo -e " $MAIL    \t::::\t    $NEWMAIL"
+			echo -e " $SMTP    \t::::\t    $NEWSMTP"
+			echo -e " $KEY    \t\t::::\t    $NEWKEY"
 			echo "====================================================="
-			read -p "Press enter to continue" 
+			read -p " Press enter to continue" 
 			echo -e "\n"
 				;;
 	[Cc] ) read -p "Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
@@ -260,40 +312,39 @@ case $answer in
         		[Yy]* )
 					if [ $NEWORG ]; then
 						for f in $FILES; do
-							find -type f -name $f | xargs sed -i 's/\$ORG/\$NEWORG/g'
+							find $f -type f | xargs sed -i 's/\"$ORG\"/\"$NEWORG\"/g'
 						done
 						fi
 
 					if [ $NEWWEB ]; then
 						for f in $FILES; do
-							find -type f -name $f | xargs sed -i 's/\$WEB/\$NEWWEB/g'
+							find $f -type f | xargs sed -i 's/\"$WEB\"/\"$NEWWEB\"/g'
 						done
 						fi
-					
+
 					if [ $NEWMAIL ]; then
 						for f in $FILES; do
-							find -type f -name $f | xargs sed -i 's/\$MAIL/\$NEWMAIL/g'
+							find $f -type f | xargs sed -i 's/\"$MAIL\"/\"$NEWMAIL\"/g'
 						done
 						fi
-						
+
 					if [ $NEWSMTP ]; then
 						for f in $FILES; do
-							find -type f -name $f | xargs sed -i 's/\$SMTP/\$NEWSMTP/g'
+							find $f -type f | xargs sed -i 's/\"$SMTP\"/\"$NEWSMTP\"/g'
 						done
 						fi
-					
+
 					if [ $NEWKEY ]; then
 						for f in $FILES; do
-							find -type f -name $f | xargs sed -i 's/\$KEY/\$NEWKEY/g'
+							find $f -type f | xargs sed -i 's/\"$KEY\"/\"$NEWKEY\"/g'
 						done
 						fi
 					;;
-				[Nn]* ) exit
+				[Nn]* ) break
 					;;
         		* ) 
 				;;
     		esac
-
 			;;
 	[Qq] ) clear
 			exit 
