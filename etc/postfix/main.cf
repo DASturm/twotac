@@ -1,5 +1,5 @@
-myhostname = [WEBPLACEHOLDER]
+myhostname = WEBPLACEHOLDER
 myorigin = $mydomain
-relayhost = [SMTPPLACEHOLDER]
+relayhost = SMTPPLACEHOLDER
 inet_interfaces = loopback-only
 mydestination =

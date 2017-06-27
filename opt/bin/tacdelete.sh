@@ -5,7 +5,7 @@ TACCONF="/etc/tacacs+/tac_plus.conf"
 
 #Error codes
 errorformat="Incorrect formatting, please use this format: tacdelete -u [USERNAME] -p [PASSWORD] -e [EMAIL] -n [NAME]"
-errormail="To delete your account, you must provide a matching, valid [ORGPLACEHOLDER].gov e-mail address"
+errormail="To delete your account, you must provide a matching, valid ORGPLACEHOLDER.gov e-mail address"
 errorconfig="Tacacs+ configuration file not found! Contact an administrator ASAP! (This is very bad)"
 errorrestart="The tacacs_plus service failed to restart. Please fix this to enable tacacs again. (This is bad)"
 errornobody="The user does not appear to exist, check your input and try again"
@@ -22,7 +22,7 @@ then
     echo $errorformat | tee -a /opt/bin/taclog
     echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
     echo "" | tee -a /opt/bin/taclog
-    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorformat/" /opt/bin/mailscripterror | mail -aFrom:[MAILPLACEHOLDER] -aBCC:[MAILPLACEHOLDER] -s "[ORGPLACEHOLDER] Official Tacacs+ Registration" $EMAIL
+    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorformat/" /opt/bin/mailscripterror | mail -aFrom:MAILPLACEHOLDER -aBCC:MAILPLACEHOLDER -s "ORGPLACEHOLDER Official Tacacs+ Registration" $EMAIL
     exit 1
 fi
 USERNAME="$2"
@@ -34,13 +34,13 @@ NAME="$@"
 #Logs registration attempts with all known data
 echo -e "$USERNAME\n$EMAIL\n$NAME" >> /opt/bin/taclog
 
-#Checks if the e-mail provided is a [ORGPLACEHOLDER].gov address
-if ! [[ $EMAIL =~ "@[ORGPLACEHOLDER].gov" ]]; then
+#Checks if the e-mail provided is a ORGPLACEHOLDER.gov address
+if ! [[ $EMAIL =~ "@ORGPLACEHOLDER.gov" ]]; then
     echo $errormail | tee -a /opt/bin/taclog
     echo $errortryagain | tee -a /opt/bin/taclog
     echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
     echo "" | tee -a /opt/bin/taclog
-    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errormail/" /opt/bin/mailscripterror | mail -aFrom:[MAILPLACEHOLDER] -aBCC:[MAILPLACEHOLDER] -s "[ORGPLACEHOLDER] Official Tacacs+ Registration" $EMAIL
+    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errormail/" /opt/bin/mailscripterror | mail -aFrom:MAILPLACEHOLDER -aBCC:MAILPLACEHOLDER -s "ORGPLACEHOLDER Official Tacacs+ Registration" $EMAIL
     exit 2
 fi
 
@@ -54,7 +54,7 @@ then
     echo $errortryagain | tee -a /opt/bin/taclog
     echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
     echo "" | tee -a /opt/bin/taclog
-    sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" /opt/bin/mailusererror | mail -aFrom:[MAILPLACEHOLDER] -aBCC:[MAILPLACEHOLDER] -s "[ORGPLACEHOLDER] Official Tacacs+ Registration" $EMAIL
+    sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" /opt/bin/mailusererror | mail -aFrom:MAILPLACEHOLDER -aBCC:MAILPLACEHOLDER -s "ORGPLACEHOLDER Official Tacacs+ Registration" $EMAIL
     exit 3
 fi
 
@@ -76,12 +76,12 @@ if [ ! -f $TACCONF ]; then
     echo $errortryagain | tee -a /opt/bin/taclog
     echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
     echo "" | tee -a /opt/bin/taclog
-    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorconfig/" /opt/bin/mailscripterror | mail -aFrom:[MAILPLACEHOLDER] -aBCC:[MAILPLACEHOLDER] -s "[ORGPLACEHOLDER] Official Tacacs+ Registration" $EMAIL
+    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorconfig/" /opt/bin/mailscripterror | mail -aFrom:MAILPLACEHOLDER -aBCC:MAILPLACEHOLDER -s "ORGPLACEHOLDER Official Tacacs+ Registration" $EMAIL
     exit 4
 fi
 
 # Rewrites the template e-mail with all the collected variables and sends it to the registering user
-sed -e "s/\[NAME\]/$NAME/" -e "s \[USER\] $USERNAME " /opt/bin/maildelete | mail -aFrom:[MAILPLACEHOLDER] -aBCC:[MAILPLACEHOLDER] -s "[ORGPLACEHOLDER] Official Tacacs+ Registration" $EMAIL
+sed -e "s/\[NAME\]/$NAME/" -e "s \[USER\] $USERNAME " /opt/bin/maildelete | mail -aFrom:MAILPLACEHOLDER -aBCC:MAILPLACEHOLDER -s "ORGPLACEHOLDER Official Tacacs+ Registration" $EMAIL
 
 #Restart tacacs service so the newly registered user is available
 systemctl restart tacacs_plus
@@ -97,6 +97,6 @@ else
     echo $errortryagain | tee -a /opt/bin/taclog
     echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
     echo "" | tee -a /opt/bin/taclog
-    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorrestart/" /opt/bin/mailscripterror | mail -aFrom:[MAILPLACEHOLDER] -aBCC:[MAILPLACEHOLDER] -s "[ORGPLACEHOLDER] Official Tacacs+ Registration" $EMAIL
+    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorrestart/" /opt/bin/mailscripterror | mail -aFrom:MAILPLACEHOLDER -aBCC:MAILPLACEHOLDER -s "ORGPLACEHOLDER Official Tacacs+ Registration" $EMAIL
     exit 5
 fi

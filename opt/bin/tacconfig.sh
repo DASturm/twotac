@@ -1,12 +1,14 @@
 #!/bin/bash
 #Files variable may need work and may need to automatically gather file names/paths from a function
-FILES="/opt/bin/* /var/www/html/* /etc/tacacs+/tac_plus.conf /etc/pam.d/tac_plus /etc/postfix/main.cf"
+DIR=$(find /opt/bin/ /var/www/html/ -type f)
+FILES="$DIR\n/etc/tacacs+/tac_plus.conf\n/etc/pam.d/tac_plus\n/etc/postfix/main.cf"
 #This is where the current variables will be stored NOTE CHANGE TO /OPT/BIN/TAC.CONF WHEN TESTING IS OVER
 source tac.conf
 #trap '' 2
 while true
 do
 #clear
+echo -e "$FILES"
 yn="n"
 echo "========================================================================================="
 echo "                                    Twotac Management                                    "
@@ -310,34 +312,10 @@ case $answer in
 	[Cc] ) read -p "Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
     		case $yn in
         		[Yy]* )
+					echo -e "$ORG \t$WEB \t$MAIL \t$SMTP \t$KEY" 
+					echo -e "$NEWORG \t$NEWWEB \t$NEWMAIL \t$NEWSMTP \t$NEWKEY"
 					if [ $NEWORG ]; then
-						for f in $FILES; do
-							find $f -type f -print0 | xargs -0 sed -i "s/$ORG/$NEWORG/g"
-						done
-						fi
-
-					if [ $NEWWEB ]; then
-						for f in $FILES; do
-							find $f -type f -print0 | xargs -0 sed -i 's/\"$WEB\"/\"$NEWWEB\"/g'
-						done
-						fi
-
-					if [ $NEWMAIL ]; then
-						for f in $FILES; do
-							find $f -type f -print0 | xargs -0 sed -i 's/\"$MAIL\"/\"$NEWMAIL\"/g'
-						done
-						fi
-
-					if [ $NEWSMTP ]; then
-						for f in $FILES; do
-							find $f -type f -print0 | xargs -0 sed -i 's/\"$SMTP\"/\"$NEWSMTP\"/g'
-						done
-						fi
-
-					if [ $NEWKEY ]; then
-						for f in $FILES; do
-							find $f -type f -print0 | xargs -0 sed -i 's/\"$KEY\"/\"$NEWKEY\"/g'
-						done
+						sed -i "s/$ORG/$NEWORG/g" -i "s/$ORG/$NEWORG/g" -i "s/$WEB/$NEWWEB/g" -i "s/$MAIL/$NEWMAIL/g" -i "s/$KEY/$NEWKEY/g" $FILES
 						fi
 					;;
 				[Nn]* ) break
