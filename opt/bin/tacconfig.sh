@@ -312,7 +312,7 @@ case $answer in
         		[Yy]* )
 					if [ $NEWORG ]; then
 						for f in $FILES; do
-							find $f -type f -print0 | xargs -0 sed -i 's/\"$ORG\"/\"$NEWORG\"/g'
+							find $f -type f -print0 | xargs -0 sed -i "s/$ORG/$NEWORG/g"
 						done
 						fi
 
