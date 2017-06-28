@@ -4,11 +4,10 @@ DIR=$(find /opt/bin/ /var/www/html/ -type f)
 FILES="$DIR /etc/tacacs+/tac_plus.conf /etc/pam.d/tac_plus /etc/postfix/main.cf"
 #This is where the current variables will be stored NOTE CHANGE TO /OPT/BIN/TAC.CONF WHEN TESTING IS OVER
 source tac.conf
-#trap '' 2
+trap '' 2
 while true
 do
-#clear
-echo -e "$FILES"
+clear
 yn="n"
 echo "========================================================================================="
 echo "                                    Twotac Management                                    "
@@ -20,7 +19,6 @@ echo " To edit the website's hostname,    enter 2"
 echo " To edit the admin's mail address,  enter 3"
 echo " To configure your SMTP relay host, enter 4"
 echo " To configure your TACACS+ key,     enter 5"
-echo " To view changes made so far,       enter V"
 echo " To commit changes to memory,       enter C"
 echo " To exit,                           enter Q"
 echo -e ""
@@ -316,30 +314,30 @@ case $answer in
   			fi
 		done
 				;;
-	[Vv] )
-			echo "====================================================="
-			echo "                   Current Changes                   "
-			echo "====================================================="
-			echo -e " Original    \t\t::::\t    New"
-			echo -e " $ORG    \t::::\t    $NEWORG"
-			echo -e " $WEB    \t::::\t    $NEWWEB"
-			echo -e " $MAIL    \t::::\t    $NEWMAIL"
-			echo -e " $SMTP    \t::::\t    $NEWSMTP"
-			echo -e " $KEY    \t\t::::\t    $NEWKEY"
-			echo "====================================================="
-			read -p " Press enter to continue" 
-			echo -e "\n"
-				;;
 	[Cc] ) read -p "Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
     		case $yn in
         		[Yy]* )
-					echo -e "$ORG \t$WEB \t$MAIL \t$SMTP \t$KEY" 
-					echo -e "$NEWORG \t$NEWWEB \t$NEWMAIL \t$NEWSMTP \t$NEWKEY"
 					if [ $NEWORG ]; then
-						sed -i "s/$ORG/$NEWORG/g" "$FILES"
+						sed -i "s/$ORG/$NEWORG/g" $FILES
+						fi
+
+					if [ $NEWWEB ]; then
+						sed -i "s/$WEB/$NEWWEB/g" $FILES
+						fi
+
+					if [ $NEWMAIL ]; then
+						sed -i "s/$MAIL/$NEWMAIL/g" $FILES
+						fi
+
+					if [ $NEWSMTP ]; then
+						sed -i "s/$SMTP/$NEWSMTP/g" $FILES
+						fi
+
+					if [ $NEWKEY ]; then
+						sed -i "s/$KEY/$NEWKEY/g" $FILES
 						fi
 					;;
-				[Nn]* ) break
+				[Nn]* ) continue
 					;;
     		esac
 			;;
