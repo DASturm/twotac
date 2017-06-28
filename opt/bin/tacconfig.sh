@@ -193,8 +193,8 @@ case $answer in
 					[Nn]* ) continue
 						;;
     			esac
-				;;
 			done
+			;;
 	1) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 			echo "========================================================================================="
 			echo "                                    Organization Name                                    "
