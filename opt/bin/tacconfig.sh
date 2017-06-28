@@ -174,36 +174,26 @@ case $answer in
     		case $yn in
         		[Yy]* )
 					if [ $NEWORG ]; then
-						for f in $FILES; do
-							find $f -type f -print0 | xargs -0 sed -i 's/'"$ORG"'/'"$NEWORG"'/g'
-						done
+						sed -i "s/$ORG/$NEWORG/g" $FILES
 						fi
 
 					if [ $NEWWEB ]; then
-						for f in $FILES; do
-							find $f -type f -print0 | xargs -0 sed -i 's/'"$WEB"'/'"$NEWWEB"'/g'
-						done
+						sed -i "s/$WEB/$NEWWEB/g" $FILES
 						fi
 
 					if [ $NEWMAIL ]; then
-						for f in $FILES; do
-							find $f -type f -print0 | xargs -0 sed -i 's/'"$MAIL"'/'"$NEWMAIL"'/g'
-						done
+						sed -i "s/$MAIL/$NEWMAIL/g" $FILES
 						fi
 
 					if [ $NEWSMTP ]; then
-						for f in $FILES; do
-							find $f -type f -print0 | xargs -0 sed -i 's/'"$SMTP"'/'"$NEWSMTP"'/g'
-						done
+						sed -i "s/$SMTP/$NEWSMTP/g" $FILES
 						fi
 
 					if [ $NEWKEY ]; then
-						for f in $FILES; do
-							find $f -type f -print0 | xargs -0 sed -i 's/'"$KEY"'/'"$NEWKEY"'/g'
-						done
+						sed -i "s/$KEY/$NEWKEY/g" $FILES
 						fi
 					;;
-				[Nn]* ) break
+				[Nn]* ) continue
 					;;
     		esac
 			;;
