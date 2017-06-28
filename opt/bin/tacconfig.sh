@@ -1,7 +1,7 @@
 #!/bin/bash
 #Files variable may need work and may need to automatically gather file names/paths from a function
 DIR=$(find /opt/bin/ /var/www/html/ -type f)
-FILES="$DIR\n/etc/tacacs+/tac_plus.conf\n/etc/pam.d/tac_plus\n/etc/postfix/main.cf"
+FILES="$DIR /etc/tacacs+/tac_plus.conf /etc/pam.d/tac_plus /etc/postfix/main.cf"
 #This is where the current variables will be stored NOTE CHANGE TO /OPT/BIN/TAC.CONF WHEN TESTING IS OVER
 source tac.conf
 #trap '' 2
@@ -315,7 +315,7 @@ case $answer in
 					echo -e "$ORG \t$WEB \t$MAIL \t$SMTP \t$KEY" 
 					echo -e "$NEWORG \t$NEWWEB \t$NEWMAIL \t$NEWSMTP \t$NEWKEY"
 					if [ $NEWORG ]; then
-						sed -i "s/$ORG/$NEWORG/g" $FILES | sed -i 's/\([0-9]\{1,\}\.[0-9][0-9]\)[0-9]*\>/\1/g' $FILES; \
+						sed -i 's/"$ORG"/"$NEWORG"/g' "$FILES"
 						fi
 					;;
 				[Nn]* ) break
