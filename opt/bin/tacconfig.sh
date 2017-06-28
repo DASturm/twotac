@@ -3,10 +3,10 @@
 DIR=$(find /opt/bin/ /var/www/html/ -type f)
 FILES="$DIR /etc/tacacs+/tac_plus.conf /etc/pam.d/tac_plus /etc/postfix/main.cf"
 #This is where the current variables will be stored NOTE CHANGE TO /OPT/BIN/TAC.CONF WHEN TESTING IS OVER
-source tac.conf
 trap '' 2
 while true
 do
+source tac.conf
 clear
 yn="n"
 echo "========================================================================================="
