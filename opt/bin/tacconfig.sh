@@ -51,27 +51,27 @@ echo "====================================================="
 echo -e "\n"
 read answer
 case $answer in
-	[Aa] ) 	until [[ "$yn" =~ ^[Cc](ancel)?$ ]]; do
-				until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
-					echo "========================================================================================="
-					echo "                                    Organization Name                                    "
-					echo "========================================================================================="
-					echo -e " Currently, the organization name is $ORG \n What would you like to change it to?"
-						if [ $NEWORG ]; then
-							echo -e "The current replacement is $NEWORG"
-						fi
-					echo ""
-					read TEMPORG
-					echo ""
-					echo " $TEMPORG will be your new organization name"
-					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
-  					read yn
-  					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-  						break
-  					else
-  						NEWORG="$TEMPORG"
-  					fi
-				done
+	[Aa] ) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+				echo "========================================================================================="
+				echo "                                    Organization Name                                    "
+				echo "========================================================================================="
+				echo -e " Currently, the organization name is $ORG \n What would you like to change it to?"
+					if [ $NEWORG ]; then
+						echo -e "The current replacement is $NEWORG"
+					fi
+				echo ""
+				read TEMPORG
+				echo ""
+				echo " $TEMPORG will be your new organization name"
+				echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+  				read yn
+  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  					break
+  				else
+  					NEWORG="$TEMPORG"
+  				fi
+			done
+			if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 				yn="n"
 	 			until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 					echo "========================================================================================="
@@ -94,6 +94,8 @@ case $answer in
   						NEWWEB="$TEMPWEB"
   					fi
 				done
+			fi
+			if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 				yn="n"
 	 			until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 					echo "========================================================================================="
@@ -115,6 +117,8 @@ case $answer in
   						NEWMAIL="$TEMPMAIL"
   					fi
 				done
+			fi
+			if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 				yn="n"
 	 			until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 					echo "========================================================================================="
@@ -136,6 +140,8 @@ case $answer in
   						NEWSMTP="$TEMPSMTP"
   					fi
 				done
+			fi
+			if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 				yn="n"
 	 			until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 					echo "========================================================================================="
@@ -158,6 +164,8 @@ case $answer in
   						NEWKEY="$TEMPKEY"
   					fi
 				done
+			fi
+			if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 				yn="n"
 	    		clear
 				echo "====================================================="
@@ -193,8 +201,7 @@ case $answer in
 					[Nn]* ) continue
 						;;
     			esac
-    			yn="C"
-			done
+    		fi
 			;;
 	1) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 			echo "========================================================================================="
