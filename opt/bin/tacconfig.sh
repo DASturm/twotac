@@ -51,7 +51,7 @@ echo "====================================================="
 echo -e "\n"
 read answer
 case $answer in
-	[Aa] ) 	while ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; do
+	[Aa] ) 	until [[ "$yn" =~ ^[Cc](ancel)?$ ]]; do
 				until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 					echo "========================================================================================="
 					echo "                                    Organization Name                                    "
@@ -67,7 +67,7 @@ case $answer in
 					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   					read yn
   					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-  						continue
+  						break
   					else
   						NEWORG="$TEMPORG"
   					fi
@@ -89,7 +89,7 @@ case $answer in
 					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   					read yn
   					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-  						continue
+  						break
   					else
   						NEWWEB="$TEMPWEB"
   					fi
@@ -110,7 +110,7 @@ case $answer in
 					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   					read yn
   					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-  						continue
+  						break
   					else
   						NEWMAIL="$TEMPMAIL"
   					fi
@@ -131,7 +131,7 @@ case $answer in
 					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   					read yn
   					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-  						continue
+  						break
   					else
   						NEWSMTP="$TEMPSMTP"
   					fi
@@ -153,7 +153,7 @@ case $answer in
 					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
   					read yn
   					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-  						continue
+  						break
   					else
   						NEWKEY="$TEMPKEY"
   					fi
@@ -193,6 +193,7 @@ case $answer in
 					[Nn]* ) continue
 						;;
     			esac
+    			break
 			done
 			;;
 	1) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
