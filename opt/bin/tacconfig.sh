@@ -61,7 +61,7 @@ case $answer in
 				echo "========================================================================================="
 				echo "                                    Organization Name                                    "
 				echo "========================================================================================="
-				echo " Currently, the organization name is $ORG \n What would you like to change it to?"
+				echo -e " Currently, the organization name is $ORG \n What would you like to change it to?"
 					if [ $NEWORG ]; then
 						echo -e "The current replacement is $NEWORG"
 					fi
@@ -83,7 +83,7 @@ case $answer in
 					echo "========================================================================================="
 					echo "                                      Web Host Name                                      "
 					echo "========================================================================================="
-					echo " Currently, the website's hostname is $WEB \n What would you like to change it to?"
+					echo -e " Currently, the website's hostname is $WEB \n What would you like to change it to?"
 					echo " NOTE: If you would like to make this site https, include it in the hostname"
 						if [ $NEWWEB ]; then
 							echo -e "The current replacement is $NEWWEB"
@@ -107,7 +107,7 @@ case $answer in
 					echo "========================================================================================="
 					echo "                                   Administrator Mail                                    "
 					echo "========================================================================================="
-					echo " Currently, the admin's mail address is $MAIL \n What would you like to change it to?"
+					echo -e " Currently, the admin's mail address is $MAIL \n What would you like to change it to?"
 						if [ $NEWMAIL ]; then
 							echo -e "The current replacement is $NEWMAIL"
 						fi
@@ -130,7 +130,7 @@ case $answer in
 					echo "========================================================================================="
 					echo "                                     SMTP Relay Host                                     "
 					echo "========================================================================================="
-					echo " Currently, the SMTP host is $SMTP \n What would you like to change it to?"
+					echo -e " Currently, the SMTP host is $SMTP \n What would you like to change it to?"
 						if [ $NEWSMTP ]; then
 							echo -e "The current replacement is $NEWSMTP"
 						fi
@@ -153,7 +153,7 @@ case $answer in
 					echo "========================================================================================="
 					echo "                                       TACACS+ Key                                       "
 					echo "========================================================================================="
-					echo " Currently, the TACACS+ key is $KEY \n What would you like to change it to?"
+					echo -e " Currently, the TACACS+ key is $KEY \n What would you like to change it to?"
 					echo " ***WARNING, YOU WILL NEED TO CHANGE ALL ROUTER CONFIGS TO MATCH THE NEW ONE***"
 						if [ $NEWKEY ]; then
 							echo -e "The current replacement is $NEWKEY"
@@ -214,7 +214,7 @@ case $answer in
 			echo "========================================================================================="
 			echo "                                    Organization Name                                    "
 			echo "========================================================================================="
-			echo " Currently, the organization name is $ORG \n What would you like to change it to?"
+			echo -e " Currently, the organization name is $ORG \n What would you like to change it to?"
 				if [ $NEWORG ]; then
 					echo -e "The current replacement is $NEWORG"
 				fi
@@ -235,7 +235,7 @@ case $answer in
 			echo "========================================================================================="
 			echo "                                      Web Host Name                                      "
 			echo "========================================================================================="
-			echo " Currently, the website's hostname is $WEB \n What would you like to change it to?"
+			echo -e " Currently, the website's hostname is $WEB \n What would you like to change it to?"
 			echo " NOTE: If you would like to make this site https, include it in the hostname"
 				if [ $NEWWEB ]; then
 					echo -e "The current replacement is $NEWWEB"
@@ -257,7 +257,7 @@ case $answer in
 			echo "========================================================================================="
 			echo "                                   Administrator Mail                                    "
 			echo "========================================================================================="
-			echo " Currently, the admin's mail address is $MAIL \n What would you like to change it to?"
+			echo -e " Currently, the admin's mail address is $MAIL \n What would you like to change it to?"
 				if [ $NEWMAIL ]; then
 					echo -e "The current replacement is $NEWMAIL"
 				fi
@@ -278,7 +278,7 @@ case $answer in
 			echo "========================================================================================="
 			echo "                                     SMTP Relay Host                                     "
 			echo "========================================================================================="
-			echo " Currently, the SMTP host is $SMTP \n What would you like to change it to?"
+			echo -e " Currently, the SMTP host is $SMTP \n What would you like to change it to?"
 				if [ $NEWSMTP ]; then
 					echo -e "The current replacement is $NEWSMTP"
 				fi
@@ -299,7 +299,7 @@ case $answer in
 			echo "========================================================================================="
 			echo "                                       TACACS+ Key                                       "
 			echo "========================================================================================="
-			echo " Currently, the TACACS+ key is $KEY \n What would you like to change it to?"
+			echo -e " Currently, the TACACS+ key is $KEY \n What would you like to change it to?"
 			echo " ***WARNING, YOU WILL NEED TO CHANGE ALL ROUTER CONFIGS TO MATCH THE NEW ONE***"
 				if [ $NEWKEY ]; then
 					echo -e "The current replacement is $NEWKEY"
