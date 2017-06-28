@@ -2,8 +2,8 @@
 
 # VARIABLES
 TACCONF="/etc/tacacs+/tac_plus.conf"
-MAILER="[MAILPLACEHOLDER]"
-ORG="[ORGPLACEHOLDER]"
+MAILER="MAILPLACEHOLDER"
+ORG="ORGPLACEHOLDER"
 
 #Error codes
 errorformat="Incorrect formatting, please use this format: tacdelete -u [USERNAME] -p [PASSWORD] -e [EMAIL] -n [NAME]"
