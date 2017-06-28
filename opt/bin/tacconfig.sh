@@ -22,7 +22,11 @@ echo " To configure your TACACS+ key,     enter 5"
 echo " To commit changes to memory,       enter C"
 echo " To exit,                           enter Q"
 echo -e ""
-echo " **NOTE: IF YOU DO NOT COMMIT, CHANGES WILL NOT BE SAVED**"
+	if [ $configured ]; then
+		echo " You have configured your system without known errors"
+	else
+		echo " **NOTE: IF YOU DO NOT COMMIT, CHANGES WILL NOT BE SAVED**"
+	fi
 echo -e ""
 if [ $NEWORG ] || [ $NEWWEB ] || [ $NEWMAIL ] || [ $NEWSMTP ] || [ $NEWKEY ]; then
 	echo "====================================================="
@@ -42,7 +46,7 @@ if [ $NEWORG ] || [ $NEWWEB ] || [ $NEWMAIL ] || [ $NEWSMTP ] || [ $NEWKEY ]; th
 		echo -e " $SMTP    \t::::\t    $NEWSMTP"
 	fi
 	if [ $NEWKEY ]; then
-		echo -e " $KEY    \t\t::::\t    $NEWKEY"
+		echo -e " $KEY    \t::::\t    $NEWKEY"
 	fi
 fi
 echo "====================================================="
@@ -176,7 +180,7 @@ case $answer in
 				echo -e " $WEB    \t::::\t    $NEWWEB"
 				echo -e " $MAIL    \t::::\t    $NEWMAIL"
 				echo -e " $SMTP    \t::::\t    $NEWSMTP"
-				echo -e " $KEY    \t\t::::\t    $NEWKEY"
+				echo -e " $KEY    \t::::\t    $NEWKEY"
 				echo "====================================================="
 				echo -e "\n"
 				read -p " Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
@@ -197,6 +201,7 @@ case $answer in
 						if [ $NEWKEY ]; then
 							sed -i "s/$KEY/$NEWKEY/g" $FILES
 							fi
+						configured=true
 						;;
 					[Nn]* ) continue
 						;;
@@ -332,6 +337,7 @@ case $answer in
 					if [ $NEWKEY ]; then
 						sed -i "s/$KEY/$NEWKEY/g" $FILES
 						fi
+					configured=true
 					;;
 				[Nn]* ) continue
 					;;
