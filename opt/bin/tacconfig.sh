@@ -51,152 +51,150 @@ echo "====================================================="
 echo -e "\n"
 read answer
 case $answer in
-	[Aa] ) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
-			echo "========================================================================================="
-			echo "                                    Organization Name                                    "
-			echo "========================================================================================="
-			echo -e " Currently, the organization name is $ORG \n What would you like to change it to?"
-				if [ $NEWORG ]; then
-					echo -e "The current replacement is $NEWORG"
-				fi
-			echo ""
-			read TEMPORG
-			echo ""
-			echo " $TEMPORG will be your new organization name"
-			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
-  			read yn
-  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-  				break 1
-  			else
-  				NEWORG="$TEMPORG"
-  			fi
-		done
-		yn="n"
-	 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
-			echo "========================================================================================="
-			echo "                                      Web Host Name                                      "
-			echo "========================================================================================="
-			echo -e " Currently, the website's hostname is $WEB \n What would you like to change it to?"
-			echo -e " NOTE: If you would like to make this site https, include it in the hostname"
-				if [ $NEWWEB ]; then
-					echo -e "The current replacement is $NEWWEB"
-				fi
-			echo ""
-			read TEMPWEB
-			echo ""
-			echo " $TEMPWEB will be your new host address"
-			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
-  			read yn
-  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-  				break 1
-  			else
-  				NEWWEB="$TEMPWEB"
-  			fi
-		done
-		yn="n"
-	 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
-			echo "========================================================================================="
-			echo "                                   Administrator Mail                                    "
-			echo "========================================================================================="
-			echo -e " Currently, the admin's mail address is $MAIL \n What would you like to change it to?"
-				if [ $NEWMAIL ]; then
-					echo -e "The current replacement is $NEWMAIL"
-				fi
-			echo ""
-			read TEMPMAIL
-			echo ""
-			echo " $TEMPMAIL will be your new admin's e-mail"
-			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
-  			read yn
-  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-  				break 1
-  			else
-  				NEWMAIL="$TEMPMAIL"
-  			fi
-		done
-		yn="n"
-	 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
-			echo "========================================================================================="
-			echo "                                     SMTP Relay Host                                     "
-			echo "========================================================================================="
-			echo -e " Currently, the SMTP host is $SMTP \n What would you like to change it to?"
-				if [ $NEWSMTP ]; then
-					echo -e "The current replacement is $NEWSMTP"
-				fi
-			echo ""
-			read TEMPSMTP
-			echo ""
-			echo " $TEMPSMTP will be your new SMTP host"
-			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
-  			read yn
-  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-  				break 1
-  			else
-  				NEWSMTP="$TEMPSMTP"
-  			fi
-		done
-		yn="n"
-	 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
-			echo "========================================================================================="
-			echo "                                       TACACS+ Key                                       "
-			echo "========================================================================================="
-			echo -e " Currently, the TACACS+ key is $KEY \n What would you like to change it to?"
-			echo -e " ***WARNING, YOU WILL NEED TO CHANGE ALL ROUTER CONFIGS TO MATCH THE NEW ONE***"
-				if [ $NEWKEY ]; then
-					echo -e "The current replacement is $NEWKEY"
-				fi
-			echo ""
-			read TEMPKEY
-			echo ""			
-			echo " $TEMPKEY is your new TACACS+ key. If your routers don't match, they will be inaccessible"
-			echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
-  			read yn
-  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-  				break 1
-  			else
-  				NEWKEY="$TEMPKEY"
-  			fi
-		done
-		yn="n"
-	    clear
-			echo "====================================================="
-			echo "                   Current Changes                   "
-			echo "====================================================="
-			echo -e " Original    \t\t::::\t    New"
-			echo -e " $ORG    \t::::\t    $NEWORG"
-			echo -e " $WEB    \t::::\t    $NEWWEB"
-			echo -e " $MAIL    \t::::\t    $NEWMAIL"
-			echo -e " $SMTP    \t::::\t    $NEWSMTP"
-			echo -e " $KEY    \t\t::::\t    $NEWKEY"
-			echo "====================================================="
-			echo -e "\n"
-			read -p " Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
-    		case $yn in
-        		[Yy]* )
-					if [ $NEWORG ]; then
-						sed -i "s/$ORG/$NEWORG/g" $FILES
+	[Aa] ) 	while ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; do
+				until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+					echo "========================================================================================="
+					echo "                                    Organization Name                                    "
+					echo "========================================================================================="
+					echo -e " Currently, the organization name is $ORG \n What would you like to change it to?"
+						if [ $NEWORG ]; then
+							echo -e "The current replacement is $NEWORG"
 						fi
-
-					if [ $NEWWEB ]; then
-						sed -i "s/$WEB/$NEWWEB/g" $FILES
+					echo ""
+					read TEMPORG
+					echo ""
+					echo " $TEMPORG will be your new organization name"
+					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+  					read yn
+  					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  						continue
+  					else
+  						NEWORG="$TEMPORG"
+  					fi
+				done
+				yn="n"
+	 			until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+					echo "========================================================================================="
+					echo "                                      Web Host Name                                      "
+					echo "========================================================================================="
+					echo -e " Currently, the website's hostname is $WEB \n What would you like to change it to?"
+					echo -e " NOTE: If you would like to make this site https, include it in the hostname"
+						if [ $NEWWEB ]; then
+							echo -e "The current replacement is $NEWWEB"
 						fi
-
-					if [ $NEWMAIL ]; then
-						sed -i "s/$MAIL/$NEWMAIL/g" $FILES
+					echo ""
+					read TEMPWEB
+					echo ""
+					echo " $TEMPWEB will be your new host address"
+					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+  					read yn
+  					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  						continue
+  					else
+  						NEWWEB="$TEMPWEB"
+  					fi
+				done
+				yn="n"
+	 			until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+					echo "========================================================================================="
+					echo "                                   Administrator Mail                                    "
+					echo "========================================================================================="
+					echo -e " Currently, the admin's mail address is $MAIL \n What would you like to change it to?"
+						if [ $NEWMAIL ]; then
+							echo -e "The current replacement is $NEWMAIL"
 						fi
-
-					if [ $NEWSMTP ]; then
-						sed -i "s/$SMTP/$NEWSMTP/g" $FILES
+					echo ""
+					read TEMPMAIL
+					echo ""
+					echo " $TEMPMAIL will be your new admin's e-mail"
+					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+  					read yn
+  					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  						continue
+  					else
+  						NEWMAIL="$TEMPMAIL"
+  					fi
+				done
+				yn="n"
+	 			until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+					echo "========================================================================================="
+					echo "                                     SMTP Relay Host                                     "
+					echo "========================================================================================="
+					echo -e " Currently, the SMTP host is $SMTP \n What would you like to change it to?"
+						if [ $NEWSMTP ]; then
+							echo -e "The current replacement is $NEWSMTP"
 						fi
-
-					if [ $NEWKEY ]; then
-						sed -i "s/$KEY/$NEWKEY/g" $FILES
+					echo ""
+					read TEMPSMTP
+					echo ""
+					echo " $TEMPSMTP will be your new SMTP host"
+					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+  					read yn
+  					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  						continue
+  					else
+  						NEWSMTP="$TEMPSMTP"
+  					fi
+				done
+				yn="n"
+	 			until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+					echo "========================================================================================="
+					echo "                                       TACACS+ Key                                       "
+					echo "========================================================================================="
+					echo -e " Currently, the TACACS+ key is $KEY \n What would you like to change it to?"
+					echo -e " ***WARNING, YOU WILL NEED TO CHANGE ALL ROUTER CONFIGS TO MATCH THE NEW ONE***"
+						if [ $NEWKEY ]; then
+							echo -e "The current replacement is $NEWKEY"
 						fi
-					;;
-				[Nn]* ) continue
-					;;
-    		esac
-			;;
+					echo ""
+					read TEMPKEY
+					echo ""			
+					echo " $TEMPKEY is your new TACACS+ key. If your routers don't match, they will be inaccessible"
+					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+  					read yn
+  					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+  						continue
+  					else
+  						NEWKEY="$TEMPKEY"
+  					fi
+				done
+				yn="n"
+	    		clear
+				echo "====================================================="
+				echo "                   Current Changes                   "
+				echo "====================================================="
+				echo -e " Original    \t\t::::\t    New"
+				echo -e " $ORG    \t::::\t    $NEWORG"
+				echo -e " $WEB    \t::::\t    $NEWWEB"
+				echo -e " $MAIL    \t::::\t    $NEWMAIL"
+				echo -e " $SMTP    \t::::\t    $NEWSMTP"
+				echo -e " $KEY    \t\t::::\t    $NEWKEY"
+				echo "====================================================="
+				echo -e "\n"
+				read -p " Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
+    			case $yn in
+        			[Yy]* )
+						if [ $NEWORG ]; then
+							sed -i "s/$ORG/$NEWORG/g" $FILES
+							fi
+						if [ $NEWWEB ]; then
+							sed -i "s/$WEB/$NEWWEB/g" $FILES
+							fi
+						if [ $NEWMAIL ]; then
+							sed -i "s/$MAIL/$NEWMAIL/g" $FILES
+							fi
+						if [ $NEWSMTP ]; then
+							sed -i "s/$SMTP/$NEWSMTP/g" $FILES
+							fi
+						if [ $NEWKEY ]; then
+							sed -i "s/$KEY/$NEWKEY/g" $FILES
+							fi
+						;;
+					[Nn]* ) continue
+						;;
+    			esac
+				;;
+			done
 	1) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 			echo "========================================================================================="
 			echo "                                    Organization Name                                    "
