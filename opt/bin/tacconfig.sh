@@ -193,7 +193,7 @@ case $answer in
 					[Nn]* ) continue
 						;;
     			esac
-    			break
+    			yn="C"
 			done
 			;;
 	1) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
