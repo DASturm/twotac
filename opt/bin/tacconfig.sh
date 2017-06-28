@@ -336,7 +336,7 @@ case $answer in
 					echo -e "$ORG \t$WEB \t$MAIL \t$SMTP \t$KEY" 
 					echo -e "$NEWORG \t$NEWWEB \t$NEWMAIL \t$NEWSMTP \t$NEWKEY"
 					if [ $NEWORG ]; then
-						sed -i "s|$ORG|$NEWORG|g" "$FILES"
+						sed -i "s/$ORG/$NEWORG/g" "$FILES"
 						fi
 					;;
 				[Nn]* ) continue
