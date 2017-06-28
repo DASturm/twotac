@@ -4,6 +4,8 @@ DIR=$(find /opt/bin/ /var/www/html/ -type f)
 FILES="$DIR /etc/tacacs+/tac_plus.conf /etc/pam.d/tac_plus /etc/postfix/main.cf"
 #This is where the current variables will be stored NOTE CHANGE TO /OPT/BIN/TAC.CONF WHEN TESTING IS OVER
 trap '' 2
+echo "<----`date`---->" >> /opt/bin/taclog
+echo "Twotac Management" >> /opt/bin/taclog
 while true
 do
 	source tac.conf
@@ -34,21 +36,21 @@ do
 		echo "====================================================="
 		echo "                   Current Changes                   "
 		echo "====================================================="
-		echo -e " Original    \t\t::::\t    New"
+		echo -e " Original \t\t::::\t New"
 		if [ $NEWORG ]; then
-			echo -e " $ORG    \t::::\t    $NEWORG"
+			echo -e " $ORG \t::::\t $NEWORG"
 		fi
 		if [ $NEWWEB ]; then
-			echo -e " $WEB    \t::::\t    $NEWWEB"
+			echo -e " $WEB \t::::\t $NEWWEB"
 		fi
 		if [ $NEWMAIL ]; then
-			echo -e " $MAIL    \t::::\t    $NEWMAIL"
+			echo -e " $MAIL \t::::\t $NEWMAIL"
 		fi
 		if [ $NEWSMTP ]; then
-			echo -e " $SMTP    \t::::\t    $NEWSMTP"
+			echo -e " $SMTP \t::::\t $NEWSMTP"
 		fi
 		if [ $NEWKEY ]; then
-			echo -e " $KEY    \t::::\t    $NEWKEY"
+			echo -e " $KEY \t::::\t $NEWKEY"
 		fi
 	fi
 	echo "====================================================="
@@ -75,6 +77,7 @@ do
 	  					break
 	  				else
 	  					NEWORG="$TEMPORG"
+	  					echo "$ORG \t::::\t $NEWORG" >> /opt/bin/taclog
 	  				fi
 				done
 				if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
@@ -98,6 +101,7 @@ do
 	  						break
 	  					else
 	  						NEWWEB="$TEMPWEB"
+	  						echo "$WEB \t::::\t $NEWWEB" >> /opt/bin/taclog
 	  					fi
 					done
 				fi
@@ -121,6 +125,7 @@ do
 	  						break
 	  					else
 	  						NEWMAIL="$TEMPMAIL"
+	  						echo "$MAIL \t::::\t $NEWMAIL" >> /opt/bin/taclog
 	  					fi
 					done
 				fi
@@ -144,6 +149,7 @@ do
 	  						break
 	  					else
 	  						NEWSMTP="$TEMPSMTP"
+	  						echo "$SMTP \t::::\t $NEWSMTP" >> /opt/bin/taclog
 	  					fi
 					done
 				fi
@@ -168,6 +174,7 @@ do
 	  						break
 	  					else
 	  						NEWKEY="$TEMPKEY"
+	  						echo "$KEY \t::::\t $NEWKEY" >> /opt/bin/taclog
 	  					fi
 					done
 				fi
@@ -189,18 +196,23 @@ do
 	    			case $yn in
 	        			[Yy]* )
 							if [ $NEWORG ]; then
+								echo "$NEWORG COMMITTED" >> /opt/bin/taclog
 								sed -i "s/$ORG/$NEWORG/g" $FILES
 								fi
 							if [ $NEWWEB ]; then
+								echo "$NEWWEB COMMITTED" >> /opt/bin/taclog
 								sed -i "s/$WEB/$NEWWEB/g" $FILES
 								fi
 							if [ $NEWMAIL ]; then
+								echo "$NEWMAIL COMMITTED" >> /opt/bin/taclog
 								sed -i "s/$MAIL/$NEWMAIL/g" $FILES
 								fi
 							if [ $NEWSMTP ]; then
+								echo "$NEWSMTP COMMITTED" >> /opt/bin/taclog
 								sed -i "s/$SMTP/$NEWSMTP/g" $FILES
 								fi
 							if [ $NEWKEY ]; then
+								echo "$NEWKEY COMMITTED" >> /opt/bin/taclog
 								sed -i "s/$KEY/$NEWKEY/g" $FILES
 								fi
 							configured=true
@@ -228,6 +240,7 @@ do
 	  				break
 	  			else
 	  				NEWORG="$TEMPORG"
+	  				echo "$ORG \t::::\t $NEWORG" >> /opt/bin/taclog
 	  			fi
 			done
 					;;
@@ -250,6 +263,7 @@ do
 	  				break
 	  			else
 	  				NEWWEB="$TEMPWEB"
+	  				echo "$WEB \t::::\t $NEWWEB" >> /opt/bin/taclog
 	  			fi
 			done
 					;;
@@ -271,6 +285,7 @@ do
 	  				break
 	  			else
 	  				NEWMAIL="$TEMPMAIL"
+	  				echo "$MAIL \t::::\t $NEWMAIL" >> /opt/bin/taclog
 	  			fi
 			done
 					;;
@@ -292,6 +307,7 @@ do
 	  				break
 	  			else
 	  				NEWSMTP="$TEMPSMTP"
+	  				echo "$SMTP \t::::\t $NEWSMTP" >> /opt/bin/taclog
 	  			fi
 			done
 					;;
@@ -314,6 +330,7 @@ do
 	  				break
 	  			else
 	  				NEWKEY="$TEMPKEY"
+	  				echo "$KEY \t::::\t $NEWKEY" >> /opt/bin/taclog
 	  			fi
 			done
 					;;
@@ -321,22 +338,27 @@ do
 	    		case $yn in
 	        		[Yy]* )
 						if [ $NEWORG ]; then
+							echo "$NEWORG COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$ORG/$NEWORG/g" $FILES
 							fi
 	
 						if [ $NEWWEB ]; then
+							echo "$NEWWEB COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$WEB/$NEWWEB/g" $FILES
 							fi
 	
 						if [ $NEWMAIL ]; then
+							echo "$NEWMAIL COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$MAIL/$NEWMAIL/g" $FILES
 							fi
 	
 						if [ $NEWSMTP ]; then
+							echo "$NEWSMTP COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$SMTP/$NEWSMTP/g" $FILES
 							fi
 	
 						if [ $NEWKEY ]; then
+							echo "$NEWKEY COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$KEY/$NEWKEY/g" $FILES
 							fi
 						configured=true
@@ -350,3 +372,4 @@ do
 				;;
 	esac
 done
+echo "<--------------END-LOG---------------> >> /opt/bin/taclog
