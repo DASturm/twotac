@@ -339,10 +339,8 @@ case $answer in
 						sed -i "s/$ORG/$NEWORG/g" "$FILES"
 						fi
 					;;
-				[Nn]* ) continue
+				[Nn]* ) break
 					;;
-        		* ) 
-				;;
     		esac
 			;;
 	[Qq] ) clear
