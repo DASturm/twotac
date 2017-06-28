@@ -310,7 +310,7 @@ case $answer in
   			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
   				break
   			else
-  				NEWKEY="$TEMKEY"
+  				NEWKEY="$TEMPKEY"
   			fi
 		done
 				;;
