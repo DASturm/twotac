@@ -315,7 +315,7 @@ case $answer in
 					echo -e "$ORG \t$WEB \t$MAIL \t$SMTP \t$KEY" 
 					echo -e "$NEWORG \t$NEWWEB \t$NEWMAIL \t$NEWSMTP \t$NEWKEY"
 					if [ $NEWORG ]; then
-						sed -i "s/$ORG/$NEWORG/g" -i "s/$ORG/$NEWORG/g" -i "s/$WEB/$NEWWEB/g" -i "s/$MAIL/$NEWMAIL/g" -i "s/$KEY/$NEWKEY/g" $FILES
+						sed -i "s/$ORG/$NEWORG/g" $FILES | sed -i 's/\([0-9]\{1,\}\.[0-9][0-9]\)[0-9]*\>/\1/g' $FILES; \
 						fi
 					;;
 				[Nn]* ) break

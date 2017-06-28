@@ -91,7 +91,7 @@ span {
     </form>
     </div>
     <div class="url-box">
-      <form action="WEBPLACEHOLDER/dereg.php">
+      <form action="[WEBPLACEHOLDER]/dereg.php">
         <input style="background: #565656; color: #FFFFFF;"  type="submit" value="Deregister" />
       </form>
     </div>
