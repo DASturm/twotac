@@ -26,6 +26,27 @@ echo " To exit,                           enter Q"
 echo -e ""
 echo " **NOTE: IF YOU DO NOT COMMIT, CHANGES WILL NOT BE SAVED**"
 echo -e ""
+if [ $NEWORG || $NEWWEB || $NEWMAIL || $NEWSMTP || $NEWKEY ]; then
+	echo "====================================================="
+	echo "                   Current Changes                   "
+	echo "====================================================="
+	echo -e " Original    \t\t::::\t    New"
+	if [ $NEWORG ]; then
+		echo -e " $ORG    \t::::\t    $NEWORG"
+	fi
+	if [ $NEWWEB ]; then
+		echo -e " $WEB    \t::::\t    $NEWWEB"
+	fi
+	if [ $NEWMAIL ]; then
+		echo -e " $MAIL    \t::::\t    $NEWMAIL"
+	fi
+	if [ $NEWSMTP ]; then
+		echo -e " $SMTP    \t::::\t    $NEWSMTP"
+	fi
+	if [ $NEWKEY ]; then
+		echo -e " $KEY    \t\t::::\t    $NEWKEY"
+	fi
+fi
 echo "====================================================="
 echo -e "Enter your selection"
 echo "====================================================="
@@ -295,7 +316,7 @@ case $answer in
   			fi
 		done
 				;;
-	[Vv] ) clear
+	[Vv] )
 			echo "====================================================="
 			echo "                   Current Changes                   "
 			echo "====================================================="
@@ -315,10 +336,10 @@ case $answer in
 					echo -e "$ORG \t$WEB \t$MAIL \t$SMTP \t$KEY" 
 					echo -e "$NEWORG \t$NEWWEB \t$NEWMAIL \t$NEWSMTP \t$NEWKEY"
 					if [ $NEWORG ]; then
-						sed -i 's/"$ORG"/"$NEWORG"/g' "$FILES"
+						sed -i "s|$ORG|$NEWORG|g" "$FILES"
 						fi
 					;;
-				[Nn]* ) break
+				[Nn]* ) continue
 					;;
         		* ) 
 				;;
