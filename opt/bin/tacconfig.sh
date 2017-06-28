@@ -26,7 +26,7 @@ echo " To exit,                           enter Q"
 echo -e ""
 echo " **NOTE: IF YOU DO NOT COMMIT, CHANGES WILL NOT BE SAVED**"
 echo -e ""
-if [ $NEWORG || $NEWWEB || $NEWMAIL || $NEWSMTP || $NEWKEY ]; then
+if [ $NEWORG ] || [ $NEWWEB ] || [ $NEWMAIL ] || [ $NEWSMTP ] || [ $NEWKEY ]; then
 	echo "====================================================="
 	echo "                   Current Changes                   "
 	echo "====================================================="
