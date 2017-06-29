@@ -11,7 +11,7 @@ do
 	source tac.conf
 	clear
 	yn="n"
-		if [[ configured = true ]]; then
+		if [[ configured = "true" ]]; then
 			echo "========================================================================================="
 			echo "***Your changes have been saved!***"
 		fi
@@ -28,7 +28,7 @@ do
 	echo " To commit changes to memory,       enter C"
 	echo " To exit,                           enter Q"
 	#Checks if a file has been configured using the $configured variable
-		if ! [[ $configured = true ]]; then
+		if ! [[ $configured = "true" ]]; then
 			echo ""
 			echo " **NOTE: IF YOU DO NOT COMMIT, CHANGES WILL NOT BE SAVED**"
 		fi
