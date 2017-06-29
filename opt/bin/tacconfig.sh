@@ -74,8 +74,10 @@ do
 					read TEMPORG
 					echo ""
 					echo " $TEMPORG will be your new organization name"
-					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
-	  				read yn
+					until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+						echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+	  					read yn
+	  				done
 	  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  					break
 	  				else
