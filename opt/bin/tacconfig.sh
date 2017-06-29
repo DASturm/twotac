@@ -363,6 +363,7 @@ do
 					if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 						echo " That output doesn't register, please try again."
 					fi
+				done
 	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  				break
 	  			else
@@ -413,6 +414,7 @@ do
 					if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 						echo " That output doesn't register, please try again."
 					fi
+				done
 	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  				break
 	  			else
@@ -463,6 +465,7 @@ do
 					if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 						echo " That output doesn't register, please try again."
 					fi
+				done
 	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  				break
 	  			else
@@ -514,6 +517,7 @@ do
 					if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 						echo " That output doesn't register, please try again."
 					fi
+				done
 	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  				break
 	  			else
