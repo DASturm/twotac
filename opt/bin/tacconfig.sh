@@ -74,7 +74,7 @@ do
 					read TEMPORG
 					echo ""
 					echo " $TEMPORG will be your new organization name"
-					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+					echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
 	  				read yn
 	  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  					break
@@ -99,7 +99,7 @@ do
 						read TEMPWEB
 						echo ""
 						echo " $TEMPWEB will be your new host address"
-						echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
 	  					read yn
 	  					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  						break
@@ -124,7 +124,7 @@ do
 						read TEMPMAIL
 						echo ""
 						echo " $TEMPMAIL will be your new admin's e-mail"
-						echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
 	  					read yn
 	  					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  						break
@@ -149,7 +149,7 @@ do
 						read TEMPSMTP
 						echo ""
 						echo " $TEMPSMTP will be your new SMTP host"
-						echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
 	  					read yn
 	  					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  						break
@@ -175,7 +175,7 @@ do
 						read TEMPKEY
 						echo ""			
 						echo " $TEMPKEY is your new TACACS+ key. If your routers don't match, they will be inaccessible"
-						echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
 	  					read yn
 	  					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  						break
@@ -251,9 +251,11 @@ do
 				read TEMPORG
 				echo ""
 				echo " $TEMPORG will be your new organization name"
+				yn=""
 				until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-					yn=""
-					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+					if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+						echo "That output doesn't register, please try again."
+					echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
 	  				read yn
 	  			done
 	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
@@ -278,7 +280,7 @@ do
 				read TEMPWEB
 				echo ""
 				echo " $TEMPWEB will be your new host address"
-				echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+				echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
 	  			read yn
 	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  				break
@@ -301,7 +303,7 @@ do
 				read TEMPMAIL
 				echo ""
 				echo " $TEMPMAIL will be your new admin's e-mail"
-				echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+				echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
 	  			read yn
 	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  				break
@@ -324,7 +326,7 @@ do
 				read TEMPSMTP
 				echo ""
 				echo " $TEMPSMTP will be your new SMTP host"
-				echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+				echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
 	  			read yn
 	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  				break
@@ -348,7 +350,7 @@ do
 				read TEMPKEY
 				echo ""			
 				echo " $TEMPKEY is your new TACACS+ key. If your routers don't match, they will be inaccessible"
-				echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
+				echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
 	  			read yn
 	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  				break
