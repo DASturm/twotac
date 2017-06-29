@@ -164,6 +164,7 @@ do
 					echo "                                     SMTP Relay Host                                     "
 					echo "========================================================================================="
 					echo -e " Currently, the SMTP host is $SMTP \n What would you like to change it to?"
+					echo " Example: smtp.gmail.com     (or your organization's smtp server address)"
 						if [[ $NEWSMTP ]]; then
 							echo -e "The current replacement is $NEWSMTP"
 						fi
@@ -319,7 +320,8 @@ do
 	  			done
 	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  				break
-	  			else
+	  			fi
+	  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 	  				NEWORG="$TEMPORG"
 	  				echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  				CONFIGURED=false
