@@ -193,33 +193,42 @@ do
 					echo "====================================================="
 					echo ""
 					read -p " Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
-	    			case $yn in
-	        			[Yy]* )
-							if [[ $NEWORG ]]; then
-								echo "$NEWORG COMMITTED" >> /opt/bin/taclog
-								sed -i "s/$ORG/$NEWORG/g" $FILES
-								fi
-							if [[ $NEWWEB ]]; then
-								echo "$NEWWEB COMMITTED" >> /opt/bin/taclog
-								sed -i "s/$WEB/$NEWWEB/g" $FILES
-								fi
-							if [[ $NEWMAIL ]]; then
-								echo "$NEWMAIL COMMITTED" >> /opt/bin/taclog
-								sed -i "s/$MAIL/$NEWMAIL/g" $FILES
-								fi
-							if [[ $NEWSMTP ]]; then
-								echo "$NEWSMTP COMMITTED" >> /opt/bin/taclog
-								sed -i "s/$SMTP/$NEWSMTP/g" $FILES
-								fi
-							if [[ $NEWKEY ]]; then
-								echo "$NEWKEY COMMITTED" >> /opt/bin/taclog
-								sed -i "s/$KEY/$NEWKEY/g" $FILES
-								fi
-							configured=true
-							;;
-						[Nn]* ) continue
-							;;
-	    			esac
+	    		case $yn in
+	        		[Yy]* )
+						if [[ $NEWORG ]]; then
+							echo "$NEWORG COMMITTED" >> /opt/bin/taclog
+							sed -i "s/$ORG/$NEWORG/g" $FILES
+							$NEWORG=""
+							fi
+	
+						if [[ $NEWWEB ]]; then
+							echo "$NEWWEB COMMITTED" >> /opt/bin/taclog
+							sed -i "s/$WEB/$NEWWEB/g" $FILES
+							$NEWWEB=""
+							fi
+	
+						if [[ $NEWMAIL ]]; then
+							echo "$NEWMAIL COMMITTED" >> /opt/bin/taclog
+							sed -i "s/$MAIL/$NEWMAIL/g" $FILES
+							$NEWMAIL=""
+							fi
+	
+						if [[ $NEWSMTP ]]; then
+							echo "$NEWSMTP COMMITTED" >> /opt/bin/taclog
+							sed -i "s/$SMTP/$NEWSMTP/g" $FILES
+							$NEWSMTP=""
+							fi
+	
+						if [[ $NEWKEY ]]; then
+							echo "$NEWKEY COMMITTED" >> /opt/bin/taclog
+							sed -i "s/$KEY/$NEWKEY/g" $FILES
+							$NEWKEY=""
+							fi
+						configured=true
+						;;
+					[Nn]* ) continue
+						;;
+	    		esac
 	    		fi
 				;;
 		1) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
@@ -340,26 +349,31 @@ do
 						if [[ $NEWORG ]]; then
 							echo "$NEWORG COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$ORG/$NEWORG/g" $FILES
+							$NEWORG=""
 							fi
 	
 						if [[ $NEWWEB ]]; then
 							echo "$NEWWEB COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$WEB/$NEWWEB/g" $FILES
+							$NEWWEB=""
 							fi
 	
 						if [[ $NEWMAIL ]]; then
 							echo "$NEWMAIL COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$MAIL/$NEWMAIL/g" $FILES
+							$NEWMAIL=""
 							fi
 	
 						if [[ $NEWSMTP ]]; then
 							echo "$NEWSMTP COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$SMTP/$NEWSMTP/g" $FILES
+							$NEWSMTP=""
 							fi
 	
 						if [[ $NEWKEY ]]; then
 							echo "$NEWKEY COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$KEY/$NEWKEY/g" $FILES
+							$NEWKEY=""
 							fi
 						configured=true
 						;;
