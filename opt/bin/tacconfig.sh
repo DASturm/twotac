@@ -12,11 +12,10 @@ do
 	source tac.conf
 	clear
 	yn="n"
-		if [[ CONFIGURED = true ]]; then
+		if [[ $CONFIGURED = true ]]; then
 			echo "========================================================================================="
 			echo "***Your changes have been saved!***"
 		fi
-	echo -e "$CONFIGURED"
 	echo "========================================================================================="
 	echo "                                    Twotac Management                                    "
 	echo "========================================================================================="
