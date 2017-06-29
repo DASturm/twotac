@@ -5,7 +5,7 @@ FILES="$DIR"
 TACLOG="/opt/bin/taclog"
 CONFIGURED=false
 #This is where the current variables will be stored NOTE CHANGE TO /OPT/BIN/TAC.CONF WHEN TESTING IS OVER
-#trap '' 2
+trap '' 2
 echo "<----`date`---->" >> $TACLOG
 echo "Twotac Management" >> $TACLOG
 while true
@@ -37,25 +37,27 @@ do
 	echo -e ""
 	#If changes have been made in the form of $NEWVAR, it will appear before your selection
 	if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
-		echo "====================================================="
-		echo "                   Current Changes                   "
-		echo "====================================================="
-		echo -e " Original \t\t::::\t New"
+		echo "=====================================================" >> /tmp/tacjunk
+		echo "                   Current Changes                   " >> /tmp/tacjunk
+		echo "=====================================================" >> /tmp/tacjunk
+		echo -e " Original :::: New" >> /tmp/tacjunk
 		if [[ $NEWORG ]]; then
-			echo -e " $ORG \t::::\t $NEWORG"
+			echo -e " $ORG :::: $NEWORG" >> /tmp/tacjunk
 		fi
 		if [[ $NEWWEB ]]; then
-			echo -e " $WEB \t::::\t $NEWWEB"
+			echo -e " $WEB :::: $NEWWEB" >> /tmp/tacjunk
 		fi
 		if [[ $NEWMAIL ]]; then
-			echo -e " $MAIL \t::::\t $NEWMAIL"
+			echo -e " $MAIL :::: $NEWMAIL" >> /tmp/tacjunk
 		fi
 		if [[ $NEWSMTP ]]; then
-			echo -e " $SMTP \t::::\t $NEWSMTP"
+			echo -e " $SMTP :::: $NEWSMTP" >> /tmp/tacjunk
 		fi
 		if [[ $NEWKEY ]]; then
-			echo -e " $KEY \t::::\t $NEWKEY"
+			echo -e " $KEY :::: $NEWKEY" >> /tmp/tacjunk
 		fi
+		cat /tmp/tacjunk | column -t
+		rm /tmp/tacjunk
 	fi
 	echo "====================================================="
 	echo "Enter your selection"
@@ -274,25 +276,27 @@ do
 		1) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 				clear
 				if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
-					echo "====================================================="
-					echo "                   Current Changes                   "
-					echo "====================================================="
-					echo -e " Original \t\t::::\t New"
+					echo "=====================================================" >> /tmp/tacjunk
+					echo "                   Current Changes                   " >> /tmp/tacjunk
+					echo "=====================================================" >> /tmp/tacjunk
+					echo -e " Original \t\t::::\t New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
-						echo -e " $ORG \t::::\t $NEWORG"
+						echo -e " $ORG \t::::\t $NEWORG" >> /tmp/tacjunk
 					fi
 					if [[ $NEWWEB ]]; then
-						echo -e " $WEB \t::::\t $NEWWEB"
+						echo -e " $WEB \t::::\t $NEWWEB" >> /tmp/tacjunk
 					fi
 					if [[ $NEWMAIL ]]; then
-						echo -e " $MAIL \t::::\t $NEWMAIL"
+						echo -e " $MAIL \t::::\t $NEWMAIL" >> /tmp/tacjunk
 					fi
 					if [[ $NEWSMTP ]]; then
-						echo -e " $SMTP \t::::\t $NEWSMTP"
+						echo -e " $SMTP \t::::\t $NEWSMTP" >> /tmp/tacjunk
 					fi
 					if [[ $NEWKEY ]]; then
-						echo -e " $KEY \t::::\t $NEWKEY"
+						echo -e " $KEY \t::::\t $NEWKEY" >> /tmp/tacjunk
 					fi
+					cat /tmp/tacjunk | column -t
+					rm /tmp/tacjunk
 				fi
 				echo "========================================================================================="
 				echo "                                    Organization Name                                    "
@@ -325,25 +329,27 @@ do
 		2) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 				clear
 				if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
-					echo "====================================================="
-					echo "                   Current Changes                   "
-					echo "====================================================="
-					echo -e " Original \t\t::::\t New"
+					echo "=====================================================" >> /tmp/tacjunk
+					echo "                   Current Changes                   " >> /tmp/tacjunk
+					echo "=====================================================" >> /tmp/tacjunk
+					echo -e " Original \t\t::::\t New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
-						echo -e " $ORG \t::::\t $NEWORG"
+						echo -e " $ORG \t::::\t $NEWORG" >> /tmp/tacjunk
 					fi
 					if [[ $NEWWEB ]]; then
-						echo -e " $WEB \t::::\t $NEWWEB"
+						echo -e " $WEB \t::::\t $NEWWEB" >> /tmp/tacjunk
 					fi
 					if [[ $NEWMAIL ]]; then
-						echo -e " $MAIL \t::::\t $NEWMAIL"
+						echo -e " $MAIL \t::::\t $NEWMAIL" >> /tmp/tacjunk
 					fi
 					if [[ $NEWSMTP ]]; then
-						echo -e " $SMTP \t::::\t $NEWSMTP"
+						echo -e " $SMTP \t::::\t $NEWSMTP" >> /tmp/tacjunk
 					fi
 					if [[ $NEWKEY ]]; then
-						echo -e " $KEY \t::::\t $NEWKEY"
+						echo -e " $KEY \t::::\t $NEWKEY" >> /tmp/tacjunk
 					fi
+					cat /tmp/tacjunk | column -t
+					rm /tmp/tacjunk
 				fi
 				echo "========================================================================================="
 				echo "                                      Web Host Name                                      "
@@ -378,25 +384,27 @@ do
 		3) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 				clear
 				if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
-					echo "====================================================="
-					echo "                   Current Changes                   "
-					echo "====================================================="
-					echo -e " Original \t\t::::\t New"
+					echo "=====================================================" >> /tmp/tacjunk
+					echo "                   Current Changes                   " >> /tmp/tacjunk
+					echo "=====================================================" >> /tmp/tacjunk
+					echo -e " Original \t\t::::\t New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
-						echo -e " $ORG \t::::\t $NEWORG"
+						echo -e " $ORG \t::::\t $NEWORG" >> /tmp/tacjunk
 					fi
 					if [[ $NEWWEB ]]; then
-						echo -e " $WEB \t::::\t $NEWWEB"
+						echo -e " $WEB \t::::\t $NEWWEB" >> /tmp/tacjunk
 					fi
 					if [[ $NEWMAIL ]]; then
-						echo -e " $MAIL \t::::\t $NEWMAIL"
+						echo -e " $MAIL \t::::\t $NEWMAIL" >> /tmp/tacjunk
 					fi
 					if [[ $NEWSMTP ]]; then
-						echo -e " $SMTP \t::::\t $NEWSMTP"
+						echo -e " $SMTP \t::::\t $NEWSMTP" >> /tmp/tacjunk
 					fi
 					if [[ $NEWKEY ]]; then
-						echo -e " $KEY \t::::\t $NEWKEY"
+						echo -e " $KEY \t::::\t $NEWKEY" >> /tmp/tacjunk
 					fi
+					cat /tmp/tacjunk | column -t
+					rm /tmp/tacjunk
 				fi
 				echo "========================================================================================="
 				echo "                                   Administrator Mail                                    "
@@ -429,25 +437,27 @@ do
 		4) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 				clear
 				if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
-					echo "====================================================="
-					echo "                   Current Changes                   "
-					echo "====================================================="
-					echo -e " Original \t\t::::\t New"
+					echo "=====================================================" >> /tmp/tacjunk
+					echo "                   Current Changes                   " >> /tmp/tacjunk
+					echo "=====================================================" >> /tmp/tacjunk
+					echo -e " Original \t\t::::\t New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
-						echo -e " $ORG \t::::\t $NEWORG"
+						echo -e " $ORG \t::::\t $NEWORG" >> /tmp/tacjunk
 					fi
 					if [[ $NEWWEB ]]; then
-						echo -e " $WEB \t::::\t $NEWWEB"
+						echo -e " $WEB \t::::\t $NEWWEB" >> /tmp/tacjunk
 					fi
 					if [[ $NEWMAIL ]]; then
-						echo -e " $MAIL \t::::\t $NEWMAIL"
+						echo -e " $MAIL \t::::\t $NEWMAIL" >> /tmp/tacjunk
 					fi
 					if [[ $NEWSMTP ]]; then
-						echo -e " $SMTP \t::::\t $NEWSMTP"
+						echo -e " $SMTP \t::::\t $NEWSMTP" >> /tmp/tacjunk
 					fi
 					if [[ $NEWKEY ]]; then
-						echo -e " $KEY \t::::\t $NEWKEY"
+						echo -e " $KEY \t::::\t $NEWKEY" >> /tmp/tacjunk
 					fi
+					cat /tmp/tacjunk | column -t
+					rm /tmp/tacjunk
 				fi
 				echo "========================================================================================="
 				echo "                                     SMTP Relay Host                                     "
@@ -480,25 +490,27 @@ do
 		5) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 				clear
 				if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
-					echo "====================================================="
-					echo "                   Current Changes                   "
-					echo "====================================================="
-					echo -e " Original \t\t::::\t New"
+					echo "=====================================================" >> /tmp/tacjunk
+					echo "                   Current Changes                   " >> /tmp/tacjunk
+					echo "=====================================================" >> /tmp/tacjunk
+					echo -e " Original \t\t::::\t New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
-						echo -e " $ORG \t::::\t $NEWORG"
+						echo -e " $ORG \t::::\t $NEWORG" >> /tmp/tacjunk
 					fi
 					if [[ $NEWWEB ]]; then
-						echo -e " $WEB \t::::\t $NEWWEB"
+						echo -e " $WEB \t::::\t $NEWWEB" >> /tmp/tacjunk
 					fi
 					if [[ $NEWMAIL ]]; then
-						echo -e " $MAIL \t::::\t $NEWMAIL"
+						echo -e " $MAIL \t::::\t $NEWMAIL" >> /tmp/tacjunk
 					fi
 					if [[ $NEWSMTP ]]; then
-						echo -e " $SMTP \t::::\t $NEWSMTP"
+						echo -e " $SMTP \t::::\t $NEWSMTP" >> /tmp/tacjunk
 					fi
 					if [[ $NEWKEY ]]; then
-						echo -e " $KEY \t::::\t $NEWKEY"
+						echo -e " $KEY \t::::\t $NEWKEY" >> /tmp/tacjunk
 					fi
+					cat /tmp/tacjunk | column -t
+					rm /tmp/tacjunk
 				fi
 				echo "========================================================================================="
 				echo "                                       TACACS+ Key                                       "
