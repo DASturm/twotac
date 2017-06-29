@@ -37,9 +37,9 @@ do
 	echo -e ""
 	#If changes have been made in the form of $NEWVAR, it will appear before your selection
 	if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
-		echo "====================================================="
-		echo "                   Current Changes                   "
-		echo "====================================================="
+		echo "========================================================================================="
+		echo "                                     Current Changes                                     "
+		echo "========================================================================================="
 		echo -e " Original#::::#New" >> /tmp/tacjunk
 		if [[ $NEWORG ]]; then
 			echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
@@ -223,16 +223,16 @@ do
 			if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 				yn="n"
 		   		clear
-				echo "====================================================="
-				echo "                   Current Changes                   "
-				echo "====================================================="
+				echo "========================================================================================="
+				echo "                                     Current Changes                                     "
+				echo "========================================================================================="
 				echo -e " Original    \t\t::::\t    New"
 				echo -e " $ORG    \t::::\t    $NEWORG"
 				echo -e " $WEB    \t::::\t    $NEWWEB"
 				echo -e " $MAIL    \t::::\t    $NEWMAIL"
 				echo -e " $SMTP    \t::::\t    $NEWSMTP"
 				echo -e " $KEY    \t::::\t    $NEWKEY"
-				echo "====================================================="
+				echo "========================================================================================="
 				echo ""
 				read -p " Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
 	    	case $yn in
@@ -276,9 +276,9 @@ do
 		1) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 				clear
 				if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
-					echo "====================================================="
-					echo "                   Current Changes                   "
-					echo "====================================================="
+					echo "========================================================================================="
+					echo "                                     Current Changes                                     "
+					echo "========================================================================================="
 					echo -e " Original#::::#New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
 						echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
@@ -329,9 +329,9 @@ do
 		2) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 				clear
 				if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
-					echo "====================================================="
-					echo "                   Current Changes                   "
-					echo "====================================================="
+					echo "========================================================================================="
+					echo "                                     Current Changes                                     "
+					echo "========================================================================================="
 					echo -e " Original#::::#New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
 						echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
@@ -384,9 +384,9 @@ do
 		3) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 				clear
 				if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
-					echo "====================================================="
-					echo "                   Current Changes                   "
-					echo "====================================================="
+					echo "========================================================================================="
+					echo "                                     Current Changes                                     "
+					echo "========================================================================================="
 					echo -e " Original#::::#New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
 						echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
@@ -437,9 +437,9 @@ do
 		4) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 				clear
 				if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
-					echo "====================================================="
-					echo "                   Current Changes                   "
-					echo "====================================================="
+					echo "========================================================================================="
+					echo "                                     Current Changes                                     "
+					echo "========================================================================================="
 					echo -e " Original#::::#New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
 						echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
@@ -490,9 +490,9 @@ do
 		5) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 				clear
 				if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
-					echo "====================================================="
-					echo "                   Current Changes                   "
-					echo "====================================================="
+					echo "========================================================================================="
+					echo "                                     Current Changes                                     "
+					echo "========================================================================================="
 					echo -e " Original#::::#New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
 						echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
