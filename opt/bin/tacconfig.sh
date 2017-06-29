@@ -198,31 +198,31 @@ do
 						if [[ $NEWORG ]]; then
 							echo "$NEWORG COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$ORG/$NEWORG/g" $FILES
-							$NEWORG=""
+							NEWORG=""
 							fi
 	
 						if [[ $NEWWEB ]]; then
 							echo "$NEWWEB COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$WEB/$NEWWEB/g" $FILES
-							$NEWWEB=""
+							NEWWEB=""
 							fi
 	
 						if [[ $NEWMAIL ]]; then
 							echo "$NEWMAIL COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$MAIL/$NEWMAIL/g" $FILES
-							$NEWMAIL=""
+							NEWMAIL=""
 							fi
 	
 						if [[ $NEWSMTP ]]; then
 							echo "$NEWSMTP COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$SMTP/$NEWSMTP/g" $FILES
-							$NEWSMTP=""
+							NEWSMTP=""
 							fi
 	
 						if [[ $NEWKEY ]]; then
 							echo "$NEWKEY COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$KEY/$NEWKEY/g" $FILES
-							$NEWKEY=""
+							NEWKEY=""
 							fi
 						configured=true
 						;;
@@ -349,31 +349,31 @@ do
 						if [[ $NEWORG ]]; then
 							echo "$NEWORG COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$ORG/$NEWORG/g" $FILES
-							$NEWORG=""
+							NEWORG=""
 							fi
 	
 						if [[ $NEWWEB ]]; then
 							echo "$NEWWEB COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$WEB/$NEWWEB/g" $FILES
-							$NEWWEB=""
+							NEWWEB=""
 							fi
 	
 						if [[ $NEWMAIL ]]; then
 							echo "$NEWMAIL COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$MAIL/$NEWMAIL/g" $FILES
-							$NEWMAIL=""
+							NEWMAIL=""
 							fi
 	
 						if [[ $NEWSMTP ]]; then
 							echo "$NEWSMTP COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$SMTP/$NEWSMTP/g" $FILES
-							$NEWSMTP=""
+							NEWSMTP=""
 							fi
 	
 						if [[ $NEWKEY ]]; then
 							echo "$NEWKEY COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$KEY/$NEWKEY/g" $FILES
-							$NEWKEY=""
+							NEWKEY=""
 							fi
 						configured=true
 						;;
