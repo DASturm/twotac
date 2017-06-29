@@ -254,14 +254,14 @@ do
 				until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
 	  				read yn
+	  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+	  					break
+	  				else
+	  					NEWORG="$TEMPORG"
+	  					echo "$ORG \t::::\t $NEWORG" >> /opt/bin/taclog
+	  					CONFIGURED=false
+	  				fi
 	  			done
-	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-	  				break
-	  			else
-	  				NEWORG="$TEMPORG"
-	  				echo "$ORG \t::::\t $NEWORG" >> /opt/bin/taclog
-	  				CONFIGURED=false
-	  			fi
 			done
 					;;
 		2) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
