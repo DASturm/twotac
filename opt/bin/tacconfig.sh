@@ -122,7 +122,7 @@ do
 	  					break
 	  				fi
 	  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-	  					NEWORG="$TEMPORG"
+	  					NEWWEB="$TEMPWEB"
 	  					echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  					CONFIGURED=false
 	  				fi
@@ -154,7 +154,7 @@ do
 	  					break
 	  				fi
 	  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-	  					NEWORG="$TEMPORG"
+	  					NEWMAIL="$TEMPMAIL"
 	  					echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  					CONFIGURED=false
 	  				fi
@@ -187,7 +187,7 @@ do
 	  					break
 	  				fi
 	  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-	  					NEWORG="$TEMPORG"
+	  					NEWSMTP="$TEMPSMTP"
 	  					echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  					CONFIGURED=false
 	  				fi
@@ -220,7 +220,7 @@ do
 	  					break
 	  				fi
 	  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-	  					NEWORG="$TEMPORG"
+	  					NEWKEY="$TEMPKEY"
 	  					echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  					CONFIGURED=false
 	  				fi
@@ -383,7 +383,7 @@ do
 	  				break
 	  			fi
 	  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-	  				NEWORG="$TEMPORG"
+	  				NEWWEB="$TEMPWEB"
 	  				echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  				CONFIGURED=false
 	  			fi
@@ -437,7 +437,7 @@ do
 	  				break
 	  			fi
 	  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-	  				NEWORG="$TEMPORG"
+	  				NEWMAIL="$TEMPMAIL"
 	  				echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  				CONFIGURED=false
 	  			fi
@@ -491,7 +491,7 @@ do
 	  				break
 	  			fi
 	  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-	  				NEWORG="$TEMPORG"
+	  				NEWSMTP="$TEMPSMTP"
 	  				echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  				CONFIGURED=false
 	  			fi
@@ -546,7 +546,7 @@ do
 	  				break
 	  			fi
 	  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-	  				NEWORG="$TEMPORG"
+	  				NEWKEY="$TEMPKEY"
 	  				echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  				CONFIGURED=false
 	  			fi
