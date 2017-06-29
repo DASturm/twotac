@@ -4,14 +4,14 @@ DIR=$(find /opt/bin/ /var/www/html/ -type f)
 FILES="$DIR /etc/tacacs+/tac_plus.conf /etc/pam.d/tac_plus /etc/postfix/main.cf"
 CONFIGURED=false
 #This is where the current variables will be stored NOTE CHANGE TO /OPT/BIN/TAC.CONF WHEN TESTING IS OVER
-trap '' 2
+#trap '' 2
 echo "<----`date`---->" >> /opt/bin/taclog
 echo "Twotac Management" >> /opt/bin/taclog
 while true
 do
 	source tac.conf
 	clear
-	yn="n"
+	yn=""
 		if [[ $CONFIGURED = true ]]; then
 			echo "========================================================================================="
 			echo "***Your changes have been saved!***"
@@ -76,6 +76,7 @@ do
 					echo " $TEMPORG will be your new organization name"
 					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
 	  				read yn
+	  				if ! [[ "$yn" =~]]
 	  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  					break
 	  				else
@@ -252,16 +253,17 @@ do
 				echo ""
 				echo " $TEMPORG will be your new organization name"
 				until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+					yn=""
 					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
 	  				read yn
-	  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-	  					break
-	  				else
-	  					NEWORG="$TEMPORG"
-	  					echo "$ORG \t::::\t $NEWORG" >> /opt/bin/taclog
-	  					CONFIGURED=false
-	  				fi
 	  			done
+	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+	  				break
+	  			else
+	  				NEWORG="$TEMPORG"
+	  				echo "$ORG \t::::\t $NEWORG" >> /opt/bin/taclog
+	  				CONFIGURED=false
+	  			fi
 			done
 					;;
 		2) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
