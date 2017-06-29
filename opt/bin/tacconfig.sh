@@ -99,6 +99,7 @@ do
 					echo "========================================================================================="
 					echo -e " Currently, the website's hostname is $WEB \n What would you like to change it to?"
 					echo " NOTE: If you would like to make this site https, include it in the hostname"
+					echo " Example format: https://tacacs.com     (do not leave a trailing /)"
 						if [[ $NEWWEB ]]; then
 							echo -e "The current replacement is $NEWWEB"
 						fi
@@ -349,6 +350,7 @@ do
 				echo "========================================================================================="
 				echo -e " Currently, the website's hostname is $WEB \n What would you like to change it to?"
 				echo " NOTE: If you would like to make this site https, include it in the hostname"
+				echo " Example format: https://tacacs.com     (do not leave a trailing /)"
 					if [[ $NEWWEB ]]; then
 						echo -e "The current replacement is $NEWWEB"
 					fi
