@@ -25,7 +25,7 @@ do
 	echo " To exit,                           enter Q"
 	echo ""
 	#Checks if a file has been configured using the $configured variable
-		if [ $configured = "true" ]; then
+		if [[ $configured = "true" ]]; then
 			echo " You have configured your system without known errors"
 		else
 			echo " **NOTE: IF YOU DO NOT COMMIT, CHANGES WILL NOT BE SAVED**"
