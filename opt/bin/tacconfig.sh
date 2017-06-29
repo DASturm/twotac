@@ -255,6 +255,7 @@ do
 				until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 					if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 						echo "That output doesn't register, please try again."
+					fi
 					echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
 	  				read yn
 	  			done
