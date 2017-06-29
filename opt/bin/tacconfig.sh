@@ -78,6 +78,7 @@ do
 	  				else
 	  					NEWORG="$TEMPORG"
 	  					echo "$ORG \t::::\t $NEWORG" >> /opt/bin/taclog
+	  					configured=false
 	  				fi
 				done
 				if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
@@ -102,6 +103,7 @@ do
 	  					else
 	  						NEWWEB="$TEMPWEB"
 	  						echo "$WEB \t::::\t $NEWWEB" >> /opt/bin/taclog
+	  						configured=false
 	  					fi
 					done
 				fi
@@ -126,6 +128,7 @@ do
 	  					else
 	  						NEWMAIL="$TEMPMAIL"
 	  						echo "$MAIL \t::::\t $NEWMAIL" >> /opt/bin/taclog
+	  						configured=false
 	  					fi
 					done
 				fi
@@ -150,6 +153,7 @@ do
 	  					else
 	  						NEWSMTP="$TEMPSMTP"
 	  						echo "$SMTP \t::::\t $NEWSMTP" >> /opt/bin/taclog
+	  						configured=false
 	  					fi
 					done
 				fi
@@ -175,6 +179,7 @@ do
 	  					else
 	  						NEWKEY="$TEMPKEY"
 	  						echo "$KEY \t::::\t $NEWKEY" >> /opt/bin/taclog
+	  						configured=false
 	  					fi
 					done
 				fi
@@ -250,6 +255,7 @@ do
 	  			else
 	  				NEWORG="$TEMPORG"
 	  				echo "$ORG \t::::\t $NEWORG" >> /opt/bin/taclog
+	  				configured=false
 	  			fi
 			done
 					;;
@@ -273,6 +279,7 @@ do
 	  			else
 	  				NEWWEB="$TEMPWEB"
 	  				echo "$WEB \t::::\t $NEWWEB" >> /opt/bin/taclog
+	  				configured=false
 	  			fi
 			done
 					;;
@@ -295,6 +302,7 @@ do
 	  			else
 	  				NEWMAIL="$TEMPMAIL"
 	  				echo "$MAIL \t::::\t $NEWMAIL" >> /opt/bin/taclog
+	  				configured=false
 	  			fi
 			done
 					;;
@@ -317,6 +325,7 @@ do
 	  			else
 	  				NEWSMTP="$TEMPSMTP"
 	  				echo "$SMTP \t::::\t $NEWSMTP" >> /opt/bin/taclog
+	  				configured=false
 	  			fi
 			done
 					;;
@@ -340,6 +349,7 @@ do
 	  			else
 	  				NEWKEY="$TEMPKEY"
 	  				echo "$KEY \t::::\t $NEWKEY" >> /opt/bin/taclog
+	  				configured=false
 	  			fi
 			done
 					;;
