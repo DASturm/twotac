@@ -367,9 +367,9 @@ do
 						;;
 	    		esac
 				;;
-		[Qq] ) clear
+		[Qq] ) echo "<--------------END-LOG--------------->" >> /opt/bin/taclog
+				clear
 				exit 
 				;;
 	esac
 done
-echo "<--------------END-LOG---------------> >> /opt/bin/taclog
