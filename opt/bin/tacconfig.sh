@@ -403,7 +403,7 @@ do
 						echo -e " $WEB#::::#$NEWWEB" >> /tmp/tacjunk
 					fi
 					if [[ $NEWMAIL ]]; then
-						echo -e " $MAIL#::::#NEWMAIL" >> /tmp/tacjunk
+						echo -e " $MAIL#::::#$NEWMAIL" >> /tmp/tacjunk
 					fi
 					if [[ $NEWSMTP ]]; then
 						echo -e " $SMTP#::::#$NEWSMTP" >> /tmp/tacjunk
