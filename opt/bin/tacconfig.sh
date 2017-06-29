@@ -76,7 +76,6 @@ do
 					echo " $TEMPORG will be your new organization name"
 					echo " Would you like to continue? \"No\" will restart this section (yes/no/cancel)"
 	  				read yn
-	  				if ! [[ "$yn" =~]]
 	  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  					break
 	  				else
