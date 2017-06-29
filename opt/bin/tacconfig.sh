@@ -40,23 +40,23 @@ do
 		echo "=====================================================" >> /tmp/tacjunk
 		echo "                   Current Changes                   " >> /tmp/tacjunk
 		echo "=====================================================" >> /tmp/tacjunk
-		echo -e " Original :::: New" >> /tmp/tacjunk
+		echo -e " Original#::::#New" >> /tmp/tacjunk
 		if [[ $NEWORG ]]; then
-			echo -e " $ORG :::: $NEWORG" >> /tmp/tacjunk
+			echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
 		fi
 		if [[ $NEWWEB ]]; then
-			echo -e " $WEB :::: $NEWWEB" >> /tmp/tacjunk
+			echo -e " $WEB#::::#$NEWWEB" >> /tmp/tacjunk
 		fi
 		if [[ $NEWMAIL ]]; then
-			echo -e " $MAIL :::: $NEWMAIL" >> /tmp/tacjunk
+			echo -e " $MAIL#::::#NEWMAIL" >> /tmp/tacjunk
 		fi
 		if [[ $NEWSMTP ]]; then
-			echo -e " $SMTP :::: $NEWSMTP" >> /tmp/tacjunk
+			echo -e " $SMTP#::::#$NEWSMTP" >> /tmp/tacjunk
 		fi
 		if [[ $NEWKEY ]]; then
-			echo -e " $KEY :::: $NEWKEY" >> /tmp/tacjunk
+			echo -e " $KEY#::::#$NEWKEY" >> /tmp/tacjunk
 		fi
-		cat /tmp/tacjunk | column -t
+		cat /tmp/tacjunk | column -t -s '#'
 		rm /tmp/tacjunk
 	fi
 	echo "====================================================="
@@ -279,23 +279,23 @@ do
 					echo "=====================================================" >> /tmp/tacjunk
 					echo "                   Current Changes                   " >> /tmp/tacjunk
 					echo "=====================================================" >> /tmp/tacjunk
-					echo -e " Original \t\t::::\t New" >> /tmp/tacjunk
+					echo -e " Original#::::#New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
-						echo -e " $ORG \t::::\t $NEWORG" >> /tmp/tacjunk
+						echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
 					fi
 					if [[ $NEWWEB ]]; then
-						echo -e " $WEB \t::::\t $NEWWEB" >> /tmp/tacjunk
+						echo -e " $WEB#::::#$NEWWEB" >> /tmp/tacjunk
 					fi
 					if [[ $NEWMAIL ]]; then
-						echo -e " $MAIL \t::::\t $NEWMAIL" >> /tmp/tacjunk
+						echo -e " $MAIL#::::#NEWMAIL" >> /tmp/tacjunk
 					fi
 					if [[ $NEWSMTP ]]; then
-						echo -e " $SMTP \t::::\t $NEWSMTP" >> /tmp/tacjunk
+						echo -e " $SMTP#::::#$NEWSMTP" >> /tmp/tacjunk
 					fi
 					if [[ $NEWKEY ]]; then
-						echo -e " $KEY \t::::\t $NEWKEY" >> /tmp/tacjunk
+						echo -e " $KEY#::::#$NEWKEY" >> /tmp/tacjunk
 					fi
-					cat /tmp/tacjunk | column -t
+					cat /tmp/tacjunk | column -t -s '#'
 					rm /tmp/tacjunk
 				fi
 				echo "========================================================================================="
@@ -332,23 +332,23 @@ do
 					echo "=====================================================" >> /tmp/tacjunk
 					echo "                   Current Changes                   " >> /tmp/tacjunk
 					echo "=====================================================" >> /tmp/tacjunk
-					echo -e " Original \t\t::::\t New" >> /tmp/tacjunk
+					echo -e " Original#::::#New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
-						echo -e " $ORG \t::::\t $NEWORG" >> /tmp/tacjunk
+						echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
 					fi
 					if [[ $NEWWEB ]]; then
-						echo -e " $WEB \t::::\t $NEWWEB" >> /tmp/tacjunk
+						echo -e " $WEB#::::#$NEWWEB" >> /tmp/tacjunk
 					fi
 					if [[ $NEWMAIL ]]; then
-						echo -e " $MAIL \t::::\t $NEWMAIL" >> /tmp/tacjunk
+						echo -e " $MAIL#::::#NEWMAIL" >> /tmp/tacjunk
 					fi
 					if [[ $NEWSMTP ]]; then
-						echo -e " $SMTP \t::::\t $NEWSMTP" >> /tmp/tacjunk
+						echo -e " $SMTP#::::#$NEWSMTP" >> /tmp/tacjunk
 					fi
 					if [[ $NEWKEY ]]; then
-						echo -e " $KEY \t::::\t $NEWKEY" >> /tmp/tacjunk
+						echo -e " $KEY#::::#$NEWKEY" >> /tmp/tacjunk
 					fi
-					cat /tmp/tacjunk | column -t
+					cat /tmp/tacjunk | column -t -s '#'
 					rm /tmp/tacjunk
 				fi
 				echo "========================================================================================="
@@ -387,23 +387,23 @@ do
 					echo "=====================================================" >> /tmp/tacjunk
 					echo "                   Current Changes                   " >> /tmp/tacjunk
 					echo "=====================================================" >> /tmp/tacjunk
-					echo -e " Original \t\t::::\t New" >> /tmp/tacjunk
+					echo -e " Original#::::#New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
-						echo -e " $ORG \t::::\t $NEWORG" >> /tmp/tacjunk
+						echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
 					fi
 					if [[ $NEWWEB ]]; then
-						echo -e " $WEB \t::::\t $NEWWEB" >> /tmp/tacjunk
+						echo -e " $WEB#::::#$NEWWEB" >> /tmp/tacjunk
 					fi
 					if [[ $NEWMAIL ]]; then
-						echo -e " $MAIL \t::::\t $NEWMAIL" >> /tmp/tacjunk
+						echo -e " $MAIL#::::#NEWMAIL" >> /tmp/tacjunk
 					fi
 					if [[ $NEWSMTP ]]; then
-						echo -e " $SMTP \t::::\t $NEWSMTP" >> /tmp/tacjunk
+						echo -e " $SMTP#::::#$NEWSMTP" >> /tmp/tacjunk
 					fi
 					if [[ $NEWKEY ]]; then
-						echo -e " $KEY \t::::\t $NEWKEY" >> /tmp/tacjunk
+						echo -e " $KEY#::::#$NEWKEY" >> /tmp/tacjunk
 					fi
-					cat /tmp/tacjunk | column -t
+					cat /tmp/tacjunk | column -t -s '#'
 					rm /tmp/tacjunk
 				fi
 				echo "========================================================================================="
@@ -440,23 +440,23 @@ do
 					echo "=====================================================" >> /tmp/tacjunk
 					echo "                   Current Changes                   " >> /tmp/tacjunk
 					echo "=====================================================" >> /tmp/tacjunk
-					echo -e " Original \t\t::::\t New" >> /tmp/tacjunk
+					echo -e " Original#::::#New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
-						echo -e " $ORG \t::::\t $NEWORG" >> /tmp/tacjunk
+						echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
 					fi
 					if [[ $NEWWEB ]]; then
-						echo -e " $WEB \t::::\t $NEWWEB" >> /tmp/tacjunk
+						echo -e " $WEB#::::#$NEWWEB" >> /tmp/tacjunk
 					fi
 					if [[ $NEWMAIL ]]; then
-						echo -e " $MAIL \t::::\t $NEWMAIL" >> /tmp/tacjunk
+						echo -e " $MAIL#::::#NEWMAIL" >> /tmp/tacjunk
 					fi
 					if [[ $NEWSMTP ]]; then
-						echo -e " $SMTP \t::::\t $NEWSMTP" >> /tmp/tacjunk
+						echo -e " $SMTP#::::#$NEWSMTP" >> /tmp/tacjunk
 					fi
 					if [[ $NEWKEY ]]; then
-						echo -e " $KEY \t::::\t $NEWKEY" >> /tmp/tacjunk
+						echo -e " $KEY#::::#$NEWKEY" >> /tmp/tacjunk
 					fi
-					cat /tmp/tacjunk | column -t
+					cat /tmp/tacjunk | column -t -s '#'
 					rm /tmp/tacjunk
 				fi
 				echo "========================================================================================="
@@ -493,23 +493,23 @@ do
 					echo "=====================================================" >> /tmp/tacjunk
 					echo "                   Current Changes                   " >> /tmp/tacjunk
 					echo "=====================================================" >> /tmp/tacjunk
-					echo -e " Original \t\t::::\t New" >> /tmp/tacjunk
+					echo -e " Original#::::#New" >> /tmp/tacjunk
 					if [[ $NEWORG ]]; then
-						echo -e " $ORG \t::::\t $NEWORG" >> /tmp/tacjunk
+						echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
 					fi
 					if [[ $NEWWEB ]]; then
-						echo -e " $WEB \t::::\t $NEWWEB" >> /tmp/tacjunk
+						echo -e " $WEB#::::#$NEWWEB" >> /tmp/tacjunk
 					fi
 					if [[ $NEWMAIL ]]; then
-						echo -e " $MAIL \t::::\t $NEWMAIL" >> /tmp/tacjunk
+						echo -e " $MAIL#::::#NEWMAIL" >> /tmp/tacjunk
 					fi
 					if [[ $NEWSMTP ]]; then
-						echo -e " $SMTP \t::::\t $NEWSMTP" >> /tmp/tacjunk
+						echo -e " $SMTP#::::#$NEWSMTP" >> /tmp/tacjunk
 					fi
 					if [[ $NEWKEY ]]; then
-						echo -e " $KEY \t::::\t $NEWKEY" >> /tmp/tacjunk
+						echo -e " $KEY#::::#$NEWKEY" >> /tmp/tacjunk
 					fi
-					cat /tmp/tacjunk | column -t
+					cat /tmp/tacjunk | column -t -s '#'
 					rm /tmp/tacjunk
 				fi
 				echo "========================================================================================="
