@@ -60,7 +60,7 @@ do
 		rm /tmp/tacjunk
 	fi
 	echo "====================================================="
-	echo "Enter your selection"
+	echo " Enter your selection"
 	echo "====================================================="
 	echo ""
 	read answer
@@ -87,7 +87,8 @@ do
 	  				done
 	  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  					break
-	  				else
+	  				fi
+	  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 	  					NEWORG="$TEMPORG"
 	  					echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  					CONFIGURED=false
@@ -119,9 +120,10 @@ do
 	  				done
 	  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  					break
-	  				else
-	  					NEWWEB="$TEMPWEB"
-	  					echo "$WEB \t::::\t $NEWWEB" >> $TACLOG
+	  				fi
+	  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+	  					NEWORG="$TEMPORG"
+	  					echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  					CONFIGURED=false
 	  				fi
 				done
@@ -150,9 +152,10 @@ do
 	  				done
 	  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  					break
-	  				else
-	  					NEWMAIL="$TEMPMAIL"
-	  					echo "$MAIL \t::::\t $NEWMAIL" >> $TACLOG
+	  				fi
+	  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+	  					NEWORG="$TEMPORG"
+	  					echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  					CONFIGURED=false
 	  				fi
 				done
@@ -182,9 +185,10 @@ do
 	  				done
 	  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  					break
-	  				else
-	  					NEWSMTP="$TEMPSMTP"
-	  					echo "$SMTP \t::::\t $NEWSMTP" >> $TACLOG
+	  				fi
+	  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+	  					NEWORG="$TEMPORG"
+	  					echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  					CONFIGURED=false
 	  				fi
 				done
@@ -214,9 +218,10 @@ do
 	  				done
 	  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  					break
-	  				else
-	  					NEWKEY="$TEMPKEY"
-	  					echo "$KEY \t::::\t $NEWKEY" >> $TACLOG
+	  				fi
+	  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+	  					NEWORG="$TEMPORG"
+	  					echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  					CONFIGURED=false
 	  				fi
 				done
@@ -376,9 +381,10 @@ do
 				done
 	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  				break
-	  			else
-	  				NEWWEB="$TEMPWEB"
-	  				echo "$WEB \t::::\t $NEWWEB" >> $TACLOG
+	  			fi
+	  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+	  				NEWORG="$TEMPORG"
+	  				echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  				CONFIGURED=false
 	  			fi
 			done
@@ -429,9 +435,10 @@ do
 				done
 	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  				break
-	  			else
-	  				NEWMAIL="$TEMPMAIL"
-	  				echo "$MAIL \t::::\t $NEWMAIL" >> $TACLOG
+	  			fi
+	  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+	  				NEWORG="$TEMPORG"
+	  				echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  				CONFIGURED=false
 	  			fi
 			done
@@ -482,9 +489,10 @@ do
 				done
 	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  				break
-	  			else
-	  				NEWSMTP="$TEMPSMTP"
-	  				echo "$SMTP \t::::\t $NEWSMTP" >> $TACLOG
+	  			fi
+	  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+	  				NEWORG="$TEMPORG"
+	  				echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  				CONFIGURED=false
 	  			fi
 			done
@@ -536,9 +544,10 @@ do
 				done
 	  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	  				break
-	  			else
-	  				NEWKEY="$TEMPKEY"
-	  				echo "$KEY \t::::\t $NEWKEY" >> $TACLOG
+	  			fi
+	  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+	  				NEWORG="$TEMPORG"
+	  				echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 	  				CONFIGURED=false
 	  			fi
 			done
