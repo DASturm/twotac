@@ -32,24 +32,24 @@ do
 		fi
 	echo -e ""
 	#If changes have been made in the form of $NEWVAR, it will appear before your selection
-	if [ $NEWORG ] || [ $NEWWEB ] || [ $NEWMAIL ] || [ $NEWSMTP ] || [ $NEWKEY ]; then
+	if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
 		echo "====================================================="
 		echo "                   Current Changes                   "
 		echo "====================================================="
 		echo -e " Original \t\t::::\t New"
-		if [ $NEWORG ]; then
+		if [[ $NEWORG ]]; then
 			echo -e " $ORG \t::::\t $NEWORG"
 		fi
-		if [ $NEWWEB ]; then
+		if [[ $NEWWEB ]]; then
 			echo -e " $WEB \t::::\t $NEWWEB"
 		fi
-		if [ $NEWMAIL ]; then
+		if [[ $NEWMAIL ]]; then
 			echo -e " $MAIL \t::::\t $NEWMAIL"
 		fi
-		if [ $NEWSMTP ]; then
+		if [[ $NEWSMTP ]]; then
 			echo -e " $SMTP \t::::\t $NEWSMTP"
 		fi
-		if [ $NEWKEY ]; then
+		if [[ $NEWKEY ]]; then
 			echo -e " $KEY \t::::\t $NEWKEY"
 		fi
 	fi
@@ -64,7 +64,7 @@ do
 					echo "                                    Organization Name                                    "
 					echo "========================================================================================="
 					echo -e " Currently, the organization name is $ORG \n What would you like to change it to?"
-						if [ $NEWORG ]; then
+						if [[ $NEWORG ]]; then
 							echo -e "The current replacement is $NEWORG"
 						fi
 					echo ""
@@ -88,7 +88,7 @@ do
 						echo "========================================================================================="
 						echo -e " Currently, the website's hostname is $WEB \n What would you like to change it to?"
 						echo " NOTE: If you would like to make this site https, include it in the hostname"
-							if [ $NEWWEB ]; then
+							if [[ $NEWWEB ]]; then
 								echo -e "The current replacement is $NEWWEB"
 							fi
 						echo ""
@@ -112,7 +112,7 @@ do
 						echo "                                   Administrator Mail                                    "
 						echo "========================================================================================="
 						echo -e " Currently, the admin's mail address is $MAIL \n What would you like to change it to?"
-							if [ $NEWMAIL ]; then
+							if [[ $NEWMAIL ]]; then
 								echo -e "The current replacement is $NEWMAIL"
 							fi
 						echo ""
@@ -136,7 +136,7 @@ do
 						echo "                                     SMTP Relay Host                                     "
 						echo "========================================================================================="
 						echo -e " Currently, the SMTP host is $SMTP \n What would you like to change it to?"
-							if [ $NEWSMTP ]; then
+							if [[ $NEWSMTP ]]; then
 								echo -e "The current replacement is $NEWSMTP"
 							fi
 						echo ""
@@ -161,7 +161,7 @@ do
 						echo "========================================================================================="
 						echo -e " Currently, the TACACS+ key is $KEY \n What would you like to change it to?"
 						echo " ***WARNING, YOU WILL NEED TO CHANGE ALL ROUTER CONFIGS TO MATCH THE NEW ONE***"
-							if [ $NEWKEY ]; then
+							if [[ $NEWKEY ]]; then
 								echo -e "The current replacement is $NEWKEY"
 							fi
 						echo ""
@@ -195,23 +195,23 @@ do
 					read -p " Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
 	    			case $yn in
 	        			[Yy]* )
-							if [ $NEWORG ]; then
+							if [[ $NEWORG ]]; then
 								echo "$NEWORG COMMITTED" >> /opt/bin/taclog
 								sed -i "s/$ORG/$NEWORG/g" $FILES
 								fi
-							if [ $NEWWEB ]; then
+							if [[ $NEWWEB ]]; then
 								echo "$NEWWEB COMMITTED" >> /opt/bin/taclog
 								sed -i "s/$WEB/$NEWWEB/g" $FILES
 								fi
-							if [ $NEWMAIL ]; then
+							if [[ $NEWMAIL ]]; then
 								echo "$NEWMAIL COMMITTED" >> /opt/bin/taclog
 								sed -i "s/$MAIL/$NEWMAIL/g" $FILES
 								fi
-							if [ $NEWSMTP ]; then
+							if [[ $NEWSMTP ]]; then
 								echo "$NEWSMTP COMMITTED" >> /opt/bin/taclog
 								sed -i "s/$SMTP/$NEWSMTP/g" $FILES
 								fi
-							if [ $NEWKEY ]; then
+							if [[ $NEWKEY ]]; then
 								echo "$NEWKEY COMMITTED" >> /opt/bin/taclog
 								sed -i "s/$KEY/$NEWKEY/g" $FILES
 								fi
@@ -227,7 +227,7 @@ do
 				echo "                                    Organization Name                                    "
 				echo "========================================================================================="
 				echo -e " Currently, the organization name is $ORG \n What would you like to change it to?"
-					if [ $NEWORG ]; then
+					if [[ $NEWORG ]]; then
 						echo -e "The current replacement is $NEWORG"
 					fi
 				echo ""
@@ -250,7 +250,7 @@ do
 				echo "========================================================================================="
 				echo -e " Currently, the website's hostname is $WEB \n What would you like to change it to?"
 				echo " NOTE: If you would like to make this site https, include it in the hostname"
-					if [ $NEWWEB ]; then
+					if [[ $NEWWEB ]]; then
 						echo -e "The current replacement is $NEWWEB"
 					fi
 				echo ""
@@ -272,7 +272,7 @@ do
 				echo "                                   Administrator Mail                                    "
 				echo "========================================================================================="
 				echo -e " Currently, the admin's mail address is $MAIL \n What would you like to change it to?"
-					if [ $NEWMAIL ]; then
+					if [[ $NEWMAIL ]]; then
 						echo -e "The current replacement is $NEWMAIL"
 					fi
 				echo ""
@@ -294,7 +294,7 @@ do
 				echo "                                     SMTP Relay Host                                     "
 				echo "========================================================================================="
 				echo -e " Currently, the SMTP host is $SMTP \n What would you like to change it to?"
-					if [ $NEWSMTP ]; then
+					if [[ $NEWSMTP ]]; then
 						echo -e "The current replacement is $NEWSMTP"
 					fi
 				echo ""
@@ -317,7 +317,7 @@ do
 				echo "========================================================================================="
 				echo -e " Currently, the TACACS+ key is $KEY \n What would you like to change it to?"
 				echo " ***WARNING, YOU WILL NEED TO CHANGE ALL ROUTER CONFIGS TO MATCH THE NEW ONE***"
-					if [ $NEWKEY ]; then
+					if [[ $NEWKEY ]]; then
 						echo -e "The current replacement is $NEWKEY"
 					fi
 				echo ""
@@ -337,27 +337,27 @@ do
 		[Cc] ) read -p "Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
 	    		case $yn in
 	        		[Yy]* )
-						if [ $NEWORG ]; then
+						if [[ $NEWORG ]]; then
 							echo "$NEWORG COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$ORG/$NEWORG/g" $FILES
 							fi
 	
-						if [ $NEWWEB ]; then
+						if [[ $NEWWEB ]]; then
 							echo "$NEWWEB COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$WEB/$NEWWEB/g" $FILES
 							fi
 	
-						if [ $NEWMAIL ]; then
+						if [[ $NEWMAIL ]]; then
 							echo "$NEWMAIL COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$MAIL/$NEWMAIL/g" $FILES
 							fi
 	
-						if [ $NEWSMTP ]; then
+						if [[ $NEWSMTP ]]; then
 							echo "$NEWSMTP COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$SMTP/$NEWSMTP/g" $FILES
 							fi
 	
-						if [ $NEWKEY ]; then
+						if [[ $NEWKEY ]]; then
 							echo "$NEWKEY COMMITTED" >> /opt/bin/taclog
 							sed -i "s/$KEY/$NEWKEY/g" $FILES
 							fi
