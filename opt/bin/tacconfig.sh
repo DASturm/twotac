@@ -2,6 +2,7 @@
 #Files variable may need work and may need to automatically gather file names/paths from a function
 DIR=$(find /opt/bin/ /var/www/html/ -type f)
 FILES="$DIR /etc/tacacs+/tac_plus.conf /etc/pam.d/tac_plus /etc/postfix/main.cf"
+CONFIGURED=false
 #This is where the current variables will be stored NOTE CHANGE TO /OPT/BIN/TAC.CONF WHEN TESTING IS OVER
 trap '' 2
 echo "<----`date`---->" >> /opt/bin/taclog
@@ -11,7 +12,7 @@ do
 	source tac.conf
 	clear
 	yn="n"
-		if [[ configured = "true" ]]; then
+		if [[ CONFIGURED = true ]]; then
 			echo "========================================================================================="
 			echo "***Your changes have been saved!***"
 		fi
@@ -27,8 +28,8 @@ do
 	echo " To configure your TACACS+ key,     enter 5"
 	echo " To commit changes to memory,       enter C"
 	echo " To exit,                           enter Q"
-	#Checks if a file has been configured using the $configured variable
-		if ! [[ $configured = "true" ]]; then
+	#Checks if a file has been CONFIGURED using the $CONFIGURED variable
+		if [[ $CONFIGURED = false ]]; then
 			echo ""
 			echo " **NOTE: IF YOU DO NOT COMMIT, CHANGES WILL NOT BE SAVED**"
 		fi
@@ -80,7 +81,7 @@ do
 	  				else
 	  					NEWORG="$TEMPORG"
 	  					echo "$ORG \t::::\t $NEWORG" >> /opt/bin/taclog
-	  					configured=false
+	  					CONFIGURED=false
 	  				fi
 				done
 				if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
@@ -105,7 +106,7 @@ do
 	  					else
 	  						NEWWEB="$TEMPWEB"
 	  						echo "$WEB \t::::\t $NEWWEB" >> /opt/bin/taclog
-	  						configured=false
+	  						CONFIGURED=false
 	  					fi
 					done
 				fi
@@ -130,7 +131,7 @@ do
 	  					else
 	  						NEWMAIL="$TEMPMAIL"
 	  						echo "$MAIL \t::::\t $NEWMAIL" >> /opt/bin/taclog
-	  						configured=false
+	  						CONFIGURED=false
 	  					fi
 					done
 				fi
@@ -155,7 +156,7 @@ do
 	  					else
 	  						NEWSMTP="$TEMPSMTP"
 	  						echo "$SMTP \t::::\t $NEWSMTP" >> /opt/bin/taclog
-	  						configured=false
+	  						CONFIGURED=false
 	  					fi
 					done
 				fi
@@ -181,7 +182,7 @@ do
 	  					else
 	  						NEWKEY="$TEMPKEY"
 	  						echo "$KEY \t::::\t $NEWKEY" >> /opt/bin/taclog
-	  						configured=false
+	  						CONFIGURED=false
 	  					fi
 					done
 				fi
@@ -231,7 +232,7 @@ do
 							sed -i "s/$KEY/$NEWKEY/g" $FILES
 							NEWKEY=""
 							fi
-						configured=true
+						CONFIGURED=true
 						;;
 					[Nn]* ) continue
 						;;
@@ -257,7 +258,7 @@ do
 	  			else
 	  				NEWORG="$TEMPORG"
 	  				echo "$ORG \t::::\t $NEWORG" >> /opt/bin/taclog
-	  				configured=false
+	  				CONFIGURED=false
 	  			fi
 			done
 					;;
@@ -281,7 +282,7 @@ do
 	  			else
 	  				NEWWEB="$TEMPWEB"
 	  				echo "$WEB \t::::\t $NEWWEB" >> /opt/bin/taclog
-	  				configured=false
+	  				CONFIGURED=false
 	  			fi
 			done
 					;;
@@ -304,7 +305,7 @@ do
 	  			else
 	  				NEWMAIL="$TEMPMAIL"
 	  				echo "$MAIL \t::::\t $NEWMAIL" >> /opt/bin/taclog
-	  				configured=false
+	  				CONFIGURED=false
 	  			fi
 			done
 					;;
@@ -327,7 +328,7 @@ do
 	  			else
 	  				NEWSMTP="$TEMPSMTP"
 	  				echo "$SMTP \t::::\t $NEWSMTP" >> /opt/bin/taclog
-	  				configured=false
+	  				CONFIGURED=false
 	  			fi
 			done
 					;;
@@ -351,7 +352,7 @@ do
 	  			else
 	  				NEWKEY="$TEMPKEY"
 	  				echo "$KEY \t::::\t $NEWKEY" >> /opt/bin/taclog
-	  				configured=false
+	  				CONFIGURED=false
 	  			fi
 			done
 					;;
@@ -387,7 +388,7 @@ do
 							sed -i "s/$KEY/$NEWKEY/g" $FILES
 							NEWKEY=""
 							fi
-						configured=true
+						CONFIGURED=true
 						;;
 					[Nn]* ) continue
 						;;
