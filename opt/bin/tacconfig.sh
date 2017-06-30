@@ -68,6 +68,7 @@ do
 					until [[ "$password" == "$passconf" ]]; do
 						if  [[ $password ]] && [[ "$password" != "$passconf"]]; then
 							echo " The passwords do not match, please try again"
+						fi
 						password=""
 						passconf=""
 						echo " Please enter the new password"
