@@ -66,7 +66,7 @@ do
 					echo " Please enter the new username"
 					read username
 					until [[ "$password" == "$passconf" ]]; do
-						if  [[ $password ]] && [[ "$password" != "$passconf"]]; then
+						if  [[ $password ]] && [[ "$password" -ne "$passconf"]]; then
 							echo " The passwords do not match, please try again"
 						fi
 						password=""
