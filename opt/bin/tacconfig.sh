@@ -76,8 +76,6 @@ do
 								echo " The passwords do not match, please try again"
 							fi
 						fi
-						password=""
-						passconf=""
 						echo " Please enter the new password"
 						read -s password
 						echo " Please confirm your password"
