@@ -65,9 +65,9 @@ do
 					echo " You have chosen to add a user."
 					echo " Please enter the new username"
 					read username
-					until [[ "$password" == "$passconf" ]]; do
+					until [[ $password == $passconf ]]; do
 						if  [[ $password ]]; then
-							if [[ "$password" -ne "$passconf"]]; then
+							if [[ $password -ne $passconf ]]; then
 								echo " The passwords do not match, please try again"
 							fi
 						fi
