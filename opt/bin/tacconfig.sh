@@ -2,7 +2,7 @@
 #Files variable may need work and may need to automatically gather file names/paths from a function
 DIR=$(find /opt/bin/ /var/www/html/ /etc/tacacs+/ /etc/postfix/ -type f)
 FILES="$DIR"
-TACLOG="/opt/bin/taclog"
+TACLOG="/opt/bin/taclogs/taclog"
 USERLIST=$(getent group tacusers | cut -f4 -d ':' | sed 's/,/ /g;')
 CONFIGURED=false
 #This is where the current variables will be stored NOTE CHANGE TO /OPT/BIN/TAC.CONF WHEN TESTING IS OVER
@@ -717,6 +717,7 @@ do
 		;;
 
 	[Qq]) echo "<--------------END-LOG--------------->" >> $TACLOG
+			echo "" >> $TACLOG
 			clear
 			exit 
 			;;

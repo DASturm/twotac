@@ -4,6 +4,7 @@
 TACCONF="/etc/tacacs+/tac_plus.conf"
 MAILER="MAILPLACEHOLDER"
 ORG="ORGPLACEHOLDER"
+TACLOG="$TACLOGs/taclog"
 
 #Error codes
 errorformat="Incorrect formatting, please use this format: tacdelete -u [USERNAME] -p [PASSWORD] -e [EMAIL] -n [NAME]"
@@ -14,16 +15,16 @@ errornobody="The user does not appear to exist, check your input and try again"
 errortryagain="Failed to delete this account, try again"
 
 #Logs input data before any opportunity for exit codes
-echo "<----`date`---->" >> /opt/bin/taclog
+echo "<----`date`---->" >> $TACLOG
 echo "...Delete Attempt..."
-echo "$0 $1 $2 $3 $4 $5 $6 $7 $8 $9" >> /opt/bin/taclog
+echo "$0 $1 $2 $3 $4 $5 $6 $7 $8 $9" >> $TACLOG
 
 #Exit-worthy errors in the command line syntax
 if [ "$#" -lt "6" ] || [ "$1" != "-u" ] || [ "$3" != "-e" ] || [ "$5" != "-n" ]
 then
-    echo $errorformat | tee -a /opt/bin/taclog
-    echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
-    echo "" | tee -a /opt/bin/taclog
+    echo $errorformat | tee -a $TACLOG
+    echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+    echo "" | tee -a $TACLOG
     sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorformat/" /opt/bin/mailscripterror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
     exit 1
 fi
@@ -34,7 +35,7 @@ shift; shift; shift
 NAME="$@"
 
 #Logs registration attempts with all known data
-echo -e "$USERNAME\n$EMAIL\n$NAME" >> /opt/bin/taclog
+echo -e "$USERNAME\n$EMAIL\n$NAME" >> $TACLOG
 
 #Logs the user out
 pkill -KILL -u $USERNAME
@@ -42,10 +43,10 @@ pkill -KILL -u $USERNAME
 #Check makes sure if the user already exists
 if ! lslogins -l $USERNAME | grep "$NAME" | grep $EMAIL
 then
-    echo $errornobody | tee -a /opt/bin/taclog
-    echo $errortryagain | tee -a /opt/bin/taclog
-    echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
-    echo "" | tee -a /opt/bin/taclog
+    echo $errornobody | tee -a $TACLOG
+    echo $errortryagain | tee -a $TACLOG
+    echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+    echo "" | tee -a $TACLOG
     sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" /opt/bin/mailusererror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
     exit 3
 fi
@@ -64,10 +65,10 @@ sed -i -e "/$USERNAME/d" $TACCONF
 
 #If there is no tacacs configuration file, then you have a bad problem and need to contact an administrator
 if [ ! -f $TACCONF ]; then
-    echo $errorconfig | tee -a /opt/bin/taclog
-    echo $errortryagain | tee -a /opt/bin/taclog
-    echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
-    echo "" | tee -a /opt/bin/taclog
+    echo $errorconfig | tee -a $TACLOG
+    echo $errortryagain | tee -a $TACLOG
+    echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+    echo "" | tee -a $TACLOG
     sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorconfig/" /opt/bin/mailscripterror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
     exit 4
 fi
@@ -80,15 +81,15 @@ systemctl restart tacacs_plus
 systemctl is-active tacacs_plus
 if [ $? -eq 0 ]
 then
-    echo "User removed without errors" | tee -a /opt/bin/taclog
-    echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
-    echo "" | tee -a /opt/bin/taclog
+    echo "User removed without errors" | tee -a $TACLOG
+    echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+    echo "" | tee -a $TACLOG
     exit 0
 else
-    echo $errorrestart | tee -a /opt/bin/taclog
-    echo $errortryagain | tee -a /opt/bin/taclog
-    echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
-    echo "" | tee -a /opt/bin/taclog
+    echo $errorrestart | tee -a $TACLOG
+    echo $errortryagain | tee -a $TACLOG
+    echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+    echo "" | tee -a $TACLOG
     sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorrestart/" /opt/bin/mailscripterror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
     exit 5
 fi

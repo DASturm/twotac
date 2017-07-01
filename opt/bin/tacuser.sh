@@ -4,6 +4,7 @@
 TACCONF="/etc/tacacs+/tac_plus.conf"
 MAILER="MAILPLACEHOLDER"
 ORG="ORGPLACEHOLDER"
+TACLOG="$TACLOGs/taclog"
 
 #Error codes
 errorformat="Incorrect formatting, please use this format: tacuser -u [USERNAME] -p [PASSWORD] -e [EMAIL] -n [NAME]"
@@ -12,15 +13,15 @@ errordup="The username you're adding already exists.  Please check the username 
 errorrestart="The tacacs_plus service failed to restart. Please fix this to enable tacacs again. (This is bad)"
 
 #Logs input data before any opportunity for exit codes
-echo "<----`date`---->" >> /opt/bin/taclog
-echo "$0 $1 $2 $3 $4 $5 $6 $7 $8 $9 $10 $11" >> /opt/bin/taclog
+echo "<----`date`---->" >> $TACLOG
+echo "$0 $1 $2 $3 $4 $5 $6 $7 $8 $9 $10 $11" >> $TACLOG
 
 #Exit-worthy errors in the command line syntax
 if [ "$#" -lt "8" ] || [ "$1" != "-u" ] || [ "$3" != "-p" ] || [ "$5" != "-e" ] || [ "$7" != "-n" ]
 then
-    echo $errorformat | tee -a /opt/bin/taclog
-    echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
-    echo "" | tee -a /opt/bin/taclog
+    echo $errorformat | tee -a $TACLOG
+    echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+    echo "" | tee -a $TACLOG
     sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorformat/" /opt/bin/mailscripterror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
     exit 1
 fi
@@ -33,22 +34,22 @@ shift; shift; shift
 NAME="$@"
 
 #Logs registration attempts with all known data
-echo -e "$USERNAME\n$PASSWORD\n$EMAIL\n$NAME" >> /opt/bin/taclog
+echo -e "$USERNAME\n$PASSWORD\n$EMAIL\n$NAME" >> $TACLOG
 
 # Check if the user is already exists
 if grep -qe "^$USERNAME:" $TACCONF
 then
-    echo $errordup | tee -a /opt/bin/taclog
-    echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
-    echo "" | tee -a /opt/bin/taclog
+    echo $errordup | tee -a $TACLOG
+    echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+    echo "" | tee -a $TACLOG
     sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" /opt/bin/mailusererror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
     exit 3
 fi
 if grep -qe "^$USERNAME:" /etc/passwd
 then
-    echo $errordup | tee -a /opt/bin/taclog
-    echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
-    echo "" | tee -a /opt/bin/taclog
+    echo $errordup | tee -a $TACLOG
+    echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+    echo "" | tee -a $TACLOG
     sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" /opt/bin/mailusererror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
     exit 3
 fi
@@ -64,9 +65,9 @@ echo '#END FILE' >> $TACCONF
 
 #If there is no tacacs configuration file, then you have a bad problem and need to contact an administrator
 if [ ! -f $TACCONF ]; then
-    echo $errorconfig | tee -a /opt/bin/taclog
-    echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
-    echo "" | tee -a /opt/bin/taclog
+    echo $errorconfig | tee -a $TACLOG
+    echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+    echo "" | tee -a $TACLOG
     sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorconfig/" /opt/bin/mailscripterror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
     exit 4
 fi
@@ -81,7 +82,7 @@ URL=`egrep -o 'https?://[^ ]+' /tmp/$USERNAME-auth`
 wget --no-check-certificate $URL -O /tmp/$USERNAME-QR.png -o /tmp/$USERNAME-wget.log
 
 #If registration was successful, it will be logged
-    echo "$NAME registered successfully" >> /opt/bin/taclog
+    echo "$NAME registered successfully" >> $TACLOG
 
 #Rewrites the template e-mail with all the collected variables and sends it to the registering user
 sed -e "s/\[NAME\]/$NAME/" -e "s \[QRURL\] $URL " /opt/bin/mailtemplate | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" -A /tmp/$USERNAME-QR.png $EMAIL
@@ -91,14 +92,14 @@ systemctl restart tacacs_plus
 systemctl is-active tacacs_plus
 if [ $? -eq 0 ]
 then
-    echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
-    echo "" | tee -a /opt/bin/taclog
+    echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+    echo "" | tee -a $TACLOG
     /opt/bin/backup.sh
     exit 0
 else
-    echo $errorrestart | tee -a /opt/bin/taclog
-    echo "<--------------END-LOG--------------->" | tee -a /opt/bin/taclog
-    echo "" | tee -a /opt/bin/taclog
+    echo $errorrestart | tee -a $TACLOG
+    echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+    echo "" | tee -a $TACLOG
     sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorrestart/" /opt/bin/mailscripterror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
     exit 5
 fi
