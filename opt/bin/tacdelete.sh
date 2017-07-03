@@ -1,3 +1,5 @@
+A bunch of garbage
+
 #!/bin/bash
 
 # VARIABLES
