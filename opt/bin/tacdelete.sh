@@ -6,7 +6,7 @@ A bunch of garbage
 TACCONF="/etc/tacacs+/tac_plus.conf"
 MAILER="MAILPLACEHOLDER"
 ORG="ORGPLACEHOLDER"
-TACLOG="$TACLOGs/taclog"
+TACLOG="taclogs/taclog"
 
 #Error codes
 errorformat="Incorrect formatting, please use this format: tacdelete -u [USERNAME] -p [PASSWORD] -e [EMAIL] -n [NAME]"
