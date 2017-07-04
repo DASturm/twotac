@@ -6,7 +6,7 @@ TACLOG="/opt/bin/taclogs/taclog"
 USERLIST=$(getent group tacusers | cut -f4 -d ':' | sed 's/,/ /g;')
 CONFIGURED=false
 #This is where the current variables will be stored NOTE CHANGE TO /OPT/BIN/TAC.CONF WHEN TESTING IS OVER
-trap '' 2
+#trap '' 2
 echo "<----`date`---->" >> $TACLOG
 echo "Twotac Management" >> $TACLOG
 while true
