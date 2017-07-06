@@ -174,15 +174,15 @@ do
 					if ! [[ $logsearch ]]; then
 						break
 					fi
-					cat $logsearch 2>/dev/null
-					echo ""
-					echo ""
-					echo "====================================================="
-					echo " END OF LOG"
-					echo "====================================================="
-					echo ""
-					echo ""
-						until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+						cat $logsearch 2>/dev/null
+						echo ""
+						echo ""
+						echo "====================================================="
+						echo " END OF LOG"
+						echo "====================================================="
+						echo ""
+						echo ""
 							echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
   							read yn
 							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
