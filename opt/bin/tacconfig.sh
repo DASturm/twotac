@@ -164,7 +164,7 @@ do
 					echo "                                       Twotac Logs                                       "
 					echo "========================================================================================="
 					echo " (Weeks without activity will not be logged)"
-					ls -gavA /etc/
+					ls -gavA /opt/bin/taclogs/
 					echo ""
 					echo "====================================================="
 					echo " Which log would you like to view? (Blank to go back)"
