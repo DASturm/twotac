@@ -174,24 +174,22 @@ do
 					if ! [[ $logsearch ]]; then
 						break
 					fi
-					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
-						cat $logsearch 2>/dev/null
-						echo ""
-						echo ""
-						echo "====================================================="
-						echo " END OF LOG"
-						echo "====================================================="
-						echo ""
-						echo ""
-							echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
-  							read yn
-							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-								echo " That output doesn't register, please try again."
-							fi
-							if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  						break
-		  					fi
-		  				done
+					cat $logsearch 2>/dev/null
+					echo ""
+					echo ""
+					echo "====================================================="
+					echo " END OF LOG"
+					echo "====================================================="
+					echo ""
+					echo ""
+						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
+  						read yn
+						if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+							echo " That output doesn't register, please try again."
+						fi
+						if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+		  					break
+		  				fi
 					done
 					;;
 				2) #This case will run backups until the user doesn't want to run backups anymore
