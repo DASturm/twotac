@@ -205,7 +205,7 @@ do
 					echo " (Weeks without activity will not be logged)"
 					echo ""
 					echo ""
-					ls -gavA /opt/backups/ 2>/dev/null
+					ls -gavA /opt/tacbackups/ 2>/dev/null
 					echo ""
 					echo ""
 					echo ""
