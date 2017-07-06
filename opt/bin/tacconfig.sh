@@ -164,7 +164,7 @@ do
 					echo "                                       Twotac Logs                                       "
 					echo "========================================================================================="
 					echo " (Weeks without activity will not be logged)"
-					ls -gavA /opt/bin/taclogs/
+					ls -gavA /opt/bin/taclogs/ 2>/dev/null
 					echo ""
 					echo "====================================================="
 					echo " Which log would you like to view? (Blank to go back)"
@@ -174,18 +174,7 @@ do
 					if ! [[ $logsearch ]]; then
 						break
 					fi
-					cat $logsearch
-					if cat ; then
-						echo ""
-					else
-						echo ""
-						echo " There was a problem with that, please try typing which log you'd like to read again"
-						echo " (If your entry is blank, this script will go back"
-						read logsearch
-						if ! [[ $logsearch ]]; then
-							break
-						fi
-					fi
+					cat $logsearch 2>/dev/null
 					echo ""
 					echo ""
 					echo "====================================================="
@@ -207,7 +196,7 @@ do
 					;;
 				2) #This case will run backups until the user doesn't want to run backups anymore
 					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
-					/etc/cron.weekly/backup.sh
+					/etc/cron.weekly/backup.sh 2>/dev/null
 						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 							echo " Would you like to continue? \"No\" will run this backup again (y/n/c)"
   							read yn
@@ -227,7 +216,7 @@ do
 					echo " (Weeks without activity will not be logged)"
 					echo ""
 					echo ""
-					ls -gavA /opt/backups/
+					ls -gavA /opt/backups/ 2>/dev/null
 					echo ""
 					echo ""
 					echo ""
