@@ -182,7 +182,7 @@ do
 					echo "====================================================="
 					echo ""
 					echo ""
-						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+						until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 							echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
   							read yn
 							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
