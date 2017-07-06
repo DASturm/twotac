@@ -192,20 +192,11 @@ do
 		  				fi
 					done
 					;;
-				2) #This case will run backups until the user doesn't want to run backups anymore
-					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+				2) #This case will run a backup
 					/etc/cron.weekly/backup.sh 2>/dev/null
-						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-							echo " Would you like to continue? \"No\" will run this backup again (y/n/c)"
-  							read yn
-							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-								echo " That output doesn't register, please try again."
-							fi
-							if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  						break
-		  					fi
-		  				done
-					done
+					echo "Backup ran successfully"
+					echo ""
+					read -p "Press enter to continue"
 					;;
 				3) #This case will show the user all the backups that have been stored in the backups folder.
 					echo "========================================================================================="
