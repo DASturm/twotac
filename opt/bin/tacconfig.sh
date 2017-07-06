@@ -132,6 +132,7 @@ do
 		  				echo " !!!ERROR!!!"
 		  				echo ""
 		  				read -p "Press enter to continue"
+		  			fi
 		  		done
 					;;
 				[Qq]) break
