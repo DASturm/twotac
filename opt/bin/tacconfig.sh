@@ -21,7 +21,8 @@ do
 	echo " To run backups or view logs,           enter 2"
 	echo " To setup or change script information, enter 3"
 	echo " To exit this interface,                enter Q"
-	echo " (If this is your first time setup, begin with setup, 3)"
+	echo " (If this is your first time setup, select 3)"
+	echo ""
 	echo "====================================================="
 	echo " Enter your selection"
 	echo "====================================================="
@@ -38,6 +39,7 @@ do
 			echo " To add a user,                         enter 2"
 			echo " To delete a user,                      enter 3"
 			echo " To exit,                               enter Q"
+			echo ""
 			echo "====================================================="
 			echo " Enter your selection"
 			echo "====================================================="
@@ -102,7 +104,8 @@ do
 		  			fi
 		  		done
 					;;
-				3) until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+				3) #This case will delete users
+					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 					echo " You have chosen to delete a user."
 					echo " Please enter their username"
 					read username
@@ -125,15 +128,117 @@ do
 		  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		  				/opt/bin/tacdelete -u $username -e $usermail -n $fullname
 		  			fi
+		  			if ! /opt/bin/tacdelete ; then
+		  				echo " !!!ERROR!!!"
+		  				echo ""
+		  				read -p "Press enter to continue"
 		  		done
 					;;
 				[Qq]) break
 					;;
 			esac
 			;;
-		2) #RUN BACKUPS OR VIEW LOGS
+		2) #This case will allow you to interact with the Logs and Backups menu
 			clear
-			
+			yn=""
+			echo "========================================================================================="
+			echo "                                 Twotac Logs and Backups                                 "
+			echo "========================================================================================="
+			echo " Available commands:"
+			echo " To view logs,				          enter 1"
+			echo " To run a backup,				          enter 2"
+			echo " To view a list of backups,			  enter 3"
+			echo " To exit this interface,                enter Q"
+			echo ""
+			echo "====================================================="
+			echo " Enter your selection"
+			echo "====================================================="
+			echo ""
+			read answer
+			case $answer in
+				1) #This case shows logs and allows the user to view the content of individual logs
+					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+					clear
+					echo "========================================================================================="
+					echo "                                       Twotac Logs                                       "
+					echo "========================================================================================="
+					echo " (Weeks without activity will not be logged)"
+					ls -gavA /etc/
+					echo ""
+					echo "====================================================="
+					echo " Which log would you like to view? (Blank to go back)"
+					echo "====================================================="
+					echo ""
+					read logsearch
+					if ! [[ $logsearch ]]; then
+						break
+					fi
+					cat $logsearch
+					if cat ; then
+						echo ""
+					else
+						echo ""
+						echo " There was a problem with that, please try typing which log you'd like to read again"
+						echo " (If your entry is blank, this script will go back"
+						read logsearch
+						if ! [[ $logsearch ]]; then
+							break
+						fi
+					fi
+					echo ""
+					echo ""
+					echo "====================================================="
+					echo " END OF LOG"
+					echo "====================================================="
+					echo ""
+					echo ""
+						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+							echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
+  							read yn
+							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+								echo " That output doesn't register, please try again."
+							fi
+							if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+		  						break
+		  					fi
+		  				done
+					done
+					;;
+				2) #This case will run backups until the user doesn't want to run backups anymore
+					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+					/etc/cron.weekly/backup.sh
+						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+							echo " Would you like to continue? \"No\" will run this backup again (y/n/c)"
+  							read yn
+							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+								echo " That output doesn't register, please try again."
+							fi
+							if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+		  						break
+		  					fi
+		  				done
+					done
+					;;
+				3) #This case will show the user all the backups that have been stored in the backups folder.
+					echo "========================================================================================="
+					echo "                                     Twotac Backups                                      "
+					echo "========================================================================================="
+					echo " (Weeks without activity will not be logged)"
+					echo ""
+					echo ""
+					ls -gavA /opt/backups/
+					echo ""
+					echo ""
+					echo ""
+					echo "====================================================="
+					echo " END OF LOG"
+					echo "====================================================="
+					echo ""
+					read -p " Press Enter to Continue"
+					;;
+				[Qq] ) break
+						;;
+			esac
 			;;
 		3) source tac.conf
 		clear
