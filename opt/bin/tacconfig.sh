@@ -486,16 +486,29 @@ do
 				if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 					yn="n"
 			   		clear
+					if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
 					echo "========================================================================================="
-					echo "                                     Current Changes                                     "
+					echo "                                   Configuration Changes                                 "
 					echo "========================================================================================="
-					echo -e " Original    \t\t::::\t    New"
-					echo -e " $ORG    \t::::\t    $NEWORG"
-					echo -e " $WEB    \t::::\t    $NEWWEB"
-					echo -e " $MAIL    \t::::\t    $NEWMAIL"
-					echo -e " $SMTP    \t::::\t    $NEWSMTP"
-					echo -e " $KEY    \t::::\t    $NEWKEY"
-					echo "========================================================================================="
+					echo -e " Original#::::#New" >> /tmp/tacjunk
+					if [[ $NEWORG ]]; then
+						echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
+					fi
+					if [[ $NEWWEB ]]; then
+						echo -e " $WEB#::::#$NEWWEB" >> /tmp/tacjunk
+					fi
+					if [[ $NEWMAIL ]]; then
+						echo -e " $MAIL#::::#$NEWMAIL" >> /tmp/tacjunk
+					fi
+					if [[ $NEWSMTP ]]; then
+						echo -e " $SMTP#::::#$NEWSMTP" >> /tmp/tacjunk
+					fi
+					if [[ $NEWKEY ]]; then
+						echo -e " $KEY#::::#$NEWKEY" >> /tmp/tacjunk
+					fi
+					cat /tmp/tacjunk | column -t -s '#'
+					rm /tmp/tacjunk
+					fi
 					echo ""
 					read -p " Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
 		    	case $yn in
