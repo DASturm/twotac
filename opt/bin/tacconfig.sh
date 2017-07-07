@@ -2,7 +2,7 @@
 #Files variable may need work and may need to automatically gather file names/paths from a function
 DIR=$(find /opt/bin/ /var/www/html/ /etc/tacacs+/ /etc/postfix/ -type f)
 FILES="$DIR"
-TACLOG="/opt/bin/taclogs/taclog"
+TACLOG="/var/log/taclogs/taclog"
 USERLIST=$(getent group tacusers | cut -f4 -d ':' | sed 's/,/ /g;')
 CONFIGURED=false
 #This is where the current variables will be stored NOTE CHANGE TO /OPT/BIN/TAC.CONF WHEN TESTING IS OVER
@@ -164,7 +164,7 @@ do
 					echo "                                       Twotac Logs                                       "
 					echo "========================================================================================="
 					echo " (Weeks without activity will not be logged)"
-					ls -gavA /opt/bin/taclogs/
+					ls -gavA /var/log/taclogs/
 					echo ""
 					echo "====================================================="
 					echo " Which log would you like to view? (Blank to go back)"
@@ -174,7 +174,7 @@ do
 					if ! [[ $logsearch ]]; then
 						break
 					fi
-					cat /opt/bin/taclogs/$logsearch 2>/dev/null
+					cat /var/log/taclogs/$logsearch 2>/dev/null
 					echo ""
 					echo ""
 					echo "====================================================="
