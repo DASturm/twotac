@@ -164,7 +164,7 @@ do
 					echo "                                       Twotac Logs                                       "
 					echo "========================================================================================="
 					echo " (Weeks without activity will not be logged)"
-					ls -gavA /opt/bin/taclogs/ 2>/dev/null
+					ls -gavA /opt/bin/taclogs/
 					echo ""
 					echo "====================================================="
 					echo " Which log would you like to view? (Blank to go back)"
@@ -174,7 +174,7 @@ do
 					if ! [[ $logsearch ]]; then
 						break
 					fi
-					cat $logsearch 2>/dev/null
+					cat /opt/bin/taclogs/$logsearch 2>/dev/null
 					echo ""
 					echo ""
 					echo "====================================================="
@@ -205,7 +205,7 @@ do
 					echo " (Weeks without activity will not be logged)"
 					echo ""
 					echo ""
-					ls -gavA /opt/tacbackups/ 2>/dev/null
+					ls -gavA /opt/tacbackups/
 					echo ""
 					echo ""
 					echo ""
@@ -219,7 +219,8 @@ do
 						;;
 			esac
 			;;
-		3) source tac.conf
+		3) #This case sets up the hardcoded placeholder variables and makes them functional scripts in context
+		source tac.conf
 		clear
 		yn=""
 			if [[ $CONFIGURED = true ]]; then
@@ -274,7 +275,8 @@ do
 		echo ""
 		read answer
 		case $answer in
-			[Aa] ) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+			[Aa] ) #This case changes all settings in order, allowing reviews at the end before committing changes
+					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 						echo "========================================================================================="
 						echo "                                    Organization Name                                    "
 						echo "========================================================================================="
@@ -484,7 +486,8 @@ do
 		    	esac
 		    	fi
 				;;
-			1) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+			1) #This case will change the organization name
+				until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 					clear
 					if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
 						echo "========================================================================================="
@@ -538,7 +541,8 @@ do
 		  			fi
 				done
 						;;
-			2) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+			2) #This case will adjust the hostname. Note the format should be http://hostname.com without trailng slashes.
+				until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 					clear
 					if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
 						echo "========================================================================================="
@@ -594,7 +598,8 @@ do
 		  			fi
 				done
 						;;
-			3) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+			3) #This case adjusts the administrator who will typically run the mail system and receive copy of all sent mail
+				until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 					clear
 					if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
 						echo "========================================================================================="
@@ -648,7 +653,8 @@ do
 		  			fi
 				done
 						;;
-			4) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+			4) #This case will attempt to configure SMTP for further use, but postfix may require more direct configuration
+				until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 					clear
 					if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
 						echo "========================================================================================="
@@ -702,7 +708,8 @@ do
 		  			fi
 				done
 						;;
-			5) 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+			5) #This will change the Tacacs+ key, which will require reconfiguration of network devices to be functional
+				until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 					clear
 					if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
 						echo "========================================================================================="
@@ -757,7 +764,8 @@ do
 		  			fi
 				done
 						;;
-			[Cc] ) read -p "Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
+			[Cc] ) #This case will take $NEWVAR and overwrite $VAR
+					read -p "Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
 		    		case $yn in
 		        		[Yy]* )
 							if [[ $NEWORG ]]; then
