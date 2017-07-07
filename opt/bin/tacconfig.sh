@@ -17,6 +17,7 @@ do
 	echo "========================================================================================="
 	echo "                                   Configuration Changes                                 "
 	echo "========================================================================================="
+	echo "***Changes have NOT been saved. Go to case 3 to commit these changes***"
 	echo -e " Original#::::#New" >> /tmp/tacjunk
 	if [[ $NEWORG ]]; then
 		echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
