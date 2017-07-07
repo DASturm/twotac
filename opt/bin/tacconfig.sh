@@ -380,7 +380,7 @@ do
 		  				fi
 		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		  					NEWWEB="$TEMPWEB"
-		  					echo "$ORG \t::::\t $NEWORG" >> $TACLOG
+		  					echo "$WEB \t::::\t $NEWWEB" >> $TACLOG
 		  					CONFIGURED=false
 		  				fi
 					done
@@ -412,7 +412,7 @@ do
 		  				fi
 		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		  					NEWMAIL="$TEMPMAIL"
-		  					echo "$ORG \t::::\t $NEWORG" >> $TACLOG
+		  					echo "$MAIL \t::::\t $NEWMAIL" >> $TACLOG
 		  					CONFIGURED=false
 		  				fi
 					done
@@ -445,7 +445,7 @@ do
 		  				fi
 		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		  					NEWSMTP="$TEMPSMTP"
-		  					echo "$ORG \t::::\t $NEWORG" >> $TACLOG
+		  					echo "$SMTP \t::::\t $NEWSMTP" >> $TACLOG
 		  					CONFIGURED=false
 		  				fi
 					done
@@ -478,7 +478,7 @@ do
 		  				fi
 		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		  					NEWKEY="$TEMPKEY"
-		  					echo "$ORG \t::::\t $NEWORG" >> $TACLOG
+		  					echo "$KEY \t::::\t $NEWKEY" >> $TACLOG
 		  					CONFIGURED=false
 		  				fi
 					done
@@ -639,7 +639,7 @@ do
 		  			fi
 		  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		  				NEWWEB="$TEMPWEB"
-		  				echo "$ORG \t::::\t $NEWORG" >> $TACLOG
+		  				echo "$WEB \t::::\t $NEWWEB" >> $TACLOG
 		  				CONFIGURED=false
 		  			fi
 				done
@@ -694,7 +694,7 @@ do
 		  			fi
 		  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		  				NEWMAIL="$TEMPMAIL"
-		  				echo "$ORG \t::::\t $NEWORG" >> $TACLOG
+		  				echo "$MAIL \t::::\t $NEWMAIL" >> $TACLOG
 		  				CONFIGURED=false
 		  			fi
 				done
@@ -749,7 +749,7 @@ do
 		  			fi
 		  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		  				NEWSMTP="$TEMPSMTP"
-		  				echo "$ORG \t::::\t $NEWORG" >> $TACLOG
+		  				echo "$SMTP \t::::\t $NEWSMTP" >> $TACLOG
 		  				CONFIGURED=false
 		  			fi
 				done
@@ -805,7 +805,7 @@ do
 		  			fi
 		  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		  				NEWKEY="$TEMPKEY"
-		  				echo "$ORG \t::::\t $NEWORG" >> $TACLOG
+		  				echo "$KEY \t::::\t $NEWKEY" >> $TACLOG
 		  				CONFIGURED=false
 		  			fi
 				done
