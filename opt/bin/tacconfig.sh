@@ -13,6 +13,29 @@ while true
 do
 	clear
 	yn=""
+	if [[ $NEWORG ]] || [[ $NEWWEB ]] || [[ $NEWMAIL ]] || [[ $NEWSMTP ]] || [[ $NEWKEY ]]; then
+	echo "========================================================================================="
+	echo "                                   Configuration Changes                                 "
+	echo "========================================================================================="
+	echo -e " Original#::::#New" >> /tmp/tacjunk
+	if [[ $NEWORG ]]; then
+		echo -e " $ORG#::::#$NEWORG" >> /tmp/tacjunk
+	fi
+	if [[ $NEWWEB ]]; then
+		echo -e " $WEB#::::#$NEWWEB" >> /tmp/tacjunk
+	fi
+	if [[ $NEWMAIL ]]; then
+		echo -e " $MAIL#::::#$NEWMAIL" >> /tmp/tacjunk
+	fi
+	if [[ $NEWSMTP ]]; then
+		echo -e " $SMTP#::::#$NEWSMTP" >> /tmp/tacjunk
+	fi
+	if [[ $NEWKEY ]]; then
+		echo -e " $KEY#::::#$NEWKEY" >> /tmp/tacjunk
+	fi
+	cat /tmp/tacjunk | column -t -s '#'
+	rm /tmp/tacjunk
+	fi
 	echo "========================================================================================="
 	echo "                                    Twotac Management                                    "
 	echo "========================================================================================="
@@ -46,7 +69,9 @@ do
 			echo ""
 			read answer
 			case $answer in
-				1) for f in $USERLIST; do
+				1) #This case will find users, add them to a file and columnate it before cat'ing and deleting that file.
+					echo -e "Viewed user list" >> $TACLOG
+					for f in $USERLIST; do
 							getent passwd $f | cut -f5 -d',' | cut -f1 -d':' >> /tmp/tacjunk
 						done
 					MAILLIST=$(cat /tmp/tacjunk | sed ':a;N;$!ba;s/\n/ /g')
@@ -66,10 +91,13 @@ do
 					rm /tmp/tacjunk
 					read -p " Press enter to continue"
 					;;
-				2) until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+				2) #This case will add a user based on input
+					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+					echo "Add user initiated" >> $TACLOG
 					echo " You have chosen to add a user."
 					echo " Please enter the new username"
 					read username
+					echo -e "Username= $username" >> $TACLOG
 					password=""
 					passconf=""
 					until [[ $password ]] &&  [[ $passconf ]] && [[ $password == $passconf ]]; do
@@ -85,8 +113,10 @@ do
 					done
 					echo " Please enter the user's e-mail address"
 					read usermail
+					echo -e "E-mail= $usermail" >> $TACLOG
 					echo " Please enter the user's full name"
 					read fullname
+					echo -e "Name= $fullname" >> $TACLOG
 					echo " Your current entries are:"
 					echo -e " $username, $usermail, and $fullname"
 					until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
@@ -97,22 +127,30 @@ do
 					fi
 		  			done
 		  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+		  				echo -e "Add user cancelled" >> $TACLOG
 		  				break
 		  			fi
 		  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  				/opt/bin/tacuser.sh -u $username -p $password -e $usermail -n $fullname
+		  				echo "Initiating tacuser.sh, breaking log" >> $TACLOG
+						echo "<-------------LOG-BREAK-------------->" >> $TACLOG
+		  				/opt/bin/tacuser -u $username -p $password -e $usermail -n $fullname
+						echo "<-------------BREAK-END-------------->" >> $TACLOG
 		  			fi
 		  		done
 					;;
-				3) #This case will delete users
+				3) #This case will delete users based on input
 					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+					echo "Delete user initiated" >> $TACLOG
 					echo " You have chosen to delete a user."
 					echo " Please enter their username"
 					read username
+					echo -e "Username= $username" >> $TACLOG
 					echo " Please enter the user's e-mail address"
 					read usermail
+					echo -e "E-mail= $usermail" >> $TACLOG
 					echo " Please enter the user's full name"
 					read fullname
+					echo -e "Name= $fullname" >> $TACLOG
 					echo " Your current entries are:"
 					echo -e " $username, $usermail, and $fullname"
 					until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
@@ -123,10 +161,14 @@ do
 					fi
 		  			done
 		  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+		  				echo -e "Delete user cancelled" >> $TACLOG
 		  				break
 		  			fi
 		  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		  				echo "Initiating tacdelete.sh, breaking log" >> $TACLOG
+						echo "<-------------LOG-BREAK-------------->" >> $TACLOG
 		  				/opt/bin/tacdelete -u $username -e $usermail -n $fullname
+		  				echo "<-------------BREAK-END-------------->" >> $TACLOG
 		  			fi
 		  			if ! /opt/bin/tacdelete ; then
 		  				echo " !!!ERROR!!!"
@@ -159,6 +201,7 @@ do
 			case $answer in
 				1) #This case shows logs and allows the user to view the content of individual logs
 					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+					echo -e "Viewed logs" >> $TACLOG
 					clear
 					echo "========================================================================================="
 					echo "                                       Twotac Logs                                       "
@@ -175,6 +218,7 @@ do
 						break
 					fi
 					cat /var/log/taclogs/$logsearch 2>/dev/null
+					echo -e "Viewed /var/log/taclogs/$logsearch" >> $TACLOG
 					echo ""
 					echo ""
 					echo "====================================================="
@@ -193,12 +237,14 @@ do
 					done
 					;;
 				2) #This case will run a backup
+					echo -e "Running backup" >> $TACLOG
 					/etc/cron.weekly/backup.sh 2>/dev/null
 					echo "Backup ran successfully"
 					echo ""
 					read -p "Press enter to continue"
 					;;
 				3) #This case will show the user all the backups that have been stored in the backups folder.
+					echo -e "Viewing backups" >> $TACLOG
 					echo "========================================================================================="
 					echo "                                     Twotac Backups                                      "
 					echo "========================================================================================="
@@ -540,7 +586,7 @@ do
 		  				CONFIGURED=false
 		  			fi
 				done
-						;;
+				;;
 			2) #This case will adjust the hostname. Note the format should be http://hostname.com without trailng slashes.
 				until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 					clear
