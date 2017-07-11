@@ -1,0 +1,2 @@
+#!/bin/sh
+ln -s /opt/bin/*.sh /usr/bin

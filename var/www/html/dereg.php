@@ -7,7 +7,6 @@
 </head>
 <style src="style.css"></style>
 <body class="blackbackground">
-  class=(blackbackground)
     <h1 class="title">Tacacs+ Deregistration</h1>
     <div class="form-box">
     <form>

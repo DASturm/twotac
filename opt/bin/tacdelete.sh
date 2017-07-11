@@ -5,6 +5,7 @@ TACCONF="/etc/tacacs+/tac_plus.conf"
 MAILER="MAILPLACEHOLDER"
 ORG="ORGPLACEHOLDER"
 TACLOG="/var/log/taclogs/taclog"
+MAILDIR="/opt/bin"
 
 #Error codes
 errorformat="Incorrect formatting, please use this format: tacdelete -u [USERNAME] -p [PASSWORD] -e [EMAIL] -n [NAME]"
@@ -25,7 +26,7 @@ then
     echo $errorformat | tee -a $TACLOG
     echo "<--------------END-LOG--------------->" | tee -a $TACLOG
     echo "" | tee -a $TACLOG
-    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorformat/" /opt/bin/mailscripterror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
+    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorformat/" $MAILDIR/mailscripterror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
     exit 1
 fi
 USERNAME="$2"
@@ -47,7 +48,7 @@ then
     echo $errortryagain | tee -a $TACLOG
     echo "<--------------END-LOG--------------->" | tee -a $TACLOG
     echo "" | tee -a $TACLOG
-    sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" /opt/bin/mailusererror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
+    sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" $MAILDIR/mailusererror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
     exit 3
 fi
 
@@ -69,12 +70,12 @@ if [ ! -f $TACCONF ]; then
     echo $errortryagain | tee -a $TACLOG
     echo "<--------------END-LOG--------------->" | tee -a $TACLOG
     echo "" | tee -a $TACLOG
-    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorconfig/" /opt/bin/mailscripterror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
+    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorconfig/" $MAILDIR/mailscripterror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
     exit 4
 fi
 
 # Rewrites the template e-mail with all the collected variables and sends it to the registering user
-sed -e "s/\[NAME\]/$NAME/" -e "s \[USER\] $USERNAME " /opt/bin/maildelete | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
+sed -e "s/\[NAME\]/$NAME/" -e "s \[USER\] $USERNAME " $MAILDIR/maildelete | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
 
 #Restart tacacs service so the newly registered user is available
 systemctl restart tacacs_plus
@@ -90,6 +91,7 @@ else
     echo $errortryagain | tee -a $TACLOG
     echo "<--------------END-LOG--------------->" | tee -a $TACLOG
     echo "" | tee -a $TACLOG
-    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorrestart/" /opt/bin/mailscripterror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
+    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorrestart/" $MAILDIR/mailscripterror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
     exit 5
 fi
+#Written with the assistance of Kyle Kinkaid
