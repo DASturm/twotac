@@ -5,75 +5,7 @@
     <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
 </head>
-<style>
-body {
-    font-family: Arial, sans-serif;
-}
-.title {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    margin-top: 20px;
-}
-.url-box {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  padding: 5px;
-  text-align: center;
-  font-family: "Roboto", sans-serif;
-}
-.form-box {
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 360px;
-  margin: 0 auto 100px;
-  padding: 45px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-}
-
-form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
-}
-form button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #6e6e6e;
-  width: 100%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
-}
-form button:hover,form button:active,form button:focus {
-  background: #333333;
-}
-form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
-}
-span {
-  font-weight: bold;
-}
-</style>
+<style src="style.css"></style>
 <body>
     <h1 class="title">Tacacs+ Registration</h1>
     <div class="form-box">
