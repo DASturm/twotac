@@ -8,6 +8,7 @@ CONFIGURED=false
 #This is where the current variables will be stored NOTE CHANGE TO /OPT/BIN/TAC.CONF WHEN TESTING IS OVER
 source tac.conf
 if [ $FIRSTSETUP = "false" ]; then
+	clear
 	echo "========================================================================================="
 	echo "                                      Twotac Setup                                       "
 	echo "========================================================================================="
@@ -30,7 +31,7 @@ if [ $FIRSTSETUP = "false" ]; then
 	echo ""
 	echo "Would you like to make all twotac commands global?"
 	echo "The current list of scripts are:"
-	ls /opt/bin/ | grep *.sh
+	ls /opt/bin/ | grep .sh
 	echo ""
 	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 		echo " Would you like to continue? (y/n)"
