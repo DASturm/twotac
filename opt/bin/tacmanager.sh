@@ -18,8 +18,8 @@ if [ $FIRSTSETUP = "false" ]; then
 	echo "========================================================================================="
 	echo ""
 	echo ""
-	echo "This looks like your first time running setup, would you like to skip straight to setup?"
-	echo "(yes/no)"
+	echo "This looks like your first time running Twotac Manager, "
+	echo "would you like to skip straight to setup? (yes/no)"
 	echo ""
 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
   		read yn
@@ -93,9 +93,8 @@ if [ $FIRSTSETUP = "false" ]; then
 			echo -e "$pam"
 		fi
 		echo ""
-		echo "Would you like to overwrite your standard configurations for the twotac default configuration?"
+		echo "Would you like to overwrite your standard configurations for the twotac default configuration? (y/n)"
 		until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-			echo " Would you like to continue? (y/n)"
 		 		read yn
 			if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 				echo " That output doesn't register, please try again."
@@ -361,7 +360,9 @@ if [ $FIRSTSETUP = "false" ]; then
 				fi
 			if [[ $NEWWEB ]]; then
 				echo "$NEWWEB COMMITTED" >> $TACLOG
-				sed -i "s/${WEB//\//\\/}/$NEWWEB/g" $FILES
+				sed -i "s#$WEB#$NEWWEB#g" $FILES
+				sed -i "s#https://##g" /etc/postfix/main.cf
+				sed -i "s#http://##g" /etc/postfix/main.cf
 				NEWWEB=""
 				fi
 			if [[ $NEWMAIL ]]; then
@@ -904,7 +905,9 @@ do
 							fi
 						if [[ $NEWWEB ]]; then
 							echo "$NEWWEB COMMITTED" >> $TACLOG
-							sed -i "s/${WEB//\//\\/}/$NEWWEB/g" $FILES
+							sed -i "s#$WEB#$NEWWEB#g" $FILES
+							sed -i "s#https://##g" /etc/postfix/main.cf
+							sed -i "s#http://##g" /etc/postfix/main.cf
 							NEWWEB=""
 							fi
 						if [[ $NEWMAIL ]]; then
@@ -1219,7 +1222,9 @@ do
 		
 							if [[ $NEWWEB ]]; then
 								echo "$NEWWEB COMMITTED" >> $TACLOG
-								sed -i "s/${WEB//\//\\/}/$NEWWEB/g" $FILES
+								sed -i "s#$WEB#$NEWWEB#g" $FILES
+								sed -i "s#https://##g" /etc/postfix/main.cf
+								sed -i "s#http://##g" /etc/postfix/main.cf
 								NEWWEB=""
 								fi
 		
