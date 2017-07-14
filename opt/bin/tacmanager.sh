@@ -28,9 +28,9 @@ if [ $FIRSTSETUP = "false" ]; then
 		fi
 	done
 	echo ""
-	echo "Would you like to make all tacacs commands global?"
+	echo "Would you like to make all twotac commands global?"
 	echo "The current list of scripts are:"
-	ls -gavA /opt/bin/ | grep *.sh
+	ls /opt/bin/ | grep *.sh
 	echo ""
 	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 		echo " Would you like to continue? (y/n)"
@@ -43,7 +43,7 @@ if [ $FIRSTSETUP = "false" ]; then
 		break
 	fi
 	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		ln -s /opt/bin/*.sh /usr/bin/
+		sudo ln -s /opt/bin/*.sh /usr/bin/
 	fi
 	yn=""
 	echo "========================================================================================="
@@ -152,7 +152,6 @@ if [ $FIRSTSETUP = "false" ]; then
 		fi
 		echo "This software will not work as intended until you do."
 	fi
-	;;
 	echo "Rewriting config data..."
 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 		echo "========================================================================================="
@@ -376,8 +375,8 @@ if [ $FIRSTSETUP = "false" ]; then
 		[Nn]* ) continue
 			;;
 		  esac
-		  fi
-
+		fi
+fi
 #trap '' 2
 echo "<----`date`---->" >> $TACLOG
 echo "Twotac Management" >> $TACLOG
@@ -473,89 +472,89 @@ do
 					;;
 				2) #This case will add a user based on input
 					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
-					echo "Add user initiated" >> $TACLOG
-					echo " You have chosen to add a user."
-					echo " Please enter the new username"
-					read username
-					echo -e "Username= $username" >> $TACLOG
-					password=""
-					passconf=""
-					until [[ $password ]] &&  [[ $passconf ]] && [[ $password == $passconf ]]; do
-						if  [[ $password ]]; then
-							if [[ $password -ne $passconf ]]; then
-								echo " The passwords do not match, please try again"
+						echo "Add user initiated" >> $TACLOG
+						echo " You have chosen to add a user."
+						echo " Please enter the new username"
+						read username
+						echo -e "Username= $username" >> $TACLOG
+						password=""
+						passconf=""
+						until [[ $password ]] &&  [[ $passconf ]] && [[ $password == $passconf ]]; do
+							if  [[ $password ]]; then
+								if [[ $password -ne $passconf ]]; then
+									echo " The passwords do not match, please try again"
+								fi
 							fi
+							echo " Please enter the new password"
+							read -s password
+							echo " Please confirm your password"
+							read -s passconf
+						done
+						echo " Please enter the user's e-mail address"
+						read usermail
+						echo -e "E-mail= $usermail" >> $TACLOG
+						echo " Please enter the user's full name"
+						read fullname
+						echo -e "Name= $fullname" >> $TACLOG
+						echo " Your current entries are:"
+						echo -e " $username, $usermail, and $fullname"
+						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+							echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
+  							read yn
+							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+							echo " That output doesn't register, please try again."
 						fi
-						echo " Please enter the new password"
-						read -s password
-						echo " Please confirm your password"
-						read -s passconf
-					done
-					echo " Please enter the user's e-mail address"
-					read usermail
-					echo -e "E-mail= $usermail" >> $TACLOG
-					echo " Please enter the user's full name"
-					read fullname
-					echo -e "Name= $fullname" >> $TACLOG
-					echo " Your current entries are:"
-					echo -e " $username, $usermail, and $fullname"
-					until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
-  						read yn
-						if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-						echo " That output doesn't register, please try again."
-					fi
+		  				done
+		  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+		  					echo -e "Add user cancelled" >> $TACLOG
+		  					break
+		  				fi
+		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		  					echo "Initiating tacuser.sh, breaking log" >> $TACLOG
+							echo "<-------------LOG-BREAK-------------->" >> $TACLOG
+		  					/opt/bin/tacuser -u $username -p $password -e $usermail -n $fullname
+							echo "<-------------BREAK-END-------------->" >> $TACLOG
+		  				fi
 		  			done
-		  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  				echo -e "Add user cancelled" >> $TACLOG
-		  				break
-		  			fi
-		  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  				echo "Initiating tacuser.sh, breaking log" >> $TACLOG
-						echo "<-------------LOG-BREAK-------------->" >> $TACLOG
-		  				/opt/bin/tacuser -u $username -p $password -e $usermail -n $fullname
-						echo "<-------------BREAK-END-------------->" >> $TACLOG
-		  			fi
-		  		done
 					;;
 				3) #This case will delete users based on input
 					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
-					echo "Delete user initiated" >> $TACLOG
-					echo " You have chosen to delete a user."
-					echo " Please enter their username"
-					read username
-					echo -e "Username= $username" >> $TACLOG
-					echo " Please enter the user's e-mail address"
-					read usermail
-					echo -e "E-mail= $usermail" >> $TACLOG
-					echo " Please enter the user's full name"
-					read fullname
-					echo -e "Name= $fullname" >> $TACLOG
-					echo " Your current entries are:"
-					echo -e " $username, $usermail, and $fullname"
-					until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
-  						read yn
-						if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-						echo " That output doesn't register, please try again."
-					fi
+						echo "Delete user initiated" >> $TACLOG
+						echo " You have chosen to delete a user."
+						echo " Please enter their username"
+						read username
+						echo -e "Username= $username" >> $TACLOG
+						echo " Please enter the user's e-mail address"
+						read usermail
+						echo -e "E-mail= $usermail" >> $TACLOG
+						echo " Please enter the user's full name"
+						read fullname
+						echo -e "Name= $fullname" >> $TACLOG
+						echo " Your current entries are:"
+						echo -e " $username, $usermail, and $fullname"
+						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+							echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
+  							read yn
+							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+							echo " That output doesn't register, please try again."
+						fi
+		  				done
+		  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+		  					echo -e "Delete user cancelled" >> $TACLOG
+		  					break
+		  				fi
+		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		  					echo "Initiating tacdelete.sh, breaking log" >> $TACLOG
+							echo "<-------------LOG-BREAK-------------->" >> $TACLOG
+		  					/opt/bin/tacdelete -u $username -e $usermail -n $fullname
+		  					echo "<-------------BREAK-END-------------->" >> $TACLOG
+		  				fi
+		  				if ! /opt/bin/tacdelete ; then
+		  					echo " !!!ERROR!!!"
+		  					echo ""
+		  					read -p "Press enter to continue"
+		  				fi
 		  			done
-		  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  				echo -e "Delete user cancelled" >> $TACLOG
-		  				break
-		  			fi
-		  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  				echo "Initiating tacdelete.sh, breaking log" >> $TACLOG
-						echo "<-------------LOG-BREAK-------------->" >> $TACLOG
-		  				/opt/bin/tacdelete -u $username -e $usermail -n $fullname
-		  				echo "<-------------BREAK-END-------------->" >> $TACLOG
-		  			fi
-		  			if ! /opt/bin/tacdelete ; then
-		  				echo " !!!ERROR!!!"
-		  				echo ""
-		  				read -p "Press enter to continue"
-		  			fi
-		  		done
 					;;
 				[Qq]) break
 					;;
@@ -1276,7 +1275,12 @@ do
 				echo " To view default twotac configs,        enter 4"
 				echo " To exit this interface,                enter Q"
 				echo ""
-				case
+				echo "====================================================="
+				echo " Enter your selection"
+				echo "====================================================="
+				echo ""
+				read answer
+				case $answer in
 					1) #This case views the tacacs+ config
 						clear
 						cat /etc/tacacs+/tac_plus.conf
@@ -1354,7 +1358,10 @@ do
 						echo "====================================================="
 						echo ""
 						read -r "Press enter to continue"
+						;;
 		  			esac
+		  		done
+		  		;;
 			2) #This case will overwrite standard configurations with the default twotac configuration
 				clear
 				yn=""
@@ -1464,10 +1471,13 @@ do
 					echo "This software will not work as intended until you do."
 				fi
 				;;
+
 			[Qq] ) break
 					;;
+				esac
+				;;
 	
-	[Qq]) echo "<--------------END-LOG--------------->" >> $TACLOG
+	[Qq] ) echo "<--------------END-LOG--------------->" >> $TACLOG
 			echo "" >> $TACLOG
 			clear
 			exit 
