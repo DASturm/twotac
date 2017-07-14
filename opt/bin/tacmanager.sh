@@ -361,7 +361,7 @@ if [ $FIRSTSETUP = "false" ]; then
 				fi
 			if [[ $NEWWEB ]]; then
 				echo "$NEWWEB COMMITTED" >> $TACLOG
-				sed -i "s/$WEB/$NEWWEB/g" $FILES
+				sed -i "s/${WEB//\//\\/}/$NEWWEB/g" $FILES
 				NEWWEB=""
 				fi
 			if [[ $NEWMAIL ]]; then
@@ -904,7 +904,7 @@ do
 							fi
 						if [[ $NEWWEB ]]; then
 							echo "$NEWWEB COMMITTED" >> $TACLOG
-							sed -i "s/$WEB/$NEWWEB/g" $FILES
+							sed -i "s/${WEB//\//\\/}/$NEWWEB/g" $FILES
 							NEWWEB=""
 							fi
 						if [[ $NEWMAIL ]]; then
@@ -1219,7 +1219,7 @@ do
 		
 							if [[ $NEWWEB ]]; then
 								echo "$NEWWEB COMMITTED" >> $TACLOG
-								sed -i "s/$WEB/$NEWWEB/g" $FILES
+								sed -i "s/${WEB//\//\\/}/$NEWWEB/g" $FILES
 								NEWWEB=""
 								fi
 		
