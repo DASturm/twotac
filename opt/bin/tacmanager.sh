@@ -43,7 +43,7 @@ if [ $FIRSTSETUP = "false" ]; then
 		break
 	fi
 	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		ln -s /opt/bin/*.sh /usr/bin
+		ln -s /opt/bin/*.sh /usr/bin/
 	fi
 	yn=""
 	echo "========================================================================================="
