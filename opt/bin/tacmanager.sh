@@ -32,24 +32,26 @@ if [ $FIRSTSETUP = "false" ]; then
 			break
 		fi
 	done
-	echo ""
-	echo "This system employs a number of scripts to make this software easy to use."
-	echo "The current list of scripts in /opt/bin are:"
-	ls /opt/bin/ | grep .sh
-	echo ""
-	yn=""
-	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-		echo " Would you like to make these scripts global? (y/n)"
-	 		read yn
-		if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-			echo " That output doesn't register, please try again."
+	if ! [[ /usr/bin/tacmanager.sh ]] || [[ /usr/bin/tacuser.sh ]] || [[ /usr/bin/tacdelete.sh ]]; then
+		echo ""
+		echo "This system employs a number of scripts to make this software easy to use."
+		echo "The current list of scripts in /opt/bin are:"
+		ls /opt/bin/ | grep .sh
+		echo ""
+		yn=""
+		until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+			echo " Would you like to make these scripts global? (y/n)"
+		 		read yn
+			if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+				echo " That output doesn't register, please try again."
+			fi
+		done
+		if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+			break
 		fi
-	done
-	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-		break
-	fi
-	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		sudo ln -s /opt/bin/*.sh /usr/bin/
+		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+			sudo ln -s /opt/bin/*.sh /usr/bin/
+		fi
 	fi
 	yn=""
 	echo "========================================================================================="
