@@ -7,8 +7,12 @@ USERLIST=$(getent group tacusers | cut -f4 -d ':' | sed 's/,/ /g;')
 CONFIGURED=false
 #This is where the current variables will be stored NOTE CHANGE TO /OPT/BIN/TAC.CONF WHEN TESTING IS OVER
 source tac.conf
+#trap '' 2
+echo "<----`date`---->" >> $TACLOG
+echo "Twotac Management" >> $TACLOG
 if [ $FIRSTSETUP = "false" ]; then
 	clear
+	yn=""
 	echo "========================================================================================="
 	echo "                                      Twotac Setup                                       "
 	echo "========================================================================================="
@@ -29,12 +33,13 @@ if [ $FIRSTSETUP = "false" ]; then
 		fi
 	done
 	echo ""
-	echo "Would you like to make all twotac commands global?"
-	echo "The current list of scripts are:"
+	echo "This system employs a number of scripts to make this software easy to use."
+	echo "The current list of scripts in /opt/bin are:"
 	ls /opt/bin/ | grep .sh
 	echo ""
+	yn=""
 	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-		echo " Would you like to continue? (y/n)"
+		echo " Would you like to make these scripts global? (y/n)"
 	 		read yn
 		if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 			echo " That output doesn't register, please try again."
@@ -74,7 +79,8 @@ if [ $FIRSTSETUP = "false" ]; then
 	fi
 	if [[ $tacacs ]] || [[ $postfix ]] || [[ $pam ]]; then
 		echo ""
-		echo "It looks like these configurations are available to overwrite"
+		echo "It looks like these configurations are available to overwrite:"
+		echo ""
 		if [[ $tacacs ]]; then 
 			echo -e "$tacacs"
 		fi
@@ -85,16 +91,15 @@ if [ $FIRSTSETUP = "false" ]; then
 			echo -e "$pam"
 		fi
 		echo ""
-		echo ""
 		echo "Would you like to overwrite your standard configurations for the twotac default configuration?"
-		until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-			echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
+		until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+			echo " Would you like to continue? (y/n)"
 		 		read yn
 			if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 				echo " That output doesn't register, please try again."
 			fi
 		done
-		 	if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+		 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		 		break
 		 	fi
 		 	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
@@ -154,6 +159,7 @@ if [ $FIRSTSETUP = "false" ]; then
 		echo "This software will not work as intended until you do."
 	fi
 	echo "Rewriting config data..."
+	yn=""
 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 		echo "========================================================================================="
 		echo "                                    Organization Name                                    "
@@ -378,9 +384,6 @@ if [ $FIRSTSETUP = "false" ]; then
 		  esac
 		fi
 fi
-#trap '' 2
-echo "<----`date`---->" >> $TACLOG
-echo "Twotac Management" >> $TACLOG
 while true
 do
 	clear
@@ -1241,7 +1244,7 @@ do
 							;;
 		    		esac
 					;;
-			[Qq] ) break
+			[Qq] ) continue
 					;;
 		esac
 		;;
@@ -1253,8 +1256,8 @@ do
 		echo "                                  Twotac Configurations                                  "
 		echo "========================================================================================="
 		echo " Available commands:"
-		echo " To view or edit current logs,          enter 1"
-		echo " To overwrite existing logs,            enter 2"
+		echo " To view or edit current configs,       enter 1"
+		echo " To overwrite existing configs,         enter 2"
 		echo " To exit this interface,                enter Q"
 		echo ""
 		echo "====================================================="
@@ -1265,6 +1268,7 @@ do
 		case $answer in
 			1) #This case shows logs and allows the user to view the content of individual logs
 				until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+				clear
 				echo "========================================================================================="
 				echo "                                      View Configs                                       "
 				echo "========================================================================================="
@@ -1287,15 +1291,14 @@ do
 						cat /etc/tacacs+/tac_plus.conf
 						echo ""
 						echo ""
-						echo "Would you like to edit this file?"
+						echo "Would you like to edit this file? (y/n)"
 						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
 		  				read yn
 						if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 							echo " That output doesn't register, please try again."
 						fi
 						done
-		  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+		  				if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		  					break
 		  				fi
 		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
@@ -1307,15 +1310,14 @@ do
 						cat /etc/postfix/main.cf
 						echo ""
 						echo ""
-						echo "Would you like to edit this file?"
+						echo "Would you like to edit this file? (y/n)"
 						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
 		  				read yn
 						if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 							echo " That output doesn't register, please try again."
 						fi
 						done
-		  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+		  				if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		  					break
 		  				fi
 		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
@@ -1327,15 +1329,14 @@ do
 						cat /etc/pam.d/tac_plus
 						echo ""
 						echo ""
-						echo "Would you like to edit this file?"
+						echo "Would you like to edit this file? (y/n)"
 						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
 		  				read yn
 						if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 							echo " That output doesn't register, please try again."
 						fi
 						done
-		  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+		  				if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		  					break
 		  				fi
 		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
@@ -1343,20 +1344,25 @@ do
 		  				fi
 		  				;;
 		  			4) #This case views all default twotac configs
+						echo ""
+						echo ""
+						echo "====================================================="
 						echo "Twotac default tacacs+ configuration"
+						echo "====================================================="
 						cat /opt/tacconfigs/tacacs+/tac_plus.conf
 						echo ""
-						echo "====================================================="
 						echo ""
+						echo "====================================================="
 						echo "Twotac default postfix configuration"
+						echo "====================================================="
 						cat /opt/tacconfigs/postfix/main.cf
 						echo ""
-						echo "====================================================="
 						echo ""
+						echo "====================================================="
 						echo "Twotac default pam configuration"
+						echo "====================================================="
 						cat /opt/tacconfigs/pam/tac_plus
 						echo ""
-						echo "====================================================="
 						echo ""
 						read -r "Press enter to continue"
 						;;
