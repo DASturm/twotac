@@ -534,18 +534,18 @@ do
 							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 							echo " That output doesn't register, please try again."
 						fi
-		  				done
-		  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  					echo -e "Add user cancelled" >> $TACLOG
-		  					break
-		  				fi
-		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  					echo "Initiating tacuser, breaking log" >> $TACLOG
+						done
+						if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+							echo -e "Add user cancelled" >> $TACLOG
+							break
+						fi
+						if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+							echo "Initiating tacuser, breaking log" >> $TACLOG
 							echo "<-------------LOG-BREAK-------------->" >> $TACLOG
-		  					/opt/bin/tacuser -u $username -p $password -e $usermail -n $fullname
+							/opt/bin/tacuser -u $username -p $password -e $usermail -n $fullname
 							echo "<-------------BREAK-END-------------->" >> $TACLOG
-		  				fi
-		  			done
+						fi
+					done
 					;;
 				3) #This case will delete users based on input
 					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
@@ -568,23 +568,23 @@ do
 							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 							echo " That output doesn't register, please try again."
 						fi
-		  				done
-		  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  					echo -e "Delete user cancelled" >> $TACLOG
-		  					break
-		  				fi
-		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  					echo "Initiating tacdelete, breaking log" >> $TACLOG
+						done
+						if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+							echo -e "Delete user cancelled" >> $TACLOG
+							break
+						fi
+						if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+							echo "Initiating tacdelete, breaking log" >> $TACLOG
 							echo "<-------------LOG-BREAK-------------->" >> $TACLOG
-		  					/opt/bin/tacdelete -u $username -e $usermail -n $fullname
-		  					echo "<-------------BREAK-END-------------->" >> $TACLOG
-		  				fi
-		  				if ! /opt/bin/tacdelete ; then
-		  					echo " !!!ERROR!!!"
-		  					echo ""
-		  					read -p "Press enter to continue"
-		  				fi
-		  			done
+							/opt/bin/tacdelete -u $username -e $usermail -n $fullname
+							echo "<-------------BREAK-END-------------->" >> $TACLOG
+						fi
+						if ! /opt/bin/tacdelete ; then
+							echo " !!!ERROR!!!"
+							echo ""
+							read -p "Press enter to continue"
+						fi
+					done
 					;;
 				[Qq]) break
 					;;
@@ -641,8 +641,8 @@ do
 							echo " That output doesn't register, please try again."
 						fi
 						if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  					break
-		  				fi
+							break
+						fi
 					done
 					;;
 				2) #This case will run a backup
@@ -749,15 +749,15 @@ do
 							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 							echo " That output doesn't register, please try again."
 						fi
-		  				done
-		  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  					break
-		  				fi
-		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  					NEWORG="$TEMPORG"
-		  					echo "$ORG \t::::\t $NEWORG" >> $TACLOG
-		  					CONFIGURED=false
-		  				fi
+						done
+						if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+							break
+						fi
+						if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+							NEWORG="$TEMPORG"
+							echo "$ORG \t::::\t $NEWORG" >> $TACLOG
+							CONFIGURED=false
+						fi
 					done
 					if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 						yn="n"
@@ -778,19 +778,19 @@ do
 						yn=""
 						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 							echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
-		  					read yn
+							read yn
 							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 								echo " That output doesn't register, please try again."
 							fi
-		  				done
-		  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  					break
-		  				fi
-		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  					NEWWEB="$TEMPWEB"
-		  					echo "$WEB \t::::\t $NEWWEB" >> $TACLOG
-		  					CONFIGURED=false
-		  				fi
+						done
+						if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+							break
+						fi
+						if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+							NEWWEB="$TEMPWEB"
+							echo "$WEB \t::::\t $NEWWEB" >> $TACLOG
+							CONFIGURED=false
+						fi
 					done
 				fi
 				if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
@@ -810,19 +810,19 @@ do
 						yn=""
 						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 							echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
-		  					read yn
+							read yn
 							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 								echo " That output doesn't register, please try again."
 							fi
-		  				done
-		  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  					break
-		  				fi
-		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  					NEWMAIL="$TEMPMAIL"
-		  					echo "$MAIL \t::::\t $NEWMAIL" >> $TACLOG
-		  					CONFIGURED=false
-		  				fi
+						done
+						if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+							break
+						fi
+						if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+							NEWMAIL="$TEMPMAIL"
+							echo "$MAIL \t::::\t $NEWMAIL" >> $TACLOG
+							CONFIGURED=false
+						fi
 					done
 				fi
 				if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
@@ -843,24 +843,24 @@ do
 						yn=""
 						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 							echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
-		  					read yn
+							read yn
 							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 								echo " That output doesn't register, please try again."
 							fi
-		  				done
-		  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  					break
-		  				fi
-		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  					NEWSMTP="$TEMPSMTP"
-		  					echo "$SMTP \t::::\t $NEWSMTP" >> $TACLOG
-		  					CONFIGURED=false
-		  				fi
+						done
+						if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+							break
+						fi
+						if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+							NEWSMTP="$TEMPSMTP"
+							echo "$SMTP \t::::\t $NEWSMTP" >> $TACLOG
+							CONFIGURED=false
+						fi
 					done
 				fi
 				if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 					yn="n"
-			 		until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+					until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 						echo "========================================================================================="
 						echo "                                       TACACS+ Key                                       "
 						echo "========================================================================================="
@@ -876,19 +876,19 @@ do
 						yn=""
 						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 							echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
-		  					read yn
+							read yn
 							if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 								echo " That output doesn't register, please try again."
 							fi
-		  				done
-		  				if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  					break
-		  				fi
-		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  					NEWKEY="$TEMPKEY"
-		  					echo "$KEY \t::::\t $NEWKEY" >> $TACLOG
-		  					CONFIGURED=false
-		  				fi
+						done
+						if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+							break
+						fi
+						if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+							NEWKEY="$TEMPKEY"
+							echo "$KEY \t::::\t $NEWKEY" >> $TACLOG
+							CONFIGURED=false
+						fi
 					done
 				fi
 				if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
@@ -919,8 +919,8 @@ do
 					fi
 					echo ""
 					read -p " Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
-		    	case $yn in
-		       		[Yy]* )
+					case $yn in
+						[Yy]* )
 						if [[ $NEWORG ]]; then
 							echo "$NEWORG COMMITTED" >> $TACLOG
 							sed -i "s/$ORG/$NEWORG/g" $FILES
@@ -953,8 +953,8 @@ do
 						;;
 					[Nn]* ) continue
 						;;
-		    	esac
-		    	fi
+				esac
+				fi
 				;;
 			1) #This case will change the organization name
 				until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
@@ -996,19 +996,19 @@ do
 					yn=""
 					until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
-		  				read yn
+						read yn
 						if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 							echo " That output doesn't register, please try again."
 						fi
-		  			done
-		  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  				break
-		  			fi
-		  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  				NEWORG="$TEMPORG"
-		  				echo "$ORG \t::::\t $NEWORG" >> $TACLOG
-		  				CONFIGURED=false
-		  			fi
+					done
+					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+						break
+					fi
+					if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+						NEWORG="$TEMPORG"
+						echo "$ORG \t::::\t $NEWORG" >> $TACLOG
+						CONFIGURED=false
+					fi
 				done
 				;;
 			2) #This case will adjust the hostname. Note the format should be http://hostname.com without trailng slashes.
@@ -1053,19 +1053,19 @@ do
 					yn=""
 					until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
-		  				read yn
+						read yn
 						if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 							echo " That output doesn't register, please try again."
 						fi
 					done
-		  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  				break
-		  			fi
-		  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  				NEWWEB="$TEMPWEB"
-		  				echo "$WEB \t::::\t $NEWWEB" >> $TACLOG
-		  				CONFIGURED=false
-		  			fi
+					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+						break
+					fi
+					if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+						NEWWEB="$TEMPWEB"
+						echo "$WEB \t::::\t $NEWWEB" >> $TACLOG
+						CONFIGURED=false
+					fi
 				done
 						;;
 			3) #This case adjusts the administrator who will typically run the mail system and receive copy of all sent mail
@@ -1108,19 +1108,19 @@ do
 					yn=""
 					until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
-		  				read yn
+						read yn
 						if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 							echo " That output doesn't register, please try again."
 						fi
 					done
-		  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  				break
-		  			fi
-		  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  				NEWMAIL="$TEMPMAIL"
-		  				echo "$MAIL \t::::\t $NEWMAIL" >> $TACLOG
-		  				CONFIGURED=false
-		  			fi
+					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+						break
+					fi
+					if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+						NEWMAIL="$TEMPMAIL"
+						echo "$MAIL \t::::\t $NEWMAIL" >> $TACLOG
+						CONFIGURED=false
+					fi
 				done
 						;;
 			4) #This case will attempt to configure SMTP for further use, but postfix may require more direct configuration
@@ -1163,19 +1163,19 @@ do
 					yn=""
 					until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
-		  				read yn
+						read yn
 						if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 							echo " That output doesn't register, please try again."
 						fi
 					done
-		  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  				break
-		  			fi
-		  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  				NEWSMTP="$TEMPSMTP"
-		  				echo "$SMTP \t::::\t $NEWSMTP" >> $TACLOG
-		  				CONFIGURED=false
-		  			fi
+					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+						break
+					fi
+					if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+						NEWSMTP="$TEMPSMTP"
+						echo "$SMTP \t::::\t $NEWSMTP" >> $TACLOG
+						CONFIGURED=false
+					fi
 				done
 						;;
 			5) #This will change the Tacacs+ key, which will require reconfiguration of network devices to be functional
@@ -1219,31 +1219,30 @@ do
 					yn=""
 					until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 						echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
-		  				read yn
+						read yn
 						if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 							echo " That output doesn't register, please try again."
 						fi
 					done
-		  			if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		  				break
-		  			fi
-		  			if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  				NEWKEY="$TEMPKEY"
-		  				echo "$KEY \t::::\t $NEWKEY" >> $TACLOG
-		  				CONFIGURED=false
-		  			fi
+					if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+						break
+					fi
+					if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+						NEWKEY="$TEMPKEY"
+						echo "$KEY \t::::\t $NEWKEY" >> $TACLOG
+						CONFIGURED=false
+					fi
 				done
 						;;
 			[Cc] ) #This case will take $NEWVAR and overwrite $VAR
 					read -p "Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
-		    		case $yn in
-		        		[Yy]* )
+						case $yn in
+							[Yy]* )
 							if [[ $NEWORG ]]; then
 								echo "$NEWORG COMMITTED" >> $TACLOG
 								sed -i "s/$ORG/$NEWORG/g" $FILES
 								NEWORG=""
 								fi
-		
 							if [[ $NEWWEB ]]; then
 								echo "$NEWWEB COMMITTED" >> $TACLOG
 								sed -i "s#$WEB#$NEWWEB#g" $FILES
@@ -1252,19 +1251,16 @@ do
 								sed -i "s#http://##g" /etc/postfix/main.cf
 								NEWWEB=""
 								fi
-		
 							if [[ $NEWMAIL ]]; then
 								echo "$NEWMAIL COMMITTED" >> $TACLOG
 								sed -i "s/$MAIL/$NEWMAIL/g" $FILES
 								NEWMAIL=""
 								fi
-		
 							if [[ $NEWSMTP ]]; then
 								echo "$NEWSMTP COMMITTED" >> $TACLOG
 								sed -i "s/$SMTP/$NEWSMTP/g" $FILES
 								NEWSMTP=""
 								fi
-		
 							if [[ $NEWKEY ]]; then
 								echo "$NEWKEY COMMITTED" >> $TACLOG
 								sed -i "s/$KEY/$NEWKEY/g" $FILES
@@ -1328,20 +1324,20 @@ do
 						echo ""
 						echo "Would you like to edit this file? (y/n)"
 						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-		  				read yn
+						read yn
 						if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 							echo " That output doesn't register, please try again."
 						fi
 						done
-		  				if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-		  					break
-		  				fi
-		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  					echo "Editing tacacs+ configuration" >> $TACLOG
-		  					nano /etc/tacacs+/tac_plus.conf
-		  				fi
-		  				;;
-		  			2) #This case views the postfix config
+						if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+							break
+						fi
+						if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+							echo "Editing tacacs+ configuration" >> $TACLOG
+							nano /etc/tacacs+/tac_plus.conf
+						fi
+						;;
+					2) #This case views the postfix config
 						echo "Viewing postfix configuration" >> $TACLOG
 						clear
 						cat /etc/postfix/main.cf
@@ -1349,20 +1345,20 @@ do
 						echo ""
 						echo "Would you like to edit this file? (y/n)"
 						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-		  				read yn
+						read yn
 						if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 							echo " That output doesn't register, please try again."
 						fi
 						done
-		  				if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-		  					break
-		  				fi
-		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  					echo "Editing postfix configuration" >> $TACLOG
-		  					nano /etc/postfix/main.cf
-		  				fi
-		  				;;
-		  			3) #This case views the pam config
+						if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+							break
+						fi
+						if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+							echo "Editing postfix configuration" >> $TACLOG
+							nano /etc/postfix/main.cf
+						fi
+						;;
+					3) #This case views the pam config
 						echo "Viewing pam configuration" >> $TACLOG
 						clear
 						cat /etc/pam.d/tac_plus
@@ -1370,20 +1366,20 @@ do
 						echo ""
 						echo "Would you like to edit this file? (y/n)"
 						until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-		  				read yn
+						read yn
 						if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 							echo " That output doesn't register, please try again."
 						fi
 						done
-		  				if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-		  					break
-		  				fi
-		  				if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-		  					echo "Editing pam configuration" >> $TACLOG
-		  					nano /etc/pam.d/tac_plus
-		  				fi
-		  				;;
-		  			4) #This case views all default twotac configs
+						if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+							break
+						fi
+						if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+							echo "Editing pam configuration" >> $TACLOG
+							nano /etc/pam.d/tac_plus
+						fi
+						;;
+					4) #This case views all default twotac configs
 						echo "Viewing all configurations" >> $TACLOG
 						echo ""
 						echo ""
@@ -1407,9 +1403,9 @@ do
 						echo ""
 						read -r "Press enter to continue"
 						;;
-		  			esac
-		  		done
-		  		;;
+					esac
+				done
+				;;
 			2) #This case will overwrite standard configurations with the default twotac configuration
 				echo "Configuration overwrite initiated" >> $TACLOG
 				clear
@@ -1541,7 +1537,7 @@ do
 					;;
 				esac
 				;;
-	
+
 	[Qq] ) #This case will end the program
 			echo "<--------------END-LOG--------------->" >> $TACLOG
 			echo "" >> $TACLOG
