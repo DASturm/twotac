@@ -1,0 +1,12 @@
+Package: twotac
+Version: 0.1-1
+Section: base
+Priority: optional
+Architecture: all
+Depends: tacacs+ (>=4.0.4.27a-1), libpam-google-authenticator (>=20130529-2), apache2 (>=2.4.18), postfix (>=3.1.0-3)
+Maintainer: Daniel Sturm <DaASturm@gmail.com>
+Description: Twotac two-factor Tacacs+ system
+ This is a beta version of the Twotac authentication system
+ This system redirects Tacacs+'s authentication to google-authenticator via PAM
+ There is a bash management system and easy to use scripts in /opt/bin/ that can be called globally
+ 
