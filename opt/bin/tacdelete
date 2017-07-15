@@ -5,7 +5,7 @@ TACCONF="/etc/tacacs+/tac_plus.conf"
 MAILER="MAILPLACEHOLDER"
 ORG="ORGPLACEHOLDER"
 TACLOG="/var/log/taclogs/taclog"
-MAILDIR="/opt/bin"
+MAILDIR="/opt/tacmail"
 
 #Error codes
 errorformat="Incorrect formatting, please use this format: tacdelete -u [USERNAME] -p [PASSWORD] -e [EMAIL] -n [NAME]"
