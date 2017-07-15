@@ -1416,25 +1416,25 @@ do
 				echo ""
 				echo "Checking for installed files..."
 				echo "...Checking for installed files..." >> $TACLOG
-				if [[ /etc/tacacs+/tac_plus.conf ]]; then 
+				if [[ /etc/tacacs+/tac_plus.conf ]]; then
 					tacacs="tacacs+" 
 					echo "...tacacs+..." >> $TACLOG
 				else 
 					tacacs="" 
 				fi
-				if [[ /etc/postfix/main.cf ]]; then 
+				if [[ /etc/postfix/main.cf ]]; then
 					postfix="postfix" 
 					echo "...postfix..." >> $TACLOG
 				else 
 					postfix="" 
 				fi
-				if [[ /etc/pam.d/tac_plus ]]; then 
+				if [[ /etc/pam.d/tac_plus ]]; then
 					pam="pam" 
 					echo "...pam..." >> $TACLOG
 				else 
 					pam="" 
 				fi
-				if [[ /etc/apache2/apache2.conf ]]; then 
+				if [[ /etc/apache2/apache2.conf ]]; then
 					apache2="apache2" 
 					echo "...apache2..." >> $TACLOG
 				else 
@@ -1444,13 +1444,13 @@ do
 					echo ""
 					echo "It looks like these configurations are available to overwrite:"
 					echo ""
-					if [[ $tacacs ]]; then 
+					if [[ $tacacs ]]; then
 						echo -e "$tacacs"
 					fi
-					if [[ $postfix ]]; then 
+					if [[ $postfix ]]; then
 						echo -e "$postfix"
 					fi
-					if [[ $pam ]]; then 
+					if [[ $pam ]]; then
 						echo -e "$pam"
 					fi
 					echo ""
@@ -1493,19 +1493,19 @@ do
 						echo "Some dependencies still aren't installed"
 						echo "...Some dependencies still aren't installed..." >> $TACLOG
 						echo "Please install"
-						if ! [[ $tacacs ]]; then 
+						if ! [[ $tacacs ]]; then
 							echo -e "tacacs+"
 							echo "...tacacs+..." >> $TACLOG
 						fi
-						if ! [[ $postfix ]]; then 
+						if ! [[ $postfix ]]; then
 							echo -e "postfix"
 							echo "...postfix..." >> $TACLOG
 						fi
-						if ! [[ $pam ]]; then 
+						if ! [[ $pam ]]; then
 							echo -e "pam"
 							echo "...pam..." >> $TACLOG
 						fi
-						if ! [[ $apache2 ]]; then 
+						if ! [[ $apache2 ]]; then
 							echo -e "apache2"
 							echo "...apache2..." >> $TACLOG
 						fi
@@ -1516,16 +1516,16 @@ do
 					echo "...No dependencies installed..." >> $TACLOG
 					echo "Please install"
 					echo "...Please install: tacacs+ postfix pam apache2..." >> $TACLOG
-					if ! [[ $tacacs ]]; then 
+					if ! [[ $tacacs ]]; then
 						echo -e "tacacs+"
 					fi
-					if ! [[ $postfix ]]; then 
+					if ! [[ $postfix ]]; then
 						echo -e "postfix"
 					fi
-					if ! [[ $pam ]]; then 
+					if ! [[ $pam ]]; then
 						echo -e "pam"
 					fi
-					if ! [[ $apache2 ]]; then 
+					if ! [[ $apache2 ]]; then
 						echo -e "apache2"
 					fi
 					echo "This software will not work as intended until you do."
