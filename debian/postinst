@@ -1,2 +1,0 @@
-chmod u+x /opt/bin/*
-chmod u+x /etc/cron.weekly/*.sh
