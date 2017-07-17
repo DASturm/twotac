@@ -55,7 +55,7 @@ if [ $FIRSTSETUP = "false" ]; then
 		fi
 		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 			echo "...Global script tools enabled..." >> $TACLOG
-			sudo ln -s /opt/bin/*.sh /usr/bin/
+			sudo ln -s /opt/bin/* /usr/bin/
 		fi
 	fi
 	yn=""
@@ -1398,10 +1398,12 @@ do
 						echo "====================================================="
 						echo "Twotac default pam configuration"
 						echo "====================================================="
-						cat /opt/tacconfigs/pam/tac_plus
+						cat /opt/tacconfigs/pam.d/tac_plus
 						echo ""
 						echo ""
-						read -r "Press enter to continue"
+						read -p "Press any key to continue"
+						;;
+					[Qq] ) break
 						;;
 					esac
 				done
