@@ -9,7 +9,12 @@ body {
     font-family: Arial, sans-serif;
     font-weight: bold;
     margin-top: 20px;
-    color : #FFFFFF;
+}
+.blacktext {
+  color: #000000;
+}
+.whitetext {
+  color: #FFFFFF;
 }
 .url-box {
   position: fixed;
@@ -18,13 +23,15 @@ body {
   padding: 5px;
   text-align: center;
 }
+.darkform-box {
+  background: #565656;
+}
 .form-box {
     max-width: 400px;
     margin-left: auto;
     margin-right: auto;
     position: relative;
   z-index: 1;
-  background: #565656;
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;

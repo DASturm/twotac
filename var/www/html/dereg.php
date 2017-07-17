@@ -4,11 +4,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
-<style src="style.css"></style>
 <body class="blackbackground">
-    <h1 class="title">Tacacs+ Deregistration</h1>
-    <div class="form-box">
+    <h1 class="title whitetext">Tacacs+ Deregistration</h1>
+    <div class="form-box darkform-box">
     <form>
             <span id="confirmUsername" class="confirmUsername"></span>
             <input placeholder="User Name" type="username" name="username" id="username" onkeyup="checkUser(); return false">

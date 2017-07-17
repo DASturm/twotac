@@ -4,8 +4,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
-<style src="style.css"></style>
 <body>
     <h1 class="title">Tacacs+ Registration</h1>
     <div class="form-box">
