@@ -13,7 +13,7 @@
             <span id="confirmUsername" class="confirmUsername"></span>
             <input placeholder="User Name" type="username" name="username" id="username" onkeyup="checkUser(); return false">
             <span id="confirmEmail" class="confirmEmail"></span>
-            <input placeholder = "Email" type="email" name="usermail" id="usermail" onkeyup="checkMail(); return false;">
+            <input placeholder = "Email" type="email" name="usermail" id="usermail">
             <span id="confirmName" class="confirmName"></span>
             <input placeholder="Full Name: " type="fullname" name="fullname" id="fullname" onkeyup="checkName(); return false;">
         <td><button class="btn btn-primary" id="submit">Submit</button></td>

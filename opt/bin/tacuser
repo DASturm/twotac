@@ -95,7 +95,7 @@ if [ $? -eq 0 ]
 then
     echo "<--------------END-LOG--------------->" | tee -a $TACLOG
     echo "" | tee -a $TACLOG
-    /opt/bin/backup.sh
+    /etc/cron.weekly/backup.sh
     exit 0
 else
     echo $errorrestart | tee -a $TACLOG

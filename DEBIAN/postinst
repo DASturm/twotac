@@ -1,2 +1,5 @@
 chmod u+x /opt/bin/*
 chmod u+x /etc/cron.weekly/*.sh
+chown www-data:www-data /var/www/html/index.html /var/www/html/style.css /var/www/html/register.php /var/www/html/dereg.php /var/www/html/tacuser.php /var/www/html/tacdelte.php 
+echo "www-data ALL=(ALL:ALL) NOPASSWD: /opt/bin/tacuser" >> /etc/sudoers
+echo "www-data ALL=(ALL:ALL) NOPASSWD: /opt/bin/tacdelete" >> /etc/sudoers
