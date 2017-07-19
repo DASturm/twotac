@@ -55,7 +55,7 @@ then
     exit 3
 fi
 
-#Adds the user using provided information
+#Adds the user using provided information, and adds them to the group "tacusers"
 adduser --disabled-password --gecos "$NAME,,,,$EMAIL" $USERNAME
 usermod -a -G tacusers $USERNAME
 echo "$USERNAME:$PASSWORD" | chpasswd -e
