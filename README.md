@@ -42,7 +42,6 @@ aaa new-model
 tacacs-server host 000.000.000 key 2tacdefault
 aaa group server tacacs+ LoginAuth
 server 000.000.000
-exit
 aaa authentication login default group tacacs+ local
 aaa authorization exec default group tacacs+ local
 line console 0
