@@ -1,20 +1,22 @@
-Hello, [NAME]
+Hello [NAME]
 
-You have successfully registered for ORGPLACEHOLDER Tacacs+ two-factor switch access. If you did not register, please delete or report this e-mail. This registers you for full access to all applicable switches and routers on the ORGPLACEHOLDER network. You will need to remember your login and password used to register for this service, as well as activate the attached codes in Google Authenticator.
+You have successfully registered for ORGPLACEHOLDER Tacacs+ two-factor network authentication. If you did not register, please report this e-mail. This registers you for full access to all applicable switches and routers on the ORGPLACEHOLDER network. You will need to remember your login and password used to register for this service, as well as activate the attached codes in Google Authenticator.
 
 To activate your TOTP (Time-based One Time Password), you must first download the Google Authenticator application to either an Android or iOS device from the respective app stores. You must have this device present to log in using two-factor authentication, so be sure to register with a device that you will have around when you log in. For security purposes, do not attempt to register multiple devices.
-Once Google Authenticator is installed, you will be able to scan QR codes or manually enter a "secret key" which are attached below.
+Once Google Authenticator is installed, you will be able to scan QR codes or manually enter a "secret key" which is attached below.
 
 You may register the device of your choice by scanning the QR code in the link below on the authenticator app:
 [QRURL]
 
-To log in to a switch or router using Tacacs+, first ensure the switch or router has access to the Tacacs+ server, or all logins will fail. If a device does not have access, it will inform you above the username and password fields. Then, type your username as normal. Instead of just typing in the registered password, however, you must first type your password, and without characters or breaks, type the six-digit authentication code from your authenticator immediately after your password, like so:
+To log in to a switch or router using Tacacs+, first ensure the switch or router has access to the Tacacs+ server, or all logins will fail. If a device does not have access, it will inform you above the username and password fields. If a device has access, type your username as normal. Instead of just typing in the registered password, however, you must first type your password, and without characters, spaces or breaks, type the six-digit authentication code from your authenticator immediately after your password, like so:
 
-Username: MyName Password: GoodPass Authentication: 123456
+Username: MyName 
+Password: GoodPass 
+Authentication: 123456
 
-Tacacs+ Login:
-Username: MyName
-Password: GoodPass123456
+  Tacacs+ Login:
+    Username: MyName
+    Password: GoodPass123456
 
 
 If there are any issues, contact the administrators at:
