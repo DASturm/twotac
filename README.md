@@ -37,6 +37,8 @@ If you haven't run tacmanager yet, it will try to run a first-time setup. Let it
 
 ## Additional Setup
 Just because twotac is designed to run with a website, SMTP relay and TACACS+ does not mean you can run twotac's installation and have a AAA authentication server running immediately. There is still much work to be done on the administrator's end. The hostname will need a DNS reservation. The host server will need a static IP address from DHCP so the network devices on AAA can access the server reliably. There ought to be a functional SMTP server if the administrators plan on using the mail system or the web interfaces. And lastly, this software does not actually configure your network devices. 
+
+Example configuration for Cisco devices:
 ```bash
 aaa new-model
 tacacs-server host 000.000.000 key 2tacdefault
