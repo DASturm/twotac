@@ -1,9 +1,10 @@
 chmod u+x /opt/bin/*
 chmod u+x /etc/cron.weekly/*.sh
-chown www-data:www-data /var/www/html/index.html /var/www/html/style.css /var/www/html/register.php /var/www/html/dereg.php /var/www/html/tacuser.php /var/www/html/tacdelte.php 
+chown www-data:www-data /var/www/html/index.html /var/www/html/style.css /var/www/html/register.php /var/www/html/dereg.php /var/www/html/tacuser.php /var/www/html/tacdelte.php
 echo "www-data ALL=(ALL:ALL) NOPASSWD: /opt/bin/tacuser" >> /etc/sudoers
 echo "www-data ALL=(ALL:ALL) NOPASSWD: /opt/bin/tacdelete" >> /etc/sudoers
 sudo groupadd tacusers
 if [[ /etc/ssh/sshd_config ]]; then
 	echo "DenyUsers tacusers" >> /etc/ssh/sshd_config
 fi
+sudo ln -s /opt/bin/* /usr/bin/

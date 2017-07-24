@@ -35,29 +35,6 @@ if [ $FIRSTSETUP = "false" ]; then
 			break
 		fi
 	done
-	if ! [[ /usr/bin/tacmanager ]] || [[ /usr/bin/tacuser ]] || [[ /usr/bin/tacdelete ]]; then
-		echo ""
-		echo "This system employs a number of scripts to make this software easy to use."
-		echo "The current list of scripts in /opt/bin are:"
-		ls /opt/bin/ | grep .sh
-		echo ""
-		yn=""
-		until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-			echo " Would you like to make these scripts global? (y/n)"
-		 		read yn
-			if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-				echo " That output doesn't register, please try again."
-			fi
-		done
-		if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-			echo "...Global script tools disabled..." >> $TACLOG
-			break
-		fi
-		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
-			echo "...Global script tools enabled..." >> $TACLOG
-			sudo ln -s /opt/bin/* /usr/bin/
-		fi
-	fi
 	yn=""
 	echo "========================================================================================="
 	echo "                                  Twotac Configurations                                  "
