@@ -30,7 +30,7 @@ README in progress!
 ## Twotac Setup
 To set up the twotac system according to your own organization and administrators, please run:
 ```bash
-$ /opt/bin/tacmanager
+$ sudo tacmanager
 ```
 Tacmanager is a simple, menu-based system that should help configure, run and read out information on the system.
 If you haven't run tacmanager yet, it will try to run a first-time setup. Let it. It will ask for important information, such as your organization name, the e-mail address of your administrator, your registration website's domain name, an SMTP address usable by the host server, and most importantly, your TACACS+ key. It will also try to overwrite your existing configurations for postfix, PAM, and TACACS+. After it's done this, it will combine the new default scripts and your submitted information about your company to rewrite the included scripts and content to your personalization.
