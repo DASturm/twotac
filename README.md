@@ -30,13 +30,15 @@ README in progress!
 ## Twotac Setup
 To set up the twotac system according to your own organization and administrators, please run:
 ```bash
-$ /opt/bin/tacmanager
+$ sudo tacmanager
 ```
 Tacmanager is a simple, menu-based system that should help configure, run and read out information on the system.
 If you haven't run tacmanager yet, it will try to run a first-time setup. Let it. It will ask for important information, such as your organization name, the e-mail address of your administrator, your registration website's domain name, an SMTP address usable by the host server, and most importantly, your TACACS+ key. It will also try to overwrite your existing configurations for postfix, PAM, and TACACS+. After it's done this, it will combine the new default scripts and your submitted information about your company to rewrite the included scripts and content to your personalization.
 
 ## Additional Setup
 Just because twotac is designed to run with a website, SMTP relay and TACACS+ does not mean you can run twotac's installation and have a AAA authentication server running immediately. There is still much work to be done on the administrator's end. The hostname will need a DNS reservation. The host server will need a static IP address from DHCP so the network devices on AAA can access the server reliably. There ought to be a functional SMTP server if the administrators plan on using the mail system or the web interfaces. And lastly, this software does not actually configure your network devices. 
+
+Example configuration for Cisco devices:
 ```bash
 aaa new-model
 tacacs-server host 000.000.000 key 2tacdefault
