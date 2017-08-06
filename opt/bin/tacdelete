@@ -59,7 +59,7 @@ fi
 deluser $USERNAME
 rm -r /home/$USERNAME
 
-#!!!EDIT THIS!!!Adds the user to the tacacs configuration file
+#Adds the user to the tacacs configuration file
 echo $USERNAME
 echo $TACCONF
 sed -i -e "/$USERNAME/d" $TACCONF
