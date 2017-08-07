@@ -16,7 +16,7 @@ if (!empty($_POST['token'])) {
     exit();
 } else {
     <script>
-    alert('CSRF token does not match... exiting');
+    alert("CSRF token does not match... \nexiting");
     </script>
     exit();
     }
