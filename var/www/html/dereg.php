@@ -1,3 +1,12 @@
+<?
+/*CSRF token generator*/
+    session_start();
+    if (empty($_SESSION['token'])) {
+        $_SESSION['token'] = bin2hex(random_bytes(32));
+    }
+    $token = $_SESSION['token'];
+?>
+
 <head>
     <title>Tacacs+ Deregistration</title>
     <meta charset="utf-8">
@@ -63,7 +72,7 @@
       }
       function deleteUser() {
           if (username.value && usermail.value && fullname.value) {
-              $.post( 'tacdelete.php', { 'username': username.value, 'usermail': usermail.value, 'fullname': fullname.value });
+              $.post( 'tacdelete.php', { 'username': username.value, 'usermail': usermail.value, 'fullname': fullname.value, 'token': token.value });
              alert('Information sent. Check your e-mail to confirm the user has been deleted.');
 	     window.location.assign('dereg.php');
 	     return false;

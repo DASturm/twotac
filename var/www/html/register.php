@@ -1,3 +1,12 @@
+<?
+/*CSRF token generator*/
+    session_start();
+    if (empty($_SESSION['token'])) {
+        $_SESSION['token'] = bin2hex(random_bytes(32));
+    }
+    $token = $_SESSION['token'];
+?>
+
 <head>
     <title>Tacacs+ Registration</title>
     <meta charset="utf-8">
@@ -84,7 +93,7 @@
       }
       function registerUser() {
           if (password.value == confirm.value && username.value && password.value && usermail.value && fullname.value) {
-              $.post( 'tacuser.php', { 'username': username.value, 'password': password.value, 'usermail': usermail.value, 'fullname': fullname.value });
+              $.post( 'tacuser.php', { 'username': username.value, 'password': password.value, 'usermail': usermail.value, 'fullname': fullname.value, 'token': token.value });
              alert('Check your e-mail to ensure you have registered successfully\nUsername: ' + username.value + '\nE-mail: ' + usermail.value + '\nName: ' + fullname.value);
 	     window.location.assign('register.php');
 	     return false;
