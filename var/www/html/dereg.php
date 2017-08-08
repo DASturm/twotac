@@ -1,4 +1,4 @@
-<?
+<?php
 /*CSRF token generator*/
     session_start();
     if (empty($_SESSION['token'])) {
@@ -6,7 +6,6 @@
     }
     $token = $_SESSION['token'];
 ?>
-
 <head>
     <title>Tacacs+ Deregistration</title>
     <meta charset="utf-8">
@@ -34,11 +33,11 @@
       </form>
     </div>
     <script>
-    <tr><td> <input type="hidden" name="token" value="<?= $token ?>" ></td></tr>
 
     var username = document.getElementById('username');
     var usermail = document.getElementById('usermail');
     var fullname = document.getElementById('fullname');
+    var token = '<?php echo "$token" ?>';
 
       $("#submit").on("click", deleteUser);
 
@@ -84,4 +83,3 @@
 
     </script>
 </body>
-</html>

@@ -11,9 +11,11 @@ if (!empty($_POST['token'])) {
     system($sanicommand);
     exit();
 } else {
+	<html>
 	<script>
 	alert('CSRF token does not match... exiting');
 	</script>
+	</html>
 	exit();
 	}
 }
