@@ -37,7 +37,8 @@
       </form>
     </div>
     <script>
-
+    <tr><td> <input type="hidden" name="token" value="<?= $token ?>" ></td></tr>
+,........
     var username = document.getElementById('username');
     var password = document.getElementById('password');
     var confirm  = document.getElementById('confirm');

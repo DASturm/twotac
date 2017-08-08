@@ -34,6 +34,7 @@
       </form>
     </div>
     <script>
+    <tr><td> <input type="hidden" name="token" value="<?= $token ?>" ></td></tr>
 
     var username = document.getElementById('username');
     var usermail = document.getElementById('usermail');
