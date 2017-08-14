@@ -1,4 +1,7 @@
 <?php
+
+    session_start();
+
     $u    = $_POST["username"];
     $e    = $_POST["usermail"];
     $n    = $_POST["fullname"];
@@ -11,11 +14,7 @@ if (!empty($_POST['token'])) {
     system($sanicommand);
     exit();
 } else {
-	<html>
-	<script>
-	alert('CSRF token does not match... exiting');
-	</script>
-	</html>
+	/* log CSRF problem */
 	exit();
 	}
 }
