@@ -74,7 +74,8 @@
           if (username.value && usermail.value && fullname.value) {
               $.post( 'tacdelete.php', { 'username': username.value, 'usermail': usermail.value, 'fullname': fullname.value, 'token': token });
              alert('Information sent. Check your e-mail to confirm the user has been deleted.');
-	     window.location.assign('dereg.php');
+	     <?php $_SESSION['token'] = NULL; ?>
+       window.location.assign('dereg.php');
 	     return false;
           }else{
               alert("There was a problem with your input.\nPlease be sure to fill out all boxes and follow any displayed instructions.\nPress OK to try again");

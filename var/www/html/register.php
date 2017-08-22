@@ -95,7 +95,8 @@
           if (password.value == confirm.value && username.value && password.value && usermail.value && fullname.value) {
               $.post( 'tacuser.php', { 'username': username.value, 'password': password.value, 'usermail': usermail.value, 'fullname': fullname.value, 'token': token });
              alert('Check your e-mail to ensure you have registered successfully\nUsername: ' + username.value + '\nE-mail: ' + usermail.value + '\nName: ' + fullname.value);
-	     window.location.assign('register.php');
+	     <?php $_SESSION['token'] = NULL; ?>
+       window.location.assign('register.php');
 	     return false;
           }else{
               alert("There was a problem with your input.\nPlease be sure to fill out all boxes and follow any displayed instructions.\nPress OK to try again");
