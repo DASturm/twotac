@@ -18,7 +18,7 @@ To install Twotac (in its current state) please run:
 ```bash
 git clone https://github.com/dsturm-l/twotac.git
 dpkg-deb -b twotac/
-dpkg -i twotac.deb
+sudo dpkg -i twotac.deb
 ```
 If there are missing dependencies, please run:
 ```bash
