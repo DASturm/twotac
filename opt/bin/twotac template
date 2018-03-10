@@ -1,0 +1,147 @@
+#!/bin/bash
+### Twotac Template
+TACLOG="/var/log/taclogs/taclog"
+TACCONF="/etc/twotac/twotac.conf"
+title="    Twotac Xxxxx    "
+# Titlebanner is equal to the title length via printf
+titlelength=${#title}
+printf -v titlebanner '%*s' "$titlelength"
+# Option numbers must be represented in the case
+prompt="Pick an option:"
+options=("1" "2" "3")
+### Functions
+function1 () {
+	echo "$FUNCNAME initiated" >> $TACLOG
+	yn=""
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+		echo "Function 1"
+		yesno
+		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+			echo "Function cancelled" | tee -a $TACLOG
+			break
+		fi
+		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+			### DO JUNK
+			echo "DO JUNK"
+			### DO JUNK
+			break
+		else
+			### FAIL
+			echo "Function 1 failed" | tee -a $TACLOG
+			exit1
+		fi
+	done
+}
+function2 () {
+	echo "$FUNCNAME initiated" >> $TACLOG
+	yn=""
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+		echo "Function 2"
+		yesno
+		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+			echo "Function cancelled" | tee -a $TACLOG
+			break
+		fi
+		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+			### DO JUNK
+			echo "DO JUNK"
+			### DO JUNK
+			break
+		else
+			### FAIL
+			echo "Function 2 failed" | tee -a $TACLOG
+			exit1
+		fi
+	done
+}
+function3 () {
+	echo "$FUNCNAME initiated" >> $TACLOG
+	yn=""
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+		echo "Function 3"
+		yesno
+		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+			echo "Function cancelled" | tee -a $TACLOG
+			break
+		elif [[ "$yn" =~ ^[Yy](es)?$ ]]
+			then
+			### DO JUNK
+			echo "DO JUNK"
+			### DO JUNK
+			break
+		else
+			### FAIL
+			echo "Function 3 failed" | tee -a $TACLOG
+			exit1
+		fi
+	done
+}
+yesno () {
+	yn=""
+	while true; do
+		read -p " Would you like to continue? \"No\" will restart this section (y/n/c)" yn
+		case $yn in
+			[Yy]* ) yn="Yes"; return 0;;
+			[Nn]* ) :;;
+			[Cc]* ) yn="Cancel"; echo "Cancelling..."; return 0;;
+			* ) echo "Please answer yes, no or cancel.";;
+		esac
+	done
+}
+exit0 () {
+	echo "Program exiting successfully"
+	exit 0
+}
+exit1 () {
+	echo "Program failed! Exiting" | tee -a $TACLOG
+	exit 1
+}
+### Program Start
+echo "Doing Twotac Junk" >> $TACLOG
+clear
+echo ${titlebanner// /=}
+echo "$title"
+echo ${titlebanner// /=}
+select opt in "${options[@]}" "Quit"; do
+clear
+echo ${titlebanner// /=}
+echo "$title"
+echo ${titlebanner// /=}
+echo "$prompt "
+	case "$REPLY" in
+	1 ) function1;;
+	2 ) function2;;
+	3 ) function3;;
+	$(( ${#options[@]}+1 )) ) echo "Goodbye!"; break;;
+	*) echo "Invalid option. Try another one."; continue;;
+	esac
+done
+exit0
+
+######## Original
+#!/bin/bash
+### Twotac Template
+#title="Select example"
+#titlelength=${#title}
+#printf -v titlebanner '%*s' "$titlelength"
+#prompt="Pick an option:"
+#options=("1" "2" "3")
+#
+#echo ${titlebanner// /=}
+#echo "$title"
+#echo ${titlebanner// /=}
+#PS3="$prompt "
+#select opt in "${options[@]}" "Quit"; do 
+#
+#    case "$REPLY" in
+#
+#    1 ) echo "You picked $opt which is option $REPLY";;
+#    2 ) echo "You picked $opt which is option $REPLY";;
+#    3 ) echo "You picked $opt which is option $REPLY";;
+#
+#    $(( ${#options[@]}+1 )) ) echo "Goodbye!"; break;;
+#    *) echo "Invalid option. Try another one.";continue;;
+#
+#    esac
+#
+#done
