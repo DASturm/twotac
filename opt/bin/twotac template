@@ -7,7 +7,7 @@ title="    Twotac Xxxxx    "
 titlelength=${#title}
 printf -v titlebanner '%*s' "$titlelength"
 # Option numbers must be represented in the case
-prompt="Pick an option:"
+prompt="Pick an option: "
 options=("1" "2" "3")
 ### Functions
 function1 () {
@@ -102,12 +102,8 @@ clear
 echo ${titlebanner// /=}
 echo "$title"
 echo ${titlebanner// /=}
+PS3="$prompt "
 select opt in "${options[@]}" "Quit"; do
-clear
-echo ${titlebanner// /=}
-echo "$title"
-echo ${titlebanner// /=}
-echo "$prompt "
 	case "$REPLY" in
 	1 ) function1;;
 	2 ) function2;;
