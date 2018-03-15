@@ -18,41 +18,41 @@ twotacconfigurations () {
 	echo ""
 	echo "Checking for installed files..."
 	echo "...Checking for installed files..." >> $TACLOG
-	if [[ /etc/tacacs+/tac_plus.conf ]]; then 
-		tacacs="tacacs+" 
+	if [[ /etc/tacacs+/tac_plus.conf ]]; then
+		tacacs="tacacs+"
 		echo "...tacacs+..." >> $TACLOG
-	else 
-		tacacs="" 
+	else
+		tacacs=""
 	fi
-	if [[ /etc/postfix/main.cf ]]; then 
-		postfix="postfix" 
+	if [[ /etc/postfix/main.cf ]]; then
+		postfix="postfix"
 		echo "...postfix..." >> $TACLOG
-	else 
-		postfix="" 
+	else
+		postfix=""
 	fi
-	if [[ /etc/pam.d/tac_plus ]]; then 
-		pam="pam" 
+	if [[ /etc/pam.d/tac_plus ]]; then
+		pam="pam"
 		echo "...pam..." >> $TACLOG
-	else 
-		pam="" 
+	else
+		pam=""
 	fi
-	if [[ /etc/apache2/apache2.conf ]]; then 
-		apache2="apache2" 
+	if [[ /etc/apache2/apache2.conf ]]; then
+		apache2="apache2"
 		echo "...apache2..." >> $TACLOG
-	else 
-		apache2="" 
+	else
+		apache2=""
 	fi
 	if [[ $tacacs ]] || [[ $postfix ]] || [[ $pam ]]; then
 		echo ""
 		echo "It looks like these configurations are available to overwrite:"
 		echo ""
-		if [[ $tacacs ]]; then 
+		if [[ $tacacs ]]; then
 			echo -e "$tacacs"
 		fi
-		if [[ $postfix ]]; then 
+		if [[ $postfix ]]; then
 			echo -e "$postfix"
 		fi
-		if [[ $pam ]]; then 
+		if [[ $pam ]]; then
 			echo -e "$pam"
 		fi
 		echo ""
@@ -90,19 +90,19 @@ twotacconfigurations () {
 			echo "Some dependencies still aren't installed"
 			echo "...Some dependencies still aren't installed..." >> $TACLOG
 			echo "Please install"
-			if ! [[ $tacacs ]]; then 
+			if ! [[ $tacacs ]]; then
 				echo -e "tacacs+"
 				echo "...tacacs+..." >> $TACLOG
 			fi
-			if ! [[ $postfix ]]; then 
+			if ! [[ $postfix ]]; then
 				echo -e "postfix"
 				echo "...postfix..." >> $TACLOG
 			fi
-			if ! [[ $pam ]]; then 
+			if ! [[ $pam ]]; then
 				echo -e "pam"
 				echo "...pam..." >> $TACLOG
 			fi
-			if ! [[ $apache2 ]]; then 
+			if ! [[ $apache2 ]]; then
 				echo -e "apache2"
 				echo "...apache2..." >> $TACLOG
 			fi
@@ -113,16 +113,16 @@ twotacconfigurations () {
 		echo "...No dependencies installed..." >> $TACLOG
 		echo "Please install"
 		echo "...Please install: tacacs+ postfix pam apache2..." >> $TACLOG
-		if ! [[ $tacacs ]]; then 
+		if ! [[ $tacacs ]]; then
 			echo -e "tacacs+"
 		fi
-		if ! [[ $postfix ]]; then 
+		if ! [[ $postfix ]]; then
 			echo -e "postfix"
 		fi
-		if ! [[ $pam ]]; then 
+		if ! [[ $pam ]]; then
 			echo -e "pam"
 		fi
-		if ! [[ $apache2 ]]; then 
+		if ! [[ $apache2 ]]; then
 			echo -e "apache2"
 		fi
 		echo "This software will not work as intended until you do."
@@ -131,6 +131,7 @@ twotacconfigurations () {
 	echo "...First time setup configuring twotac.conf..." >> $TACLOG
 }
 organizationname () {
+	#This function will change the organization name
 	showchanges
 	title="                                    Organization Name                                    "
 	yn=""
@@ -147,11 +148,10 @@ organizationname () {
 		echo ""
 		echo " $TEMPORG will be your new organization name"
 		yn=""
-		yesno
+		yesnocancel
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
-		fi
-		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		elif [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 			NEWORG="$TEMPORG"
 			echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 			CONFIGURED=false
@@ -159,6 +159,7 @@ organizationname () {
 	done
 }
 webhostname () {
+	#This function will adjust the hostname. Note the format should be http://hostname.com without trailng slashes.
 	showchanges
 	title="                                      Web Host Name                                      "
 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
@@ -176,11 +177,10 @@ webhostname () {
 		echo ""
 		echo " $TEMPWEB will be your new host address"
 		yn=""
-		yesno
+		yesnocancel
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
-		fi
-		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		elif [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 			NEWWEB="$TEMPWEB"
 			echo "$WEB \t::::\t $NEWWEB" >> $TACLOG
 			CONFIGURED=false
@@ -188,6 +188,7 @@ webhostname () {
 	done
 }
 administratormail () {
+	#This function adjusts the administrator who will typically run the mail system and receive copy of all sent mail
 	showchanges
 	title="                                   Administrator Mail                                    "
 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
@@ -203,11 +204,10 @@ administratormail () {
 		echo ""
 		echo " $TEMPMAIL will be your new admin's e-mail"
 		yn=""
-		yesno
+		yesnocancel
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
-		fi
-		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		elif [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 			NEWMAIL="$TEMPMAIL"
 			echo "$MAIL \t::::\t $NEWMAIL" >> $TACLOG
 			CONFIGURED=false
@@ -215,6 +215,7 @@ administratormail () {
 	done
 }
 smtprelayhost () {
+	#This function will attempt to configure SMTP for further use, but postfix may require more direct configuration
 	showchanges
 	title="                                     SMTP Relay Host                                     "
 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
@@ -231,11 +232,10 @@ smtprelayhost () {
 		echo ""
 		echo " $TEMPSMTP will be your new SMTP host"
 		yn=""
-		yesno
+		yesnocancel
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
-		fi
-		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		elif [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 			NEWSMTP="$TEMPSMTP"
 			echo "$SMTP \t::::\t $NEWSMTP" >> $TACLOG
 			CONFIGURED=false
@@ -243,6 +243,7 @@ smtprelayhost () {
 	done
 }
 tacacskey () {
+	#This function will change the Tacacs+ key, which will require reconfiguration of network devices to be functional
 	showchanges
 	title="                                       TACACS+ Key                                       "
 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
@@ -256,14 +257,13 @@ tacacskey () {
 			fi
 		echo ""
 		read TEMPKEY
-		echo ""			
+		echo ""
 		echo " $TEMPKEY is your new TACACS+ key. If your routers don't match, they will be inaccessible"
 		yn=""
-		yesno
+		yesnocancel
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
-		fi
-		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		elif [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 			NEWKEY="$TEMPKEY"
 			echo "$KEY \t::::\t $NEWKEY" >> $TACLOG
 			CONFIGURED=false
@@ -298,12 +298,13 @@ showchanges () {
 	echo ""
 }
 configurationcommit () {
+	#This function will take $NEWVAR and overwrite $VAR
 	showchanges
 	read -p " Are you certain you want to commit these changes? There will be no way to undo them. (yes/no)" yn
 	case $yn in
 		[Yy]* )
 			COMMIT=true
-			sed -i 's/FIRSTSETUP\=\"false\"/FIRSTSETUP\=\"true\"/g' $TACCONF
+			sed -i 's/FIRSTSETUP\=false/FIRSTSETUP\=true/g' $TACCONF
 			if [[ $NEWORG ]]; then
 				echo "$NEWORG COMMITTED" >> $TACLOG
 				sed -i "s/$ORG/$NEWORG/g" $FILES
@@ -339,35 +340,60 @@ configurationcommit () {
 }
 doall () {
 	twotacconfigurations
-	organizationname
-	webhostname
-	administratormail
-	smtprelayhost
-	tacacskey
-	configurationcommit
+	if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+	yn="n"
+		organizationname
+	fi
+	if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+	yn="n"
+		webhostname
+	fi
+	if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+	yn="n"
+		administratormail
+	fi
+	if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+	yn="n"
+		smtprelayhost
+	fi
+	if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+	yn="n"
+		tacacskey
+	fi
+	if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+	yn="n"
+		configurationcommit
+	fi
 }
 firstsetup () {
 	echo ""
 	echo "This looks like your first time running Twotac Manager, "
 	echo "would you like to skip straight to setup? (yes/no)"
 	echo ""
+	yn=""
 	yesno
-	if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-		echo "Function cancelled" | tee -a $TACLOG
-		break
-	fi
 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		echo "...First time setup cancelled..." >> $TACLOG
 		FIRSTSETUP="true"
-		sed -i 's/FIRSTSETUP\=\"false\"/FIRSTSETUP\=\"true\"/g' $TACCONF
+		sed -i 's/FIRSTSETUP\=false/FIRSTSETUP\=true/g' $TACCONF
 		break
-		exit0
 	else
 		doall
 		exit0
 	fi
 }
 yesno () {
+	yn=""
+	while true; do
+		read -p " Would you like to continue? \"No\" will cancel (y/n)" yn
+		case $yn in
+			[Yy]* ) yn="Yes"; return 0;;
+			[Nn]* ) yn="No"; echo "Cancelling..."; return 0;;
+			* ) echo "Please answer yes, no or cancel.";;
+		esac
+	done
+}
+yesnocancel () {
 	yn=""
 	while true; do
 		read -p " Would you like to continue? \"No\" will restart this section (y/n/c)" yn
@@ -398,7 +424,7 @@ fi
 echo ${titlebanner// /=}
 echo "$title"
 echo ${titlebanner// /=}
-if [ $FIRSTSETUP = "false" ]; then
+if [ $FIRSTSETUP = false ]; then
 	firstsetup
 fi
 echo " Available commands:"
