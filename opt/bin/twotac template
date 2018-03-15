@@ -2,7 +2,7 @@
 ### Twotac Template
 TACLOG="/var/log/taclogs/taclog"
 TACCONF="/etc/twotac/twotac.conf"
-title="    Twotac Xxxxx    "
+title="    Twotac Test    "
 # Titlebanner is equal to the title length via printf
 titlelength=${#title}
 printf -v titlebanner '%*s' "$titlelength"
@@ -102,7 +102,7 @@ clear
 echo ${titlebanner// /=}
 echo "$title"
 echo ${titlebanner// /=}
-PS3="$prompt "
+PS3=${titlebanner// /=}$'\n'"$prompt"$'\n'${titlebanner// /=}$'\n'
 select opt in "${options[@]}" "Quit"; do
 	case "$REPLY" in
 	1 ) function1;;
