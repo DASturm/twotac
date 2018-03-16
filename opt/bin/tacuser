@@ -5,7 +5,6 @@ TACCONF="/etc/tacacs+/tac_plus.conf"
 MAILER="MAILPLACEHOLDER"
 ORG="ORGPLACEHOLDER"
 TACLOG="/var/log/taclogs/taclog"
-MAILDIR="/opt/tacmail"
 
 #Error codes
 errorformat="Incorrect formatting, please use this format: tacuser -u [USERNAME] -p [PASSWORD] -e [EMAIL] -n [NAME]"
@@ -38,16 +37,14 @@ NAME="$@"
 echo -e "$USERNAME\n$PASSWORD\n$EMAIL\n$NAME" >> $TACLOG
 
 # Check if the user is already exists
-if grep -qe "^$USERNAME:" $TACCONF
-then
+if grep -qe "^$USERNAME:" $TACCONF; then
     echo $errordup | tee -a $TACLOG
     echo "<--------------END-LOG--------------->" | tee -a $TACLOG
     echo "" | tee -a $TACLOG
     sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" $MAILDIR/mailusererror | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" $EMAIL
     exit 3
 fi
-if grep -qe "^$USERNAME:" /etc/passwd
-then
+if grep -qe "^$USERNAME:" /etc/passwd; then
     echo $errordup | tee -a $TACLOG
     echo "<--------------END-LOG--------------->" | tee -a $TACLOG
     echo "" | tee -a $TACLOG
@@ -83,7 +80,7 @@ URL=`egrep -o 'https?://[^ ]+' /tmp/$USERNAME-auth`
 wget --no-check-certificate $URL -O /tmp/$USERNAME-QR.png -o /tmp/$USERNAME-wget.log
 
 #If registration was successful, it will be logged
-    echo "$NAME registered successfully" >> $TACLOG
+echo "$NAME registered successfully" >> $TACLOG
 
 #Rewrites the template e-mail with all the collected variables and sends it to the registering user
 sed -e "s/\[NAME\]/$NAME/" -e "s \[QRURL\] $URL " $MAILDIR/mailtemplate | mail -aFrom:$MAILER -aBCC:$MAILER -s "$ORG Official Tacacs+ Registration" -A /tmp/$USERNAME-QR.png $EMAIL
@@ -91,8 +88,7 @@ sed -e "s/\[NAME\]/$NAME/" -e "s \[QRURL\] $URL " $MAILDIR/mailtemplate | mail -
 #Restart tacacs service so the newly registered user is available, and if successful, backs up all the important files.
 systemctl restart tacacs_plus
 systemctl is-active tacacs_plus
-if [ $? -eq 0 ]
-then
+if [ $? -eq 0 ]; then
     echo "<--------------END-LOG--------------->" | tee -a $TACLOG
     echo "" | tee -a $TACLOG
     /etc/cron.weekly/backup.sh
