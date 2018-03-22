@@ -1,0 +1,348 @@
+#!/bin/bash
+### Twotac Template
+TACLOG="/var/log/taclogs/taclog"
+TACCONF="/etc/twotac/twotac.conf"
+title="    Twotac User Management    "
+# Titlebanner is equal to the title length via printf
+titlelength=${#title}
+printf -v titlebanner '%*s' "$titlelength"
+#Global Variables
+source $TACCONF
+# Other Variables
+USERLIST=$(getent group tacusers | cut -f4 -d ':' | sed 's/,/ /g;')
+#Error codes
+errorformat="Incorrect formatting, please try again"
+errormail="To delete your account, you must provide a matching, valid $ORG.gov e-mail address"
+errorconfig="Tacacs+ configuration file not found! Contact an administrator ASAP! (This is very bad)"
+errorrestart="The tacacs_plus service failed to restart. Please fix this to enable tacacs again. (This is bad)"
+errornobody="The user does not appear to exist, check your input and try again"
+errordup="The username you're adding already exists.  Please check the username and try again."
+### Functions
+userview () {
+	echo -e "Viewed user list" >> $TACLOG
+	for f in $USERLIST; do
+		getent passwd $f | cut -f5 -d',' | cut -f1 -d':' >> /tmp/tacjunk
+	done
+	MAILLIST=$(cat /tmp/tacjunk | sed ':a;N;$!ba;s/\n/ /g')
+	rm /tmp/tacjunk
+	for f in $USERLIST; do
+		grep -c $f /etc/tacacs+/tac_plus.conf >> /tmp/tacjunk
+	done
+	TACLIST=$(cat /tmp/tacjunk | sed ':a;N;$!ba;s/\n/ /g' | sed 's/1/Registered/g' | sed 's/0/Unregistered/g')
+	rm /tmp/tacjunk
+	for f in $USERLIST; do
+		find /home/$f/ -exec stat \{} --printf="%y\n" \; | sort -n -r | head -n 1 | awk '{print $1}' >> /tmp/tacjunk
+	done
+	REGLIST=$(cat /tmp/tacjunk | sed ':a;N;$!ba;s/\n/ /g')
+	rm /tmp/tacjunk
+	echo -e "$USERLIST\n$MAILLIST\n$TACLIST\n$REGLIST" >> /tmp/tacjunk
+	cat /tmp/tacjunk | sed 's/ /,:,/g' | column -t -s ','
+	rm /tmp/tacjunk
+	read -p " Press enter to continue"
+}
+tacuserline () {
+	USERNAME="$2"
+	shift; shift
+	PASSWORD="$2"
+	shift; shift
+	EMAIL="$2"
+	shift; shift; shift
+	NAME="$@"
+	#Logs registration attempts with all known data
+	echo -e "$USERNAME\n$PASSWORD\n$EMAIL\n$NAME" >> $TACLOG
+	tacuser
+}
+tacuserprompt () {
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+		echo "Add user initiated" >> $TACLOG
+		echo " You have chosen to add a user."
+		echo " Please enter the new username"
+		read username
+		echo -e "Username= $USERNAME" >> $TACLOG
+		password=""
+		passconf=""
+		until [[ $PASSWORD ]] &&  [[ $PASSCONF ]] && [[ $PASSWORD == $PASSCONF ]]; do
+			if  [[ $PASSWORD ]]; then
+				if [[ $PASSWORD -ne $PASSCONF ]]; then
+					echo " The passwords do not match, please try again"
+				fi
+			fi
+			echo " Please enter the new password"
+			read -s password
+			echo " Please confirm your password"
+			read -s passconf
+		done
+		echo " Please enter the user's e-mail address"
+		read usermail
+		echo -e "E-mail= $USERMAIL" >> $TACLOG
+		echo " Please enter the user's full name"
+		read fullname
+		echo -e "Name= $FULLNAME" >> $TACLOG
+		echo " Your current entries are:"
+		echo -e " $USERNAME, $USERMAIL, and $FULLNAME"
+		until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+			echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
+			read yn
+			if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+				echo " That output doesn't register, please try again."
+			fi
+		done
+		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+			echo -e "Add user cancelled" >> $TACLOG
+			break
+		fi
+		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+			echo "Adding user" >> $TACLOG
+			tacuser
+		fi
+	done
+}
+tacdeleteline () {
+	USERNAME="$2"
+	shift; shift
+	EMAIL="$2"
+	shift; shift; shift
+	NAME="$@"
+	#Logs registration attempts with all known data
+	echo -e "$USERNAME\n$EMAIL\n$NAME" >> $TACLOG
+	tacdelete
+}
+tacdeleteprompt () {
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+		echo "Delete user initiated" >> $TACLOG
+		echo " You have chosen to delete a user."
+		echo " Please enter their username"
+		read username
+		echo -e "Username= $USERNAME" >> $TACLOG
+		echo " Please enter the user's e-mail address"
+		read usermail
+		echo -e "E-mail= $USERMAIL" >> $TACLOG
+		echo " Please enter the user's full name"
+		read fullname
+		echo -e "Name= $FULLNAME" >> $TACLOG
+		echo " Your current entries are:"
+		echo -e " $USERNAME, $USERMAIL, and $FULLNAME"
+		until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+			echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
+			read yn
+			if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+				echo " That output doesn't register, please try again."
+			fi
+		done
+		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+			echo -e "Delete user cancelled" >> $TACLOG
+			break
+		fi
+		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+			echo "Deleting user" >> $TACLOG
+			tacdelete
+		fi
+	done
+}
+usercheck () {
+	#Check if the user is already exists
+	if grep -qe "^$USERNAME:" $TACCONF; then
+		echo $errordup | tee -a $TACLOG
+		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "" | tee -a $TACLOG
+		sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" $MAILDIR/mailusererror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
+		exit 3
+	fi
+	if grep -qe "^$USERNAME:" /etc/passwd; then
+		echo $errordup | tee -a $TACLOG
+		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "" | tee -a $TACLOG
+		sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" $MAILDIR/mailusererror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
+		exit 3
+	fi
+}
+authenticatorgen () {
+	#This section runs the google-authenticator command and saves the output to a file
+	su -c "echo -e \"y\n\ny\ny\nn\ny\" | google-authenticator" $USERNAME > /tmp/$USERNAME-auth
+	#Searches the authorization file registered above for the QR code URL
+	URL=`egrep -o 'https?://[^ ]+' /tmp/$USERNAME-auth`
+	#Saves the QR code as a .png
+	wget --no-check-certificate $URL -O /tmp/$USERNAME-QR.png -o /tmp/$USERNAME-wget.log
+}
+tacusermail () {
+	#If registration was successful, it will be logged
+	echo "$NAME registered successfully" >> $TACLOG
+	#Rewrites the template e-mail with all the collected variables and sends it to the registering user
+	sed -e "s/\[NAME\]/$NAME/" -e "s \[QRURL\] $URL " $MAILDIR/mailtemplate | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" -A /tmp/$USERNAME-QR.png $EMAIL
+}
+userlogout () {
+	#Logs the user out
+	pkill -KILL -u $USERNAME
+	#Check makes sure if the user already exists
+	if ! lslogins -l $USERNAME | grep "$NAME" | grep $EMAIL; then
+		echo $errornobody | tee -a $TACLOG
+		echo $errortryagain | tee -a $TACLOG
+		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "" | tee -a $TACLOG
+		sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" $MAILDIR/mailusererror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
+		exit 3
+	fi
+}
+tacacsreset () {
+	#Restart tacacs service so the newly registered user is available, and if successful, backs up all the important files.
+	systemctl restart tacacs_plus
+	systemctl is-active tacacs_plus
+	if [ $? -eq 0 ]; then
+		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "" | tee -a $TACLOG
+		/etc/cron.weekly/backup.sh
+		exit 0
+	else
+		echo $errorrestart | tee -a $TACLOG
+		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "" | tee -a $TACLOG
+		sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorrestart/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
+		exit 5
+	fi
+}
+tacuser () {
+	usercheck
+	#Adds the user using provided information, and adds them to the group "tacusers"
+	adduser --disabled-password --gecos "$NAME,,,,$EMAIL" $USERNAME
+	usermod -a -G tacusers $USERNAME
+	echo "$USERNAME:$PASSWORD" | chpasswd -e
+	
+	#Adds the user to the tacacs configuration file
+	sed -i "s/#END FILE/user = \"$USERNAME\" { login = PAM member = ADMIN service = exec { priv-lvl = 15 }  }/" $TACCONF
+	echo '#END FILE' >> $TACCONF
+	
+	#If there is no tacacs configuration file, then you have a bad problem and need to contact an administrator
+	if [ ! -f $TACCONF ]; then
+		echo $errorconfig | tee -a $TACLOG
+		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "" | tee -a $TACLOG
+		sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorconfig/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
+		exit 4
+	fi
+	authenticatorgen
+	tacusermail
+	tacacsreset
+}
+tacdelete () {
+	userlogout
+	#Backs up important files before user deletion
+	/opt/bin/backup.sh
+	#Deletes the user using provided information
+	deluser $USERNAME
+	rm -r /home/$USERNAME
+	#Adds the user to the tacacs configuration file
+	echo $USERNAME
+	echo $TACCONF
+	sed -i -e "/$USERNAME/d" $TACCONF
+	#If there is no tacacs configuration file, then you have a bad problem and need to contact an administrator
+	if [ ! -f $TACCONF ]; then
+		echo $errorconfig | tee -a $TACLOG
+		echo $errortryagain | tee -a $TACLOG
+		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "" | tee -a $TACLOG
+		sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorconfig/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
+		exit 4
+	fi
+	# Rewrites the template e-mail with all the collected variables and sends it to the registering user
+	sed -e "s/\[NAME\]/$NAME/" -e "s \[USER\] $USERNAME " $MAILDIR/maildelete | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
+	tacacsreset
+}
+formaterror () {
+	echo $errorformat | tee -a $TACLOG
+	echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+	echo "" | tee -a $TACLOG
+	sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorformat/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
+	exit 1
+}
+function3 () {
+	echo "$FUNCNAME initiated" >> $TACLOG
+	yn=""
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+		echo "Function 3"
+		yesno
+		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+			echo "Function cancelled" | tee -a $TACLOG
+			break
+		elif [[ "$yn" =~ ^[Yy](es)?$ ]]
+			then
+			### DO JUNK
+			echo "DO JUNK"
+			### DO JUNK
+			break
+		else
+			### FAIL
+			echo "Function 3 failed" | tee -a $TACLOG
+			exit1
+		fi
+	done
+}
+yesno () {
+	yn=""
+	while true; do
+		read -p " Would you like to continue? \"No\" will restart this section (y/n/c)" yn
+		case $yn in
+			[Yy]* ) yn="Yes"; return 0;;
+			[Nn]* ) :;;
+			[Cc]* ) yn="Cancel"; echo "Cancelling..."; return 0;;
+			* ) echo "Please answer yes, no or cancel.";;
+		esac
+	done
+}
+exit0 () {
+	echo "Program exiting successfully"
+	exit 0
+}
+exit1 () {
+	echo "Program failed! Exiting" | tee -a $TACLOG
+	exit 1
+}
+### Program Start
+if [ "$#" -le "1" ]; then
+	clear
+	echo "========================================================================================="
+	echo "                                 Twotac User Management                                  "
+	echo "========================================================================================="
+	echo " Available commands:"
+	echo " To view current users,                 enter 1"
+	echo " To add a user,                         enter 2"
+	echo " To delete a user,                      enter 3"
+	echo " To exit this interface,                enter Q"
+	echo ""
+	echo "====================================================="
+	echo " Enter your selection"
+	echo "====================================================="
+	echo ""
+	read answer
+	case $answer in
+		1) #This case will find users, add them to a file and columnate it before cat'ing and deleting that file.
+		userview;;
+		2) #This case will add a user based on input
+		tacuserprompt;;
+		3) #This case will delete users based on input
+		tacdeleteprompt;;
+		[Qq]) break;;
+	esac
+elif [ "$#" -le "6" ]; then
+	if [ "$#" -lt "6" ] || [ "$1" != "-u" ] || [ "$3" != "-e" ] || [ "$5" != "-n" ]; then
+	    echo $errorformat | tee -a $TACLOG
+	    echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+	    echo "" | tee -a $TACLOG
+	    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorformat/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
+	    exit 1
+	fi
+	#Logs input data before any opportunity for exit codes
+	echo "<----`date`---->" >> $TACLOG
+	echo "...Delete Attempt..."
+	echo "$0 $1 $2 $3 $4 $5 $6 $7 $8 $9" >> $TACLOG
+	tacdeleteline
+elif [ "$#" -le "8" ] ; then
+	if [ "$#" -lt "8" ] || [ "$1" != "-u" ] || [ "$3" != "-p" ] || [ "$5" != "-e" ] || [ "$7" != "-n" ]; then
+		echo $errorformat | tee -a $TACLOG
+		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "" | tee -a $TACLOG
+		sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorformat/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
+		exit 1
+	fi
+	tacuserline
+fi
+
