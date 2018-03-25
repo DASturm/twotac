@@ -226,7 +226,7 @@ tacuser () {
 tacdelete () {
 	userlogout
 	#Backs up important files before user deletion
-	/opt/bin/backup.sh
+	/etc/cron.weeekly/backup.sh
 	#Deletes the user using provided information
 	deluser $USERNAME
 	rm -r /home/$USERNAME
@@ -323,6 +323,10 @@ if [ "$#" -le "1" ]; then
 		[Qq]) break;;
 	esac
 elif [ "$#" -le "6" ]; then
+	#Logs input data before any opportunity for exit codes
+	echo "<----`date`---->" >> $TACLOG
+	echo "...Delete Attempt..."
+	echo "$0 $1 $2 $3 $4 $5 $6 $7 $8 $9" >> $TACLOG
 	if [ "$#" -lt "6" ] || [ "$1" != "-u" ] || [ "$3" != "-e" ] || [ "$5" != "-n" ]; then
 	    echo $errorformat | tee -a $TACLOG
 	    echo "<--------------END-LOG--------------->" | tee -a $TACLOG
@@ -330,12 +334,12 @@ elif [ "$#" -le "6" ]; then
 	    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorformat/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
 	    exit 1
 	fi
-	#Logs input data before any opportunity for exit codes
-	echo "<----`date`---->" >> $TACLOG
-	echo "...Delete Attempt..."
-	echo "$0 $1 $2 $3 $4 $5 $6 $7 $8 $9" >> $TACLOG
 	tacdeleteline
 elif [ "$#" -le "8" ] ; then
+	#Logs input data before any opportunity for exit codes
+	echo "<----`date`---->" >> $TACLOG
+	echo "<...Adding User...>"
+	echo "$0 $1 $2 $3 $4 $5 $6 $7 $8 $9 $10 $11" >> $TACLOG
 	if [ "$#" -lt "8" ] || [ "$1" != "-u" ] || [ "$3" != "-p" ] || [ "$5" != "-e" ] || [ "$7" != "-n" ]; then
 		echo $errorformat | tee -a $TACLOG
 		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
