@@ -1,0 +1,64 @@
+#!/bin/bash
+#Files variable may need work and may need to automatically gather file names/paths from a function
+DIR=$(find /etc/twotac/twotac.conf /etc/tacacs+/tac_plus.conf /etc/postfix/main.cf /etc/cron.weekly/ /opt/bin/ /opt/tacconfigs/ /opt/tacmail/ /var/www/html/ -type f)
+FILES="$DIR"
+TACLOG="/var/log/taclogs/taclog"
+TACCONF="/etc/twotac/twotac.conf"
+#Program Path Variables
+TWOTACSETUP="/opt/bin/twotacsetup"
+TWOTACUSERS="/opt/bin/twotacusers"
+TWOTACCONFIGS="/opt/bin/twotacconfigs"
+TWOTACLOGS="/opt/bin/twotaclogs"
+CONFIGURED=false
+#This is where the current variables will be stored
+source $TACCONF
+#trap '' 2
+echo "<----`date`---->" >> $TACLOG
+echo "Twotac Management" >> $TACLOG
+if [ $FIRSTSETUP = "false" ]; then
+	echo "...Running first time setup..." >> $TACLOG
+	clear
+	yn=""
+	source $TWOTACSETUP
+fi
+while true
+do
+	source $TACCONF
+	clear
+	yn=""
+	echo "========================================================================================="
+	echo "                                    Twotac Management                                    "
+	echo "========================================================================================="
+	echo " Available commands:"
+	echo " To add, edit or view users,            enter 1"
+	echo " To run backups or view logs,           enter 2"
+	echo " To setup or change script information, enter 3"
+	echo " To view or edit configs,               enter 4"
+	echo " To exit this interface,                enter Q"
+	if [ $FIRSTSETUP = "false" ]; then
+		echo " To stop first time setups,             enter S"
+	fi
+	echo ""
+	echo "====================================================="
+	echo " Enter your selection"
+	echo "====================================================="
+	echo ""
+	read answer
+	case $answer in
+		[Ss] )
+		sed -i 's/FIRSTSETUP\=\"false\"/FIRSTSETUP\=\"true\"/g' $TACCONF;;
+		1) #This case enters the user management interface
+			source $TWOTACUSERS;;
+		2) #This case will allow you to interact with the Logs and Backups menu
+			source $TWOTACLOGS;;
+		3) #This case sets up the hardcoded placeholder variables and makes them functional scripts in context
+			source $TWOTACSETUP;;
+		4) #This case enters the user management interface
+			source $TWOTACCONFIGS;;
+		[Qq] ) #This case will end the program
+			echo "<--------------END-LOG--------------->" >> $TACLOG
+			echo "" >> $TACLOG
+			clear
+			exit ;;
+	esac
+done

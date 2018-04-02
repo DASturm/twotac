@@ -80,13 +80,7 @@ tacuserprompt () {
 		echo -e "Name= $FULLNAME" >> $TACLOG
 		echo " Your current entries are:"
 		echo -e " $USERNAME, $USERMAIL, and $FULLNAME"
-		until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-			echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
-			read yn
-			if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-				echo " That output doesn't register, please try again."
-			fi
-		done
+		yesno
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			echo -e "Add user cancelled" >> $TACLOG
 			break
@@ -122,13 +116,7 @@ tacdeleteprompt () {
 		echo -e "Name= $FULLNAME" >> $TACLOG
 		echo " Your current entries are:"
 		echo -e " $USERNAME, $USERMAIL, and $FULLNAME"
-		until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-			echo " Would you like to continue? \"No\" will restart this section (y/n/c)"
-			read yn
-			if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-				echo " That output doesn't register, please try again."
-			fi
-		done
+		yesno
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			echo -e "Delete user cancelled" >> $TACLOG
 			break
@@ -146,14 +134,14 @@ usercheck () {
 		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
 		echo "" | tee -a $TACLOG
 		sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" $MAILDIR/mailusererror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
-		exit 3
+		exit 1
 	fi
 	if grep -qe "^$USERNAME:" /etc/passwd; then
 		echo $errordup | tee -a $TACLOG
 		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
 		echo "" | tee -a $TACLOG
 		sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" $MAILDIR/mailusererror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
-		exit 3
+		exit 1
 	fi
 }
 authenticatorgen () {
@@ -180,7 +168,7 @@ userlogout () {
 		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
 		echo "" | tee -a $TACLOG
 		sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" $MAILDIR/mailusererror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
-		exit 3
+		exit 1
 	fi
 }
 tacacsreset () {
@@ -197,7 +185,7 @@ tacacsreset () {
 		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
 		echo "" | tee -a $TACLOG
 		sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorrestart/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
-		exit 5
+		exit 1
 	fi
 }
 tacuser () {
@@ -217,7 +205,7 @@ tacuser () {
 		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
 		echo "" | tee -a $TACLOG
 		sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorconfig/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
-		exit 4
+		exit 1
 	fi
 	authenticatorgen
 	tacusermail
@@ -241,7 +229,7 @@ tacdelete () {
 		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
 		echo "" | tee -a $TACLOG
 		sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorconfig/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
-		exit 4
+		exit 1
 	fi
 	# Rewrites the template e-mail with all the collected variables and sends it to the registering user
 	sed -e "s/\[NAME\]/$NAME/" -e "s \[USER\] $USERNAME " $MAILDIR/maildelete | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL

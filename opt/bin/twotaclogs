@@ -1,0 +1,116 @@
+#!/bin/bash
+### Twotac Template
+TACLOG="/var/log/taclogs/taclog"
+TACCONF="/etc/twotac/twotac.conf"
+title="    Twotac Test    "
+# Titlebanner is equal to the title length via printf
+titlelength=${#title}
+printf -v titlebanner '%*s' "$titlelength"
+# Option numbers must be represented in the case
+prompt="Pick an option: "
+options=("1" "2" "3")
+### Functions
+viewlogs () {
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+	title="                                       Twotac Logs                                       "
+	echo -e "Viewed logs" >> $TACLOG
+	clear
+	echo ${titlebanner// /=}
+	echo "$title"
+	echo ${titlebanner// /=}
+	echo " (Weeks without activity will not be logged)"
+	ls -gavA /var/log/taclogs/
+	echo ""
+	echo ${titlebanner// /=}
+	echo " Which log would you like to view? (Blank to go back)"
+	echo ${titlebanner// /=}
+	echo ""
+	read logsearch
+	if ! [[ $logsearch ]]; then
+		break
+	fi
+	cat /var/log/taclogs/$logsearch 2>/dev/null
+	echo -e "Viewed /var/log/taclogs/$logsearch" >> $TACLOG
+	echo ""
+	echo ""
+	echo ${titlebanner// /=}
+	echo " END OF LOG"
+	echo ${titlebanner// /=}
+	echo ""
+	echo ""
+	yesno
+	done
+}
+runbackup () {
+	echo -e "Running backup" >> $TACLOG
+	/etc/cron.weekly/backup.sh 2>/dev/null
+	echo "Backup ran successfully"
+	echo ""
+	read -p "Press enter to continue"
+}
+viewbackups () {
+	title="                                     Twotac Backups                                      "
+	echo -e "Viewing backups" >> $TACLOG
+	echo ${titlebanner// /=}
+	echo "$title"
+	echo ${titlebanner// /=}
+	echo " (Weeks without activity will not be logged)"
+	echo ""
+	echo ""
+	ls -gavA /opt/tacbackups/
+	echo ""
+	echo ""
+	echo ""
+	echo ${titlebanner// /=}
+	echo " END OF LOG"
+	echo ${titlebanner// /=}
+	echo ""
+	read -p " Press Enter to Continue"
+}
+yesno () {
+	yn=""
+	while true; do
+		read -p " Would you like to continue? \"No\" will restart this section (y/n/c)" yn
+		case $yn in
+			[Yy]* ) yn="Yes"; return 0;;
+			[Nn]* ) :;;
+			[Cc]* ) yn="Cancel"; echo "Cancelling..."; return 0;;
+			* ) echo "Please answer yes, no or cancel.";;
+		esac
+	done
+}
+exit0 () {
+	echo "Program exiting successfully"
+	exit 0
+}
+exit1 () {
+	echo "Program failed! Exiting" | tee -a $TACLOG
+	exit 1
+}
+### Program Start
+clear
+yn=""
+title="                                 Twotac Logs and Backups                                 "
+echo ${titlebanner// /=}
+echo "$title"
+echo ${titlebanner// /=}
+echo " Available commands:"
+echo " To view logs,                          enter 1"
+echo " To run a backup,                       enter 2"
+echo " To view a list of backups,             enter 3"
+echo " To exit this interface,                enter Q"
+echo ""
+echo ${titlebanner// /=}
+echo " Enter your selection"
+echo ${titlebanner// /=}
+echo ""
+read answer
+case $answer in
+	1) #This case shows logs and allows the user to view the content of individual logs
+		viewlogs;;
+	2) #This case will run a backup
+		runbackup;;
+	3) #This case will show the user all the backups that have been stored in the backups folder.
+		viewbackups;;
+	[Qq] ) #Exit the program
+		exit0;;

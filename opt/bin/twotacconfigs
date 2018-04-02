@@ -1,0 +1,299 @@
+#!/bin/bash
+### Twotac Template
+TACLOG="/var/log/taclogs/taclog"
+TACCONF="/etc/twotac/twotac.conf"
+title="                                  Twotac Configurations                                  "
+# Titlebanner is equal to the title length via printf
+titlelength=${#title}
+printf -v titlebanner '%*s' "$titlelength"
+### Functions
+viewconfigs () {
+	title="                                      View Configs                                       "
+	echo "Viewing configs" >> $TACLOG
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+	clear
+	echo ${titlebanner// /=}
+	echo "$title"
+	echo ${titlebanner// /=}
+	echo ""
+	echo " Which config would you like to view?"
+	echo " For the tacacs+ config,                enter 1"
+	echo " For the postfix config,                enter 2"
+	echo " For the pam config,                    enter 3"
+	echo " To view default twotac configs,        enter 4"
+	echo " To exit this interface,                enter Q"
+	echo ""
+	echo ${titlebanner// /=}
+	echo " Enter your selection"
+	echo ${titlebanner// /=}
+	echo ""
+	read answer
+	case $answer in
+		1 ) #This case views the tacacs+ config
+			viewtacacs;;
+		2 ) #This case views the postfix config
+			viewpostfix;;
+		3 ) #This case views the pam config
+			viewpam;;
+		4 ) #This case views all default twotac configs
+			viewdefault;;
+		[Qq] ) #Exit the function
+			break;;
+	esac
+	done
+}
+viewtacacs () {
+	echo "Viewing tacacs+ configuration" >> $TACLOG
+	clear
+	cat /etc/tacacs+/tac_plus.conf #ADD ERROR CODE
+	echo ""
+	echo ""
+	echo "Would you like to edit this file? (y/n)"
+	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+	read yn
+	if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+		echo " That output doesn't register, please try again."
+	fi
+	done
+	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+		break
+	fi
+	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		echo "Editing tacacs+ configuration" >> $TACLOG
+		nano /etc/tacacs+/tac_plus.conf
+	fi
+}
+viewpostfix () {
+	echo "Viewing postfix configuration" >> $TACLOG
+	clear
+	cat /etc/postfix/main.cf #ADD ERROR CODE
+	echo ""
+	echo ""
+	echo "Would you like to edit this file? (y/n)"
+	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+	read yn
+	if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+		echo " That output doesn't register, please try again."
+	fi
+	done
+	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+		break
+	fi
+	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		echo "Editing postfix configuration" >> $TACLOG
+		nano /etc/postfix/main.cf
+	fi
+}
+viewpam () {
+	echo "Viewing pam configuration" >> $TACLOG
+	clear
+	cat /etc/pam.d/tac_plus #ADD ERROR CODE
+	echo ""
+	echo ""
+	echo "Would you like to edit this file? (y/n)"
+	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+	read yn
+	if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+		echo " That output doesn't register, please try again."
+	fi
+	done
+	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+		break
+	fi
+	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		echo "Editing pam configuration" >> $TACLOG
+		nano /etc/pam.d/tac_plus
+	fi
+}
+viewdefault () {
+	echo "Viewing all configurations" >> $TACLOG
+	echo ""
+	echo ""
+	echo "====================================================="
+	echo "Twotac default tacacs+ configuration"
+	echo "====================================================="
+	cat /opt/tacconfigs/tacacs+/tac_plus.conf #ADD ERROR CODE
+	echo ""
+	echo ""
+	echo "====================================================="
+	echo "Twotac default postfix configuration"
+	echo "====================================================="
+	cat /opt/tacconfigs/postfix/main.cf #ADD ERROR CODE
+	echo ""
+	echo ""
+	echo "====================================================="
+	echo "Twotac default pam configuration"
+	echo "====================================================="
+	cat /opt/tacconfigs/pam.d/tac_plus #ADD ERROR CODE
+	echo ""
+	echo ""
+	read -p "Press any key to continue"
+			
+}
+configoverwrite () {
+	title="                                  Twotac Configurations                                  "
+	echo "Configuration overwrite initiated" >> $TACLOG
+	clear
+	yn=""
+	echo ${titlebanner// /=}
+	echo "$title"
+	echo ${titlebanner// /=}
+	echo ""
+	echo "Checking for installed files..."
+	echo "...Checking for installed files..." >> $TACLOG
+	if [[ /etc/tacacs+/tac_plus.conf ]]; then
+		tacacs="tacacs+" 
+		echo "...tacacs+..." >> $TACLOG
+	else 
+		tacacs="" 
+	fi
+	if [[ /etc/postfix/main.cf ]]; then
+		postfix="postfix" 
+		echo "...postfix..." >> $TACLOG
+	else 
+		postfix="" 
+	fi
+	if [[ /etc/pam.d/tac_plus ]]; then
+		pam="pam" 
+		echo "...pam..." >> $TACLOG
+	else 
+		pam="" 
+	fi
+	if [[ /etc/apache2/apache2.conf ]]; then
+		apache2="apache2" 
+		echo "...apache2..." >> $TACLOG
+	else 
+		apache2="" 
+	fi
+	if [[ $tacacs ]] || [[ $postfix ]] || [[ $pam ]]; then
+		echo ""
+		echo "It looks like these configurations are available to overwrite:"
+		echo ""
+		if [[ $tacacs ]]; then
+			echo -e "$tacacs"
+		fi
+		if [[ $postfix ]]; then
+			echo -e "$postfix"
+		fi
+		if [[ $pam ]]; then
+			echo -e "$pam"
+		fi
+		echo ""
+		echo "Would you like to overwrite your standard configurations for the twotac default configuration? (y/n)"
+		yesno
+		 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+		 		echo "...Default config overwrite cancelled..." >> $TACLOG
+		 		break
+		 	fi
+		 	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		 		echo "...Default config overwrite enabled..." >> $TACLOG
+		 		CONFIGURED=false
+		if [[ $tacacs ]]; then
+			echo "...tacacs+ overwritten..." >> $TACLOG
+			tacacs=$(cat /opt/tacconfigs/tacacs+/tac_plus.conf)
+			sudo echo "" > /etc/tacacs+/tac_plus.conf
+			sudo echo "$tacacs" >> /etc/tacacs+/tac_plus.conf
+		fi
+		if [[ $postfix ]]; then
+			echo "...postfix overwritten..." >> $TACLOG
+			postfix=$(cat /opt/tacconfigs/postfix/main.cf)
+			sudo echo "" > /etc/postfix/main.cf
+			sudo echo "$postfix" >> /etc/postfix/main.cf
+		fi
+		if [[ $pam ]]; then
+			echo "...pam overwritten..." >> $TACLOG
+			pam=$(cat /opt/tacconfigs/pam.d/tac_plus)
+			sudo echo "" > /etc/pam.d/tac_plus
+			sudo echo "$pam" >> /etc/pam.d/tac_plus
+		fi
+		fi
+		echo ""
+		echo ""
+		if ! [[ $apache2 ]] && [[ $tacacs ]] && [[ $postfix ]] && [[ $pam ]]; then
+			echo "Some dependencies still aren't installed"
+			echo "...Some dependencies still aren't installed..." >> $TACLOG
+			echo "Please install"
+			if ! [[ $tacacs ]]; then
+				echo -e "tacacs+"
+				echo "...tacacs+..." >> $TACLOG
+			fi
+			if ! [[ $postfix ]]; then
+				echo -e "postfix"
+				echo "...postfix..." >> $TACLOG
+			fi
+			if ! [[ $pam ]]; then
+				echo -e "pam"
+				echo "...pam..." >> $TACLOG
+			fi
+			if ! [[ $apache2 ]]; then
+				echo -e "apache2"
+				echo "...apache2..." >> $TACLOG
+			fi
+			echo "Twotac will not work as intended until you install all dependencies"
+		fi
+	else
+		echo "It doesn't look like any dependencies are installed."
+		echo "...No dependencies installed..." >> $TACLOG
+		echo "Please install"
+		echo "...Please install: tacacs+ postfix pam apache2..." >> $TACLOG
+		if ! [[ $tacacs ]]; then
+			echo -e "tacacs+"
+		fi
+		if ! [[ $postfix ]]; then
+			echo -e "postfix"
+		fi
+		if ! [[ $pam ]]; then
+			echo -e "pam"
+		fi
+		if ! [[ $apache2 ]]; then
+			echo -e "apache2"
+		fi
+		echo "This software will not work as intended until you do."
+	fi
+	echo "Rewriting twotac config data..."
+}
+yesno () {
+	yn=""
+	while true; do
+		read -p " Would you like to continue? \"No\" will restart this section (y/n/c)" yn
+		case $yn in
+			[Yy]* ) yn="Yes"; return 0;;
+			[Nn]* ) :;;
+			[Cc]* ) yn="Cancel"; echo "Cancelling..."; return 0;;
+			* ) echo "Please answer yes, no or cancel.";;
+		esac
+	done
+}
+exit0 () {
+	echo "Program exiting successfully"
+	exit 0
+}
+exit1 () {
+	echo "Program failed! Exiting" | tee -a $TACLOG
+	exit 1
+}
+### Program Start
+echo "Viewing or modifying configurations" >> $TACLOG
+clear
+yn=""
+echo ${titlebanner// /=}
+echo "$title"
+echo ${titlebanner// /=}
+echo " Available commands:"
+echo " To view or edit current configs,       enter 1"
+echo " To overwrite existing configs,         enter 2"
+echo " To exit this interface,                enter Q"
+echo ""
+echo ${titlebanner// /=}
+echo " Enter your selection"
+echo ${titlebanner// /=}
+echo ""
+read answer
+case $answer in
+	1 ) #This case shows logs and allows the user to view the content of individual logs
+		viewconfigs;;
+	2 ) #This case will overwrite standard configurations with the default twotac configuration
+		configoverwrite;;
+	[Qq] ) #Exit the program
+		exit0;;
+esac
