@@ -12,12 +12,6 @@ source $TACCONF
 #trap '' 2
 echo "<----`date`---->" >> $TACLOG
 echo "Twotac Management" >> $TACLOG
-if [ $FIRSTSETUP = "false" ]; then
-	echo "...Running first time setup..." >> $TACLOG
-	clear
-	yn=""
-	source $TWOTACSETUP
-fi
 while true
 do
 	source $TACCONF
@@ -26,6 +20,12 @@ do
 	echo "========================================================================================="
 	echo "                                    Twotac Management                                    "
 	echo "========================================================================================="
+	if [ $FIRSTSETUP = "false" ]; then
+		echo "...Running first time setup..." >> $TACLOG
+		clear
+		yn=""
+		source $TWOTACSETUP
+	fi
 	echo " Available commands:"
 	echo " To add, edit or view users,            enter 1"
 	echo " To run backups or view logs,           enter 2"
