@@ -382,7 +382,6 @@ firstsetup () {
 		break
 	else
 		doall
-		exit0
 	fi
 }
 yesno () {
