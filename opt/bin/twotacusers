@@ -242,28 +242,6 @@ formaterror () {
 	sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorformat/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
 	exit 1
 }
-function3 () {
-	echo "$FUNCNAME initiated" >> $TACLOG
-	yn=""
-	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
-		echo "Function 3"
-		yesnocancel
-		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
-			echo "Function cancelled" | tee -a $TACLOG
-			break
-		elif [[ "$yn" =~ ^[Yy](es)?$ ]]
-			then
-			### DO JUNK
-			echo "DO JUNK"
-			### DO JUNK
-			break
-		else
-			### FAIL
-			echo "Function 3 failed" | tee -a $TACLOG
-			exit1
-		fi
-	done
-}
 yesnocancel () {
 	yn=""
 	while true; do

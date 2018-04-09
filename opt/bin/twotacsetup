@@ -14,7 +14,6 @@ FILES="$DIR"
 ### Functions
 twotacconfigurations () {
 	title="                                  Twotac Configurations                                  "
-	yn=""
 	echo ${titlebanner// /=}
 	echo "$title"
 	echo ${titlebanner// /=}
@@ -137,7 +136,6 @@ organizationname () {
 	#This function will change the organization name
 	showchanges
 	title="                                    Organization Name                                    "
-	yn=""
 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 		echo ${titlebanner// /=}
 		echo "$title"
@@ -150,7 +148,6 @@ organizationname () {
 		read TEMPORG
 		echo ""
 		echo " $TEMPORG will be your new organization name"
-		yn=""
 		yesnocancel
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
@@ -179,7 +176,6 @@ webhostname () {
 		read TEMPWEB
 		echo ""
 		echo " $TEMPWEB will be your new host address"
-		yn=""
 		yesnocancel
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
@@ -206,7 +202,6 @@ administratormail () {
 		read TEMPMAIL
 		echo ""
 		echo " $TEMPMAIL will be your new admin's e-mail"
-		yn=""
 		yesnocancel
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
@@ -234,7 +229,6 @@ smtprelayhost () {
 		read TEMPSMTP
 		echo ""
 		echo " $TEMPSMTP will be your new SMTP host"
-		yn=""
 		yesnocancel
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
@@ -262,7 +256,6 @@ tacacskey () {
 		read TEMPKEY
 		echo ""
 		echo " $TEMPKEY is your new TACACS+ key. If your routers don't match, they will be inaccessible"
-		yn=""
 		yesnocancel
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
@@ -373,7 +366,6 @@ firstsetup () {
 	echo "This looks like your first time running Twotac Manager, "
 	echo "would you like to skip straight to setup? (yes/no)"
 	echo ""
-	yn=""
 	yesno
 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		echo "...First time setup cancelled..." >> $TACLOG

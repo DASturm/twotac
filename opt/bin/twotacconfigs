@@ -134,7 +134,6 @@ configoverwrite () {
 	title="                                  Twotac Configurations                                  "
 	echo "Configuration overwrite initiated" >> $TACLOG
 	clear
-	yn=""
 	echo ${titlebanner// /=}
 	echo "$title"
 	echo ${titlebanner// /=}
@@ -275,7 +274,6 @@ exit1 () {
 ### Program Start
 echo "Viewing or modifying configurations" >> $TACLOG
 clear
-yn=""
 echo ${titlebanner// /=}
 echo "$title"
 echo ${titlebanner// /=}

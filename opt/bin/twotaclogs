@@ -89,7 +89,6 @@ exit1 () {
 }
 ### Program Start
 clear
-yn=""
 title="                                 Twotac Logs and Backups                                 "
 echo ${titlebanner// /=}
 echo "$title"
