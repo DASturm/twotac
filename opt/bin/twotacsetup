@@ -402,7 +402,7 @@ yesnocancel () {
 		read -p " Would you like to continue? \"No\" will restart this section (y/n/c)" yn
 		case $yn in
 			[Yy]* ) yn="Yes"; return 0;;
-			[Nn]* ) :;;
+			[Nn]* ) echo "Try again"; return 0;;
 			[Cc]* ) yn="Cancel"; echo "Cancelling..."; return 0;;
 			* ) echo "Please answer yes, no or cancel.";;
 		esac
