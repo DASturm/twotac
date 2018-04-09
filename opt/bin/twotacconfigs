@@ -180,7 +180,7 @@ configoverwrite () {
 		fi
 		echo ""
 		echo "Would you like to overwrite your standard configurations for the twotac default configuration? (y/n)"
-		yesno
+		yesnocancel
 		 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		 		echo "...Default config overwrite cancelled..." >> $TACLOG
 		 		break
@@ -252,13 +252,13 @@ configoverwrite () {
 	fi
 	echo "Rewriting twotac config data..."
 }
-yesno () {
+yesnocancel () {
 	yn=""
 	while true; do
 		read -p " Would you like to continue? \"No\" will restart this section (y/n/c)" yn
 		case $yn in
 			[Yy]* ) yn="Yes"; return 0;;
-			[Nn]* ) :;;
+			[Nn]* ) echo "Try again"; return 0;;
 			[Cc]* ) yn="Cancel"; echo "Cancelling..."; return 0;;
 			* ) echo "Please answer yes, no or cancel.";;
 		esac

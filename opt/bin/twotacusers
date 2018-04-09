@@ -80,7 +80,7 @@ tacuserprompt () {
 		echo -e "Name= $FULLNAME" >> $TACLOG
 		echo " Your current entries are:"
 		echo -e " $USERNAME, $USERMAIL, and $FULLNAME"
-		yesno
+		yesnocancel
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			echo -e "Add user cancelled" >> $TACLOG
 			break
@@ -116,7 +116,7 @@ tacdeleteprompt () {
 		echo -e "Name= $FULLNAME" >> $TACLOG
 		echo " Your current entries are:"
 		echo -e " $USERNAME, $USERMAIL, and $FULLNAME"
-		yesno
+		yesnocancel
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			echo -e "Delete user cancelled" >> $TACLOG
 			break
@@ -247,7 +247,7 @@ function3 () {
 	yn=""
 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 		echo "Function 3"
-		yesno
+		yesnocancel
 		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			echo "Function cancelled" | tee -a $TACLOG
 			break
@@ -264,13 +264,13 @@ function3 () {
 		fi
 	done
 }
-yesno () {
+yesnocancel () {
 	yn=""
 	while true; do
 		read -p " Would you like to continue? \"No\" will restart this section (y/n/c)" yn
 		case $yn in
 			[Yy]* ) yn="Yes"; return 0;;
-			[Nn]* ) :;;
+			[Nn]* ) echo "Try again"; return 0;;
 			[Cc]* ) yn="Cancel"; echo "Cancelling..."; return 0;;
 			* ) echo "Please answer yes, no or cancel.";;
 		esac
