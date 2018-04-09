@@ -439,7 +439,7 @@ echo " To configure your SMTP relay host, enter 4"
 echo " To configure your TACACS+ key,     enter 5"
 echo " To commit changes to memory,       enter C"
 echo " To exit,                           enter Q"
-#Checks if a file has been CONFIGURED using the $CONFIGURED variable
+#Checks if a file has been configured using the $CONFIGURED variable
 	if [[ $CONFIGURED = false ]]; then
 		echo ""
 		echo " **NOTE: IF YOU DO NOT COMMIT, CHANGES WILL NOT BE SAVED**"
