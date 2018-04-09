@@ -8,6 +8,9 @@ titlelength=${#title}
 printf -v titlebanner '%*s' "$titlelength"
 #This is where the current variables will be stored
 source $TACCONF
+#Files variable may need work and may need to automatically gather file names/paths from a function
+DIR=$(find /etc/twotac/twotac.conf /etc/tacacs+/tac_plus.conf /etc/postfix/main.cf /etc/cron.weekly/ /opt/bin/ /opt/tacconfigs/ /opt/tacmail/ /var/www/html/ -type f)
+FILES="$DIR"
 ### Functions
 twotacconfigurations () {
 	title="                                  Twotac Configurations                                  "

@@ -1,7 +1,4 @@
 #!/bin/bash
-#Files variable may need work and may need to automatically gather file names/paths from a function
-DIR=$(find /etc/twotac/twotac.conf /etc/tacacs+/tac_plus.conf /etc/postfix/main.cf /etc/cron.weekly/ /opt/bin/ /opt/tacconfigs/ /opt/tacmail/ /var/www/html/ -type f)
-FILES="$DIR"
 TACLOG="/var/log/taclogs/taclog"
 TACCONF="/etc/twotac/twotac.conf"
 #Program Path Variables
