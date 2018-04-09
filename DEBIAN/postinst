@@ -11,7 +11,7 @@ if grep -q tacusers /etc/group; then
 sudo groupadd tacusers
 fi
 #Deny SSH from Tacacs users to server
-if [[ /etc/ssh/sshd_config ]]; then
+if [ /etc/ssh/sshd_config ]; then
 	echo "DenyUsers tacusers" >> /etc/ssh/sshd_config
 fi
 #Globalize scripts
