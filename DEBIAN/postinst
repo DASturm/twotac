@@ -13,4 +13,4 @@ if [[ /etc/ssh/sshd_config ]]; then
 	echo "DenyUsers tacusers" >> /etc/ssh/sshd_config
 fi
 #Globalize scripts
-sudo ln -s /opt/bin/* /usr/bin/
+sudo ln -sf /opt/bin/* /usr/bin/

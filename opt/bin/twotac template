@@ -1,5 +1,5 @@
 #!/bin/bash
-### Twotac Template
+### Twotac Template, Please Ignore
 TACLOG="/var/log/taclogs/taclog"
 TACCONF="/etc/twotac/twotac.conf"
 title="    Twotac Test    "
