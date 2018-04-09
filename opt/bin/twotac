@@ -10,6 +10,17 @@ CONFIGURED=false
 #This is where the current variables will be stored
 source $TACCONF
 #trap '' 2
+yesno () {
+	yn=""
+	while true; do
+		read -p " Would you like to continue? \"No\" will cancel (y/n)" yn
+		case $yn in
+			[Yy]* ) yn="Yes"; return 0;;
+			[Nn]* ) yn="No"; echo "Cancelling..."; return 0;;
+			* ) echo "Please answer yes, no or cancel.";;
+		esac
+	done
+}
 echo "<----`date`---->" >> $TACLOG
 echo "Twotac Management" >> $TACLOG
 while true
@@ -21,10 +32,16 @@ do
 	echo "                                    Twotac Management                                    "
 	echo "========================================================================================="
 	if [ $FIRSTSETUP = "false" ]; then
-		echo "...Running first time setup..." >> $TACLOG
-		clear
-		yn=""
-		source $TWOTACSETUP
+		echo ""
+		echo " Would you like to run first time setup?"
+		yesno
+		if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+			break
+		else
+			echo "...Running first time setup..." >> $TACLOG
+			clear
+			source $TWOTACSETUP
+		fi
 	fi
 	echo " Available commands:"
 	echo " To add, edit or view users,            enter 1"
