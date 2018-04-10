@@ -45,19 +45,6 @@ do
 	echo "========================================================================================="
 	echo "                                    Twotac Management                                    "
 	echo "========================================================================================="
-	if [ $FIRSTSETUP = "false" ]; then
-		echo ""
-		echo " This looks like the first time you've run twotac"
-		echo " Would you like to run first time setup?"
-		echo ""
-		yesno
-		if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-			break
-		else
-			echo "...Running first time setup..." >> $TACLOG
-			source $TWOTACSETUP
-		fi
-	fi
 	echo " Available commands:"
 	echo " To add, edit or view users,            enter 1"
 	echo " To run backups or view logs,           enter 2"
