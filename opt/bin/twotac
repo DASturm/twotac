@@ -26,6 +26,20 @@ echo "Twotac Management" >> $TACLOG
 while true
 do
 	source $TACCONF
+	if [ $FIRSTSETUP = "false" ]; then
+		clear
+		echo ""
+		echo " This looks like the first time you've run twotac"
+		echo " Would you like to run first time setup?"
+		echo ""
+		yesno
+		if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+			break
+		else
+			echo "...Running first time setup..." >> $TACLOG
+			source $TWOTACSETUP
+		fi
+	fi
 	clear
 	yn=""
 	echo "========================================================================================="
