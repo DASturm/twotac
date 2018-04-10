@@ -7,13 +7,9 @@
 ### Twotac Template
 TACLOG="/var/log/taclogs/taclog"
 TACCONF="/etc/twotac/twotac.conf"
-title="    Twotac Test    "
 # Titlebanner is equal to the title length via printf
 titlelength=${#title}
 printf -v titlebanner '%*s' "$titlelength"
-# Option numbers must be represented in the case
-prompt="Pick an option: "
-options=("1" "2" "3")
 ### Functions
 viewlogs () {
 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
@@ -93,6 +89,7 @@ exit1 () {
 	exit 1
 }
 ### Program Start
+while true; do
 clear
 title="                                 Twotac Logs and Backups                                 "
 echo ${titlebanner// /=}
@@ -117,4 +114,6 @@ case $answer in
 	3) #This case will show the user all the backups that have been stored in the backups folder.
 		viewbackups;;
 	[Qq] ) #Exit the program
-		exit0;;
+		return 0 2>/dev/null || exit0;;
+esac
+done
