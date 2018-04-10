@@ -367,11 +367,13 @@ firstsetup () {
 	echo "$title"
 	echo ${titlebanner// /=}
 	clear
+	if ! [[ "$yn"="Yes" ]]; then
 	echo ""
-	echo "This looks like your first time running Twotac Manager, "
+	echo "This looks like your first time running Twotac Setup, "
 	echo "would you like to skip straight to setup? (yes/no)"
 	echo ""
 	yesno
+	fi
 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		echo "...First time setup cancelled..." >> $TACLOG
 		FIRSTSETUP="true"
