@@ -1,4 +1,9 @@
 #!/bin/bash
+
+######
+### This is super borked right now for some reason. Have a great day!
+######
+
 ### Twotac Template
 TACLOG="/var/log/taclogs/taclog"
 TACCONF="/etc/twotac/twotac.conf"
