@@ -401,7 +401,7 @@ yesnocancel () {
 }
 exit0 () {
 	echo "Program exiting successfully"
-	exit 0
+	return 0
 }
 exit1 () {
 	echo "Program failed! Exiting" | tee -a $TACLOG
