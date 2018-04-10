@@ -362,6 +362,10 @@ doall () {
 	fi
 }
 firstsetup () {
+	title="                                   First Time Setup                                 "
+]	echo ${titlebanner// /=}
+	echo "$title"
+	echo ${titlebanner// /=}
 	clear
 	echo ""
 	echo "This looks like your first time running Twotac Manager, "
@@ -460,6 +464,6 @@ case $answer in
 	[Cc] ) #This case will take $NEWVAR and overwrite $VAR
 		configurationcommit;;
 	[Qq] ) #Exit the program
-		return 0 || exit 0;;
+		return 0 2>/dev/null || exit 0;;
 esac
 done
