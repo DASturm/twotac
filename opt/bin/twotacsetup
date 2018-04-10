@@ -419,7 +419,7 @@ if [ $FIRSTSETUP = false ]; then
 	firstsetup
 fi
 clear
-if [[ $CONFIGURED=true ]]; then
+if [[ $COMMIT=true ]]; then
 	echo ${titlebanner// /=}
 	echo "***Your changes have been saved!***"
 fi
@@ -436,7 +436,7 @@ echo " To configure your TACACS+ key,     enter 5"
 echo " To commit changes to memory,       enter C"
 echo " To exit,                           enter Q"
 #Checks if a file has been configured using the $CONFIGURED variable
-	if [[ $CONFIGURED ]] && [[ $CONFIGURED=false ]]; then
+	if [[ $CONFIGURED ]] && [[ $CONFIGURED=false ]] && [[ $COMMIT=false ]]; then
 		echo ""
 		echo " **NOTE: IF YOU DO NOT COMMIT, CHANGES WILL NOT BE SAVED**"
 	fi
