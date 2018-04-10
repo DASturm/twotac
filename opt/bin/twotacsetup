@@ -401,7 +401,7 @@ yesnocancel () {
 }
 exit0 () {
 	echo "Program exiting successfully"
-	return 0
+	exit 0
 }
 exit1 () {
 	echo "Program failed! Exiting" | tee -a $TACLOG
@@ -411,7 +411,7 @@ exit1 () {
 echo "Running setup" >> $TACLOG
 while [[ $COMMIT=false ]]; do
 clear
-if [[ $CONFIGURED = true ]]; then
+if [[ $CONFIGURED=true ]]; then
 	echo ${titlebanner// /=}
 	echo "***Your changes have been saved!***"
 fi
@@ -431,7 +431,7 @@ echo " To configure your TACACS+ key,     enter 5"
 echo " To commit changes to memory,       enter C"
 echo " To exit,                           enter Q"
 #Checks if a file has been configured using the $CONFIGURED variable
-	if [[ $CONFIGURED = false ]]; then
+	if [[ $CONFIGURED ]] && [[ $CONFIGURED=false ]]; then
 		echo ""
 		echo " **NOTE: IF YOU DO NOT COMMIT, CHANGES WILL NOT BE SAVED**"
 	fi
@@ -459,6 +459,6 @@ case $answer in
 	[Cc] ) #This case will take $NEWVAR and overwrite $VAR
 		configurationcommit;;
 	[Qq] ) #Exit the program
-		exit0;;
+		return 0 || exit 0;;
 esac
 done
