@@ -362,6 +362,7 @@ doall () {
 	fi
 }
 firstsetup () {
+	clear
 	echo ""
 	echo "This looks like your first time running Twotac Manager, "
 	echo "would you like to skip straight to setup? (yes/no)"
@@ -410,6 +411,9 @@ exit1 () {
 ### Program Start
 echo "Running setup" >> $TACLOG
 while [[ $COMMIT=false ]]; do
+if [ $FIRSTSETUP = false ]; then
+	firstsetup
+fi
 clear
 if [[ $CONFIGURED=true ]]; then
 	echo ${titlebanner// /=}
@@ -418,9 +422,6 @@ fi
 echo ${titlebanner// /=}
 echo "$title"
 echo ${titlebanner// /=}
-if [ $FIRSTSETUP = false ]; then
-	firstsetup
-fi
 echo " Available commands:"
 echo " For a quick edit to all variables, enter A"
 echo " To edit the organization name,     enter 1"
