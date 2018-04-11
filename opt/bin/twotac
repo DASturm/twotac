@@ -10,6 +10,22 @@ CONFIGURED=false
 #This is where the current variables will be stored
 source $TACCONF
 #trap '' 2
+askfirstsetup () {
+	if [ $FIRSTSETUP=false ]; then
+		clear
+		echo ""
+		echo " This looks like the first time you've run twotac"
+		echo " Would you like to run first time setup?"
+		echo ""
+		yesno
+		if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+			:
+		else
+			echo "...Running first time setup..." >> $TACLOG
+			source $TWOTACSETUP
+		fi
+	fi
+} 
 stopfirstsetup () {
 	sed -i 's/FIRSTSETUP\=false/FIRSTSETUP\=true/g' $TACCONF #|| echo "Configuration missing, exiting" >> $TACLOG; exit 1##Test this later
 	FIRSTSETUP=false
@@ -31,20 +47,7 @@ echo "Twotac Management" >> $TACLOG
 while true
 do
 	source $TACCONF
-	if [ $FIRSTSETUP=false ]; then
-		clear
-		echo ""
-		echo " This looks like the first time you've run twotac"
-		echo " Would you like to run first time setup?"
-		echo ""
-		yesno
-		if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-			:
-		else
-			echo "...Running first time setup..." >> $TACLOG
-			source $TWOTACSETUP
-		fi
-	fi
+	askfirstsetup
 	clear
 	yn=""
 	echo "========================================================================================="
