@@ -11,7 +11,8 @@ CONFIGURED=false
 source $TACCONF
 #trap '' 2
 stopfirstsetup () {
-	sed -i 's/FIRSTSETUP\=false/FIRSTSETUP\=true/g' $TACCONF
+	sed -i 's/FIRSTSETUP\=false/FIRSTSETUP\=true/g' $TACCONF #|| echo "Configuration missing, exiting" >> $TACLOG; exit 1##Test this later
+	FIRSTSETUP=false
 }
 yesno () {
 	yn=""
