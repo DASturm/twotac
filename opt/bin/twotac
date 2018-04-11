@@ -34,7 +34,7 @@ do
 		echo ""
 		yesno
 		if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-			break
+			:
 		else
 			echo "...Running first time setup..." >> $TACLOG
 			source $TWOTACSETUP
