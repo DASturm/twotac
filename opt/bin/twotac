@@ -13,6 +13,7 @@ source $TACCONF
 stopfirstsetup () {
 	sed -i 's/FIRSTSETUP\=false/FIRSTSETUP\=true/g' $TACCONF #|| echo "Configuration missing, exiting" >> $TACLOG; exit 1##Test this later
 	FIRSTSETUP=false
+	return 0
 }
 yesno () {
 	yn=""
