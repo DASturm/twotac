@@ -10,6 +10,9 @@ CONFIGURED=false
 #This is where the current variables will be stored
 source $TACCONF
 #trap '' 2
+stopfirstsetup () {
+	sed -i 's/FIRSTSETUP\=false/FIRSTSETUP\=true/g' $TACCONF
+}
 yesno () {
 	yn=""
 	while true; do
@@ -26,7 +29,7 @@ echo "Twotac Management" >> $TACLOG
 while true
 do
 	source $TACCONF
-	if [ $FIRSTSETUP = "false" ]; then
+	if [ $FIRSTSETUP=false ]; then
 		clear
 		echo ""
 		echo " This looks like the first time you've run twotac"
@@ -51,7 +54,7 @@ do
 	echo " To setup or change script information, enter 3"
 	echo " To view or edit configs,               enter 4"
 	echo " To exit this interface,                enter Q"
-	if [ $FIRSTSETUP = "false" ]; then
+	if [ $FIRSTSETUP=false ]; then
 		echo " To stop first time setups,             enter S"
 	fi
 	echo ""
@@ -61,8 +64,8 @@ do
 	echo ""
 	read answer
 	case $answer in
-		[Ss] )
-		sed -i 's/FIRSTSETUP\=\"false\"/FIRSTSETUP\=\"true\"/g' $TACCONF;;
+		[Ss] ) #This case sets $FIRSTSETUP to false, preventing prompts and popups
+			stopfirstsetup;;
 		1) #This case enters the user management interface
 			source $TWOTACUSERS;;
 		2) #This case will allow you to interact with the Logs and Backups menu

@@ -417,7 +417,7 @@ exit1 () {
 ### Program Start
 echo "Running setup" >> $TACLOG
 while [[ $COMMIT=false ]]; do
-if [ $FIRSTSETUP = false ]; then
+if [ $FIRSTSETUP=false ]; then
 	firstsetup
 fi
 clear
