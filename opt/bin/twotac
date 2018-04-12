@@ -11,20 +11,18 @@ CONFIGURED=false
 source $TACCONF
 #trap '' 2
 askfirstsetup () {
-	if ! [ $FIRSTSETUP=true ]; then
-		clear
-		echo $FIRSTSETUP
-		echo ""
-		echo " This looks like the first time you've run twotac"
-		echo " Would you like to run first time setup?"
-		echo ""
-		yesno
-		if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-			:
-		else
-			echo "...Running first time setup..." >> $TACLOG
-			source $TWOTACSETUP
-		fi
+	clear
+	echo $FIRSTSETUP
+	echo ""
+	echo " This looks like the first time you've run twotac"
+	echo " Would you like to run first time setup?"
+	echo ""
+	yesno
+	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+		:
+	else
+		echo "...Running first time setup..." >> $TACLOG
+		source $TWOTACSETUP
 	fi
 } 
 stopfirstsetup () {
@@ -48,7 +46,9 @@ echo "Twotac Management" >> $TACLOG
 while true
 do
 	source $TACCONF
-	askfirstsetup
+	if  [ $FIRSTSETUP=false ]; then
+		askfirstsetup
+	fi
 	clear
 	yn=""
 	echo "========================================================================================="
