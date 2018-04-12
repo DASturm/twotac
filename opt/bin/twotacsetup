@@ -361,11 +361,12 @@ doall () {
 	fi
 }
 firstsetup () {
+
+	clear
 	title="                                   First Time Setup                                 "
-]	echo ${titlebanner// /=}
+	echo ${titlebanner// /=}
 	echo "$title"
 	echo ${titlebanner// /=}
-	clear
 	if ! [[ "$yn"="Yes" ]]; then
 	echo ""
 	echo "This looks like your first time running Twotac Setup, "
