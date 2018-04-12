@@ -379,6 +379,7 @@ firstsetup () {
 		break
 	else
 		doall
+		FIRSTSETUP=true
 		sed -i 's/FIRSTSETUP\=false/FIRSTSETUP\=true/g' $TACCONF
 		echo ""
 		echo "Do you want to go back to the manager?"
