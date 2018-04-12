@@ -286,7 +286,8 @@ if [ "$#" -le "1" ]; then
 		tacuserprompt;;
 		3) #This case will delete users based on input
 		tacdeleteprompt;;
-		[Qq]) break;;
+		[Qq]) #Return to the manager or exit the program
+		return 0 2>/dev/null || exit0;;
 	esac
 elif [ "$#" -le "6" ]; then
 	#Logs input data before any opportunity for exit codes

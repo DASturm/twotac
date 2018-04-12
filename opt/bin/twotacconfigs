@@ -37,8 +37,8 @@ viewconfigs () {
 			viewpam;;
 		4 ) #This case views all default twotac configs
 			viewdefault;;
-		[Qq] ) #Exit the function
-			break;;
+		[Qq] ) #Return to the manager or exit the program
+			return 0 2>/dev/null || exit0;;
 	esac
 	done
 }

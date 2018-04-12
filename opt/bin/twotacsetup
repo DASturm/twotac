@@ -465,7 +465,7 @@ case $answer in
 		tacacskey;;
 	[Cc] ) #This case will take $NEWVAR and overwrite $VAR
 		configurationcommit;;
-	[Qq] ) #Exit the program
-		return 0 2>/dev/null || exit 0;;
+	[Qq] ) #Return to the manager or exit the program
+		return 0 2>/dev/null || exit0;;
 esac
 done

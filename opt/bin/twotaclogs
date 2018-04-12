@@ -113,7 +113,7 @@ case $answer in
 		runbackup;;
 	3) #This case will show the user all the backups that have been stored in the backups folder.
 		viewbackups;;
-	[Qq] ) #Exit the program
+	[Qq] ) #Return to the manager or exit the program
 		return 0 2>/dev/null || exit0;;
 esac
 done
