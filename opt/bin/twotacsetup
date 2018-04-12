@@ -15,10 +15,10 @@ FILES="$DIR"
 twotacconfigurations () {
 	if [ $FIRSTSETUP = true ]; then
 		title="                                  Twotac Configurations                                  "
+		echo ${titlebanner// /=}
+		echo "$title"
+		echo ${titlebanner// /=}
 	fi
-	echo ${titlebanner// /=}
-	echo "$title"
-	echo ${titlebanner// /=}
 	echo ""
 	echo "Checking for installed files..."
 	echo "...Checking for installed files..." >> $TACLOG
