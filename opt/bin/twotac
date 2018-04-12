@@ -61,6 +61,7 @@ do
 	echo " To view or edit configs,               enter 4"
 	echo " To exit this interface,                enter Q"
 	if [ $FIRSTSETUP = false ]; then
+		echo $FIRSTSETUP
 		echo " To stop first time setups,             enter S"
 	fi
 	echo ""
