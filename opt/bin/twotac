@@ -13,6 +13,7 @@ source $TACCONF
 askfirstsetup () {
 	if [ $FIRSTSETUP=false ]; then
 		clear
+		echo $FIRSTSETUP
 		echo ""
 		echo " This looks like the first time you've run twotac"
 		echo " Would you like to run first time setup?"
