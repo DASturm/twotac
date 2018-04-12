@@ -13,7 +13,9 @@ DIR=$(find /etc/twotac/twotac.conf /etc/tacacs+/tac_plus.conf /etc/postfix/main.
 FILES="$DIR"
 ### Functions
 twotacconfigurations () {
-	title="                                  Twotac Configurations                                  "
+	if [ $FIRSTSETUP = true ]; then
+		title="                                  Twotac Configurations                                  "
+	fi
 	echo ${titlebanner// /=}
 	echo "$title"
 	echo ${titlebanner// /=}
