@@ -329,8 +329,7 @@ configurationcommit () {
 				sed -i "s/$KEY/$NEWKEY/g" $FILES
 				NEWKEY=""
 				fi
-			CONFIGURED=true
-			;;
+			CONFIGURED=true;;
 	[Nn]* ) COMMIT=false;continue;;
 	esac
 }
@@ -376,11 +375,21 @@ firstsetup () {
 	fi
 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		echo "...First time setup cancelled..." >> $TACLOG
-		FIRSTSETUP="true"
-		sed -i 's/FIRSTSETUP\=false/FIRSTSETUP\=true/g' $TACCONF
+		FIRSTSETUP=true
 		break
 	else
 		doall
+		sed -i 's/FIRSTSETUP\=false/FIRSTSETUP\=true/g' $TACCONF
+		echo ""
+		echo "Do you want to go back to the manager?"
+		echo ""
+		yesno
+		if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+			return 0;
+		else
+			return 0
+			return 0
+		fi
 	fi
 }
 yesno () {
