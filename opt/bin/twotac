@@ -11,7 +11,7 @@ CONFIGURED=false
 source $TACCONF
 #trap '' 2
 askfirstsetup () {
-	if [ $FIRSTSETUP=false ]; then
+	if ! [ $FIRSTSETUP=true ]; then
 		clear
 		echo $FIRSTSETUP
 		echo ""
