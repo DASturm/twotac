@@ -14,6 +14,7 @@ FILES="$DIR"
 ### Functions
 twotacconfigurations () {
 	if [ $FIRSTSETUP = true ]; then
+		echo $FIRSTSETUP #DELETE ME
 		title="                                  Twotac Configurations                                  "
 		echo ${titlebanner// /=}
 		echo "$title"
@@ -363,8 +364,8 @@ doall () {
 	fi
 }
 firstsetup () {
-
 	clear
+	echo $FIRSTSETUP #DELETE ME
 	title="                                   First Time Setup                                 "
 	echo ${titlebanner// /=}
 	echo "$title"
