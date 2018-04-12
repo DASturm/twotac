@@ -387,8 +387,7 @@ firstsetup () {
 		if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 			return 0;
 		else
-			return 0
-			return 0
+			GOBACK=true
 		fi
 	fi
 }
@@ -428,6 +427,9 @@ echo "Running setup" >> $TACLOG
 while [[ $COMMIT=false ]]; do
 if [ $FIRSTSETUP=false ]; then
 	firstsetup
+	if [ $GOBACK ]; then
+		return 0
+	fi
 fi
 clear
 if [[ $COMMIT=true ]]; then
