@@ -46,7 +46,7 @@ echo "Twotac Management" >> $TACLOG
 while true
 do
 	source $TACCONF
-	if  [ $FIRSTSETUP=false ]; then
+	if  [ $FIRSTSETUP = false ]; then
 		askfirstsetup
 	fi
 	clear
@@ -60,7 +60,7 @@ do
 	echo " To setup or change script information, enter 3"
 	echo " To view or edit configs,               enter 4"
 	echo " To exit this interface,                enter Q"
-	if [ $FIRSTSETUP=false ]; then
+	if [ $FIRSTSETUP = false ]; then
 		echo " To stop first time setups,             enter S"
 	fi
 	echo ""
