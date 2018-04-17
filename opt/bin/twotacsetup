@@ -429,8 +429,8 @@ exit1 () {
 }
 ### Program Start
 echo "Running setup" >> $TACLOG
-while [[ $COMMIT=false ]]; do
-if [ $FIRSTSETUP=false ]; then
+while [[ $COMMIT = false ]]; do
+if [[ $FIRSTSETUP = false ]]; then
 	firstsetup
 	if [ $GOBACK ]; then
 		return 0
@@ -454,7 +454,7 @@ echo " To configure your TACACS+ key,     enter 5"
 echo " To commit changes to memory,       enter C"
 echo " To exit,                           enter Q"
 #Checks if a file has been configured using the $CONFIGURED variable
-	if [[ $CONFIGURED ]] && [[ $CONFIGURED=false ]] && [[ $COMMIT=false ]]; then
+	if [[ $CONFIGURED ]] && [[ $CONFIGURED = false ]] && [[ $COMMIT = false ]]; then
 		echo ""
 		echo " **NOTE: IF YOU DO NOT COMMIT, CHANGES WILL NOT BE SAVED**"
 	fi
