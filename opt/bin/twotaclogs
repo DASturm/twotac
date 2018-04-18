@@ -20,7 +20,7 @@ viewlogs () {
 	echo "$title"
 	echo ${titlebanner// /=}
 	echo " (Weeks without activity will not be logged)"
-	ls -gavA /var/log/taclogs/
+	ls -gavA /var/log/taclogs/ # || ERROR CODE
 	echo ""
 	echo ${titlebanner// /=}
 	echo " Which log would you like to view? (Blank to go back)"
@@ -30,7 +30,7 @@ viewlogs () {
 	if ! [[ $logsearch ]]; then
 		break
 	fi
-	cat /var/log/taclogs/$logsearch 2>/dev/null
+	cat /var/log/taclogs/$logsearch 2>/dev/null # || ERROR CODE
 	echo -e "Viewed /var/log/taclogs/$logsearch" >> $TACLOG
 	echo ""
 	echo ""
@@ -44,7 +44,7 @@ viewlogs () {
 }
 runbackup () {
 	echo -e "Running backup" >> $TACLOG
-	/etc/cron.weekly/backup.sh 2>/dev/null
+	/etc/cron.weekly/backup.sh 2>/dev/null # || ERROR CODE
 	echo "Backup ran successfully"
 	echo ""
 	read -p "Press enter to continue"
@@ -58,7 +58,7 @@ viewbackups () {
 	echo " (Weeks without activity will not be logged)"
 	echo ""
 	echo ""
-	ls -gavA /opt/tacbackups/
+	ls -gavA /opt/tacbackups/ # || ERROR CODE
 	echo ""
 	echo ""
 	echo ""

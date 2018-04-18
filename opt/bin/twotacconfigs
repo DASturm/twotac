@@ -45,7 +45,7 @@ viewconfigs () {
 viewtacacs () {
 	echo "Viewing tacacs+ configuration" >> $TACLOG
 	clear
-	cat /etc/tacacs+/tac_plus.conf #ADD ERROR CODE
+	cat /etc/tacacs+/tac_plus.conf # || ERROR CODE
 	echo ""
 	echo ""
 	echo "Would you like to edit this file? (y/n)"
@@ -66,7 +66,7 @@ viewtacacs () {
 viewpostfix () {
 	echo "Viewing postfix configuration" >> $TACLOG
 	clear
-	cat /etc/postfix/main.cf #ADD ERROR CODE
+	cat /etc/postfix/main.cf # || ERROR CODE
 	echo ""
 	echo ""
 	echo "Would you like to edit this file? (y/n)"
@@ -87,7 +87,7 @@ viewpostfix () {
 viewpam () {
 	echo "Viewing pam configuration" >> $TACLOG
 	clear
-	cat /etc/pam.d/tac_plus #ADD ERROR CODE
+	cat /etc/pam.d/tac_plus # || ERROR CODE
 	echo ""
 	echo ""
 	echo "Would you like to edit this file? (y/n)"
@@ -112,19 +112,19 @@ viewdefault () {
 	echo "====================================================="
 	echo "Twotac default tacacs+ configuration"
 	echo "====================================================="
-	cat /opt/tacconfigs/tacacs+/tac_plus.conf #ADD ERROR CODE
+	cat /opt/tacconfigs/tacacs+/tac_plus.conf # || ERROR CODE
 	echo ""
 	echo ""
 	echo "====================================================="
 	echo "Twotac default postfix configuration"
 	echo "====================================================="
-	cat /opt/tacconfigs/postfix/main.cf #ADD ERROR CODE
+	cat /opt/tacconfigs/postfix/main.cf # || ERROR CODE
 	echo ""
 	echo ""
 	echo "====================================================="
 	echo "Twotac default pam configuration"
 	echo "====================================================="
-	cat /opt/tacconfigs/pam.d/tac_plus #ADD ERROR CODE
+	cat /opt/tacconfigs/pam.d/tac_plus # || ERROR CODE
 	echo ""
 	echo ""
 	read -p "Press any key to continue"
