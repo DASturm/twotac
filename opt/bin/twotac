@@ -11,7 +11,8 @@ CONFIGURED=false
 source $TACCONF
 #trap '' 2
 ### Opening log announcement
-echo "Started twotacsetup" >> $TACLOG
+echo "<----`date`---->" >> $TACLOG
+echo "Twotac Management" >> $TACLOG
 ### Functions
 askfirstsetup () {
 	clear
@@ -43,8 +44,10 @@ yesno () {
 		esac
 	done
 }
-echo "<----`date`---->" >> $TACLOG
-echo "Twotac Management" >> $TACLOG
+exit0 () {
+	echo "Program exiting successfully" >> $TACLOG
+	exit 0
+}
 while true
 do
 	source $TACCONF
@@ -86,6 +89,6 @@ do
 			echo "<--------------END-LOG--------------->" >> $TACLOG
 			echo "" >> $TACLOG
 			clear
-			exit ;;
+			exit0 ;;
 	esac
 done
