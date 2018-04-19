@@ -10,6 +10,8 @@ TACCONF="/etc/twotac/twotac.conf"
 # Titlebanner is equal to the title length via printf
 titlelength=${#title}
 printf -v titlebanner '%*s' "$titlelength"
+### Opening log announcement
+echo "Started twotacsetup" >> $TACLOG
 ### Functions
 viewlogs () {
 	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do

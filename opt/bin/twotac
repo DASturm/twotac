@@ -10,6 +10,9 @@ CONFIGURED=false
 #This is where the current variables will be stored
 source $TACCONF
 #trap '' 2
+### Opening log announcement
+echo "Started twotacsetup" >> $TACLOG
+### Functions
 askfirstsetup () {
 	clear
 	echo ""

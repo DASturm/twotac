@@ -6,6 +6,8 @@ title="                                  Twotac Configurations                  
 # Titlebanner is equal to the title length via printf
 titlelength=${#title}
 printf -v titlebanner '%*s' "$titlelength"
+### Opening log announcement
+echo "Started twotacsetup" >> $TACLOG
 ### Functions
 viewconfigs () {
 	title="                                      View Configs                                       "

@@ -17,6 +17,8 @@ errorconfig="Tacacs+ configuration file not found! Contact an administrator ASAP
 errorrestart="The tacacs_plus service failed to restart. Please fix this to enable tacacs again. (This is bad)"
 errornobody="The user does not appear to exist, check your input and try again"
 errordup="The username you're adding already exists.  Please check the username and try again."
+### Opening log announcement
+echo "Started twotacsetup" >> $TACLOG
 ### Functions
 userview () {
 	echo -e "Viewed user list" >> $TACLOG
