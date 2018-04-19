@@ -16,7 +16,6 @@ echo "Started twotacsetup" >> $TACLOG
 ### Functions
 twotacconfigurations () {
 	if [ $FIRSTSETUP=true ]; then
-		echo $FIRSTSETUP #DELETE ME
 		title="                                  Twotac Configurations                                  "
 		echo ${titlebanner// /=}
 		echo "$title"
@@ -368,7 +367,6 @@ doall () {
 }
 firstsetup () {
 	clear
-	echo "$FIRSTSETUP" >> $TACLOG
 	title="                                   First Time Setup                                 "
 	echo ${titlebanner// /=}
 	echo "$title"
