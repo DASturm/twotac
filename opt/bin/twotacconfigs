@@ -266,7 +266,7 @@ yesnocancel () {
 	done
 }
 exit0 () {
-	echo "Program exiting successfully"
+	echo "Program exiting successfully" >> $TACLOG
 	exit 0
 }
 exit1 () {
