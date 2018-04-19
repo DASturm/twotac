@@ -21,22 +21,26 @@ errordup="The username you're adding already exists.  Please check the username 
 echo "Started twotacsetup" >> $TACLOG
 ### Functions
 userview () {
+	touch /tmp/tacjunk
 	echo -e "Viewed user list" >> $TACLOG
 	for f in $USERLIST; do
 		getent passwd $f | cut -f5 -d',' | cut -f1 -d':' >> /tmp/tacjunk
 	done
 	MAILLIST=$(cat /tmp/tacjunk | sed ':a;N;$!ba;s/\n/ /g')
 	rm /tmp/tacjunk
+	touch /tmp/tacjunk
 	for f in $USERLIST; do
 		grep -c $f /etc/tacacs+/tac_plus.conf >> /tmp/tacjunk
 	done
 	TACLIST=$(cat /tmp/tacjunk | sed ':a;N;$!ba;s/\n/ /g' | sed 's/1/Registered/g' | sed 's/0/Unregistered/g')
 	rm /tmp/tacjunk
+	touch /tmp/tacjunk
 	for f in $USERLIST; do
 		find /home/$f/ -exec stat \{} --printf="%y\n" \; | sort -n -r | head -n 1 | awk '{print $1}' >> /tmp/tacjunk
 	done
 	REGLIST=$(cat /tmp/tacjunk | sed ':a;N;$!ba;s/\n/ /g')
 	rm /tmp/tacjunk
+	touch /tmp/tacjunk
 	echo -e "$USERLIST\n$MAILLIST\n$TACLIST\n$REGLIST" >> /tmp/tacjunk
 	cat /tmp/tacjunk | sed 's/ /,:,/g' | column -t -s ','
 	rm /tmp/tacjunk
