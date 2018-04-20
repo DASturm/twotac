@@ -68,6 +68,7 @@ do
 	echo " To exit this interface,                enter Q"
 	if [ "$FIRSTSETUP" = false ]; then
 		echo " To stop first time setups,             enter S"
+		echo "FIRSTSETUP=$FIRSTSETUP" >> $TACLOG
 	fi
 	echo ""
 	echo "====================================================="
