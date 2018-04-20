@@ -69,7 +69,7 @@ twotacconfigurations () {
 			echo "...Default config overwrite cancelled..." >> $TACLOG
 			break
 		fi
-		if [[[ "$yn" =~ ^[Yy](es)?$ ]]]; then
+		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 			echo "...Default config overwrite enabled..." >> $TACLOG
 			CONFIGURED=false
 		if [ "$tacacs" ]; then
