@@ -65,11 +65,11 @@ twotacconfigurations () {
 		echo ""
 		echo "Would you like to overwrite your standard configurations for the twotac default configuration? (y/n)"
 		yesno
-		if [ "$yn" =~ ^[Nn](o)?$ ]; then
+		if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 			echo "...Default config overwrite cancelled..." >> $TACLOG
 			break
 		fi
-		if [ "$yn" =~ ^[Yy](es)?$ ]; then
+		if [[[ "$yn" =~ ^[Yy](es)?$ ]]]; then
 			echo "...Default config overwrite enabled..." >> $TACLOG
 			CONFIGURED=false
 		if [ "$tacacs" ]; then
@@ -141,7 +141,7 @@ organizationname () {
 	#This function will change the organization name
 	showchanges
 	title="                                    Organization Name                                    "
-	until [ "$yn" =~ ^[Yy](es)?$ ]; do
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 		echo ${titlebanner// /=}
 		echo "$title"
 		echo ${titlebanner// /=}
@@ -154,9 +154,9 @@ organizationname () {
 		echo ""
 		echo " $TEMPORG will be your new organization name"
 		yesnocancel
-		if [ "$yn" =~ ^[Cc](ancel)?$ ]; then
+		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
-		elif [ "$yn" =~ ^[Yy](es)?$ ]; then
+		elif [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 			NEWORG="$TEMPORG"
 			echo "$ORG \t::::\t $NEWORG" >> $TACLOG
 			CONFIGURED=false
@@ -167,7 +167,7 @@ webhostname () {
 	#This function will adjust the hostname. Note the format should be http://hostname.com without trailng slashes.
 	showchanges
 	title="                                      Web Host Name                                      "
-	until [ "$yn" =~ ^[Yy](es)?$ ]; do
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 		echo ${titlebanner// /=}
 		echo "$title"
 		echo ${titlebanner// /=}
@@ -182,9 +182,9 @@ webhostname () {
 		echo ""
 		echo " $TEMPWEB will be your new host address"
 		yesnocancel
-		if [ "$yn" =~ ^[Cc](ancel)?$ ]; then
+		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
-		elif [ "$yn" =~ ^[Yy](es)?$ ]; then
+		elif [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 			NEWWEB="$TEMPWEB"
 			echo "$WEB \t::::\t $NEWWEB" >> $TACLOG
 			CONFIGURED=false
@@ -195,7 +195,7 @@ administratormail () {
 	#This function adjusts the administrator who will typically run the mail system and receive copy of all sent mail
 	showchanges
 	title="                                   Administrator Mail                                    "
-	until [ "$yn" =~ ^[Yy](es)?$ ]; do
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 		echo ${titlebanner// /=}
 		echo "$title"
 		echo ${titlebanner// /=}
@@ -208,9 +208,9 @@ administratormail () {
 		echo ""
 		echo " $TEMPMAIL will be your new admin's e-mail"
 		yesnocancel
-		if [ "$yn" =~ ^[Cc](ancel)?$ ]; then
+		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
-		elif [ "$yn" =~ ^[Yy](es)?$ ]; then
+		elif [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 			NEWMAIL="$TEMPMAIL"
 			echo "$MAIL \t::::\t $NEWMAIL" >> $TACLOG
 			CONFIGURED=false
@@ -221,7 +221,7 @@ smtprelayhost () {
 	#This function will attempt to configure SMTP for further use, but postfix may require more direct configuration
 	showchanges
 	title="                                     SMTP Relay Host                                     "
-	until [ "$yn" =~ ^[Yy](es)?$ ]; do
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 		echo ${titlebanner// /=}
 		echo "$title"
 		echo ${titlebanner// /=}
@@ -235,9 +235,9 @@ smtprelayhost () {
 		echo ""
 		echo " $TEMPSMTP will be your new SMTP host"
 		yesnocancel
-		if [ "$yn" =~ ^[Cc](ancel)?$ ]; then
+		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
-		elif [ "$yn" =~ ^[Yy](es)?$ ]; then
+		elif [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 			NEWSMTP="$TEMPSMTP"
 			echo "$SMTP \t::::\t $NEWSMTP" >> $TACLOG
 			CONFIGURED=false
@@ -248,7 +248,7 @@ tacacskey () {
 	#This function will change the Tacacs+ key, which will require reconfiguration of network devices to be functional
 	showchanges
 	title="                                       TACACS+ Key                                       "
-	until [ "$yn" =~ ^[Yy](es)?$ ]; do
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 		echo ${titlebanner// /=}
 		echo "$title"
 		echo ${titlebanner// /=}
@@ -262,9 +262,9 @@ tacacskey () {
 		echo ""
 		echo " $TEMPKEY is your new TACACS+ key. If your routers don't match, they will be inaccessible"
 		yesnocancel
-		if [ "$yn" =~ ^[Cc](ancel)?$ ]; then
+		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			break
-		elif [ "$yn" =~ ^[Yy](es)?$ ]; then
+		elif [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 			NEWKEY="$TEMPKEY"
 			echo "$KEY \t::::\t $NEWKEY" >> $TACLOG
 			CONFIGURED=false
@@ -341,27 +341,27 @@ configurationcommit () {
 doall () {
 	echo "Running all configurations" >> $TACLOG
 	twotacconfigurations
-	if ! [ "$yn" =~ ^[Cc](ancel)?$ ]; then
+	if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	yn="n"
 		organizationname
 	fi
-	if ! [ "$yn" =~ ^[Cc](ancel)?$ ]; then
+	if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	yn="n"
 		webhostname
 	fi
-	if ! [ "$yn" =~ ^[Cc](ancel)?$ ]; then
+	if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	yn="n"
 		administratormail
 	fi
-	if ! [ "$yn" =~ ^[Cc](ancel)?$ ]; then
+	if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	yn="n"
 		smtprelayhost
 	fi
-	if ! [ "$yn" =~ ^[Cc](ancel)?$ ]; then
+	if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	yn="n"
 		tacacskey
 	fi
-	if ! [ "$yn" =~ ^[Cc](ancel)?$ ]; then
+	if ! [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 	yn="n"
 		configurationcommit
 	fi
@@ -379,7 +379,7 @@ firstsetup () {
 		echo ""
 		yesno
 	fi
-	if [ "$yn" =~ ^[Nn](o)?$ ]; then
+	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		echo "...First time setup cancelled..." >> $TACLOG
 		FIRSTSETUP=true
 		break
@@ -391,7 +391,7 @@ firstsetup () {
 		echo "Do you want to go back to the manager?"
 		echo ""
 		yesno
-		if [ "$yn" =~ ^[Nn](o)?$ ]; then
+		if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 			return 0;
 		else
 			GOBACK=true

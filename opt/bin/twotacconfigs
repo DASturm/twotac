@@ -12,7 +12,7 @@ echo "Started twotacsetup" >> $TACLOG
 viewconfigs () {
 	title="                                      View Configs                                       "
 	echo "Viewing configs" >> $TACLOG
-	until [ "$yn" =~ ^[Yy](es)?$ ]; do
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 	clear
 	echo ${titlebanner// /=}
 	echo "$title"
@@ -51,16 +51,16 @@ viewtacacs () {
 	echo ""
 	echo ""
 	echo "Would you like to edit this file? (y/n)"
-	until [ "$yn" =~ ^[Yy](es)?$ ] || [ "$yn" =~ ^[Cc](ancel)?$ ] || [ "$yn" =~ ^[Nn](o)?$ ]; do
+	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 	read yn
-	if ! [ "$yn" =~ ^[Yy](es)?$ ] || [ "$yn" =~ ^[Cc](ancel)?$ ] || [ "$yn" =~ ^[Nn](o)?$ ]; then
+	if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		echo " That output doesn't register, please try again."
 	fi
 	done
-	if [ "$yn" =~ ^[Nn](o)?$ ]; then
+	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		break
 	fi
-	if [ "$yn" =~ ^[Yy](es)?$ ]; then
+	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		echo "Editing tacacs+ configuration" >> $TACLOG
 		nano /etc/tacacs+/tac_plus.conf
 	fi
@@ -72,16 +72,16 @@ viewpostfix () {
 	echo ""
 	echo ""
 	echo "Would you like to edit this file? (y/n)"
-	until [ "$yn" =~ ^[Yy](es)?$ ] || [ "$yn" =~ ^[Cc](ancel)?$ ] || [ "$yn" =~ ^[Nn](o)?$ ]; do
+	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 	read yn
-	if ! [ "$yn" =~ ^[Yy](es)?$ ] || [ "$yn" =~ ^[Cc](ancel)?$ ] || [ "$yn" =~ ^[Nn](o)?$ ]; then
+	if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		echo " That output doesn't register, please try again."
 	fi
 	done
-	if [ "$yn" =~ ^[Nn](o)?$ ]; then
+	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		break
 	fi
-	if [ "$yn" =~ ^[Yy](es)?$ ]; then
+	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		echo "Editing postfix configuration" >> $TACLOG
 		nano /etc/postfix/main.cf
 	fi
@@ -93,16 +93,16 @@ viewpam () {
 	echo ""
 	echo ""
 	echo "Would you like to edit this file? (y/n)"
-	until [ "$yn" =~ ^[Yy](es)?$ ] || [ "$yn" =~ ^[Cc](ancel)?$ ] || [ "$yn" =~ ^[Nn](o)?$ ]; do
+	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
 	read yn
-	if ! [ "$yn" =~ ^[Yy](es)?$ ] || [ "$yn" =~ ^[Cc](ancel)?$ ] || [ "$yn" =~ ^[Nn](o)?$ ]; then
+	if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		echo " That output doesn't register, please try again."
 	fi
 	done
-	if [ "$yn" =~ ^[Nn](o)?$ ]; then
+	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		break
 	fi
-	if [ "$yn" =~ ^[Yy](es)?$ ]; then
+	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		echo "Editing pam configuration" >> $TACLOG
 		nano /etc/pam.d/tac_plus
 	fi
@@ -182,11 +182,11 @@ configoverwrite () {
 		echo ""
 		echo "Would you like to overwrite your standard configurations for the twotac default configuration? (y/n)"
 		yesnocancel
-		 	if [ "$yn" =~ ^[Nn](o)?$ ]; then
+		 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		 		echo "...Default config overwrite cancelled..." >> $TACLOG
 		 		break
 		 	fi
-		 	if [ "$yn" =~ ^[Yy](es)?$ ]; then
+		 	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		 		echo "...Default config overwrite enabled..." >> $TACLOG
 		 		CONFIGURED=false
 		if [ "$tacacs" ]; then

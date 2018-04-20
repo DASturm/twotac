@@ -14,7 +14,7 @@ printf -v titlebanner '%*s' "$titlelength"
 echo "Started twotacsetup" >> $TACLOG
 ### Functions
 viewlogs () {
-	until [ "$yn" =~ ^[Yy](es)?$ ]; do
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 	title="                                       Twotac Logs                                       "
 	echo -e "Viewed logs" >> $TACLOG
 	clear

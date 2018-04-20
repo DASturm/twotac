@@ -59,7 +59,7 @@ tacuserline () {
 	tacuser
 }
 tacuserprompt () {
-	until [ "$yn" =~ ^[Yy](es)?$ ]; do
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 		echo "Add user initiated" >> $TACLOG
 		echo " You have chosen to add a user."
 		echo " Please enter the new username"
@@ -87,11 +87,11 @@ tacuserprompt () {
 		echo " Your current entries are:"
 		echo -e " $USERNAME, $USERMAIL, and $FULLNAME"
 		yesnocancel
-		if [ "$yn" =~ ^[Cc](ancel)?$ ]; then
+		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			echo -e "Add user cancelled" >> $TACLOG
 			break
 		fi
-		if [ "$yn" =~ ^[Yy](es)?$ ]; then
+		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 			echo "Adding user" >> $TACLOG
 			tacuser
 		fi
@@ -108,7 +108,7 @@ tacdeleteline () {
 	tacdelete
 }
 tacdeleteprompt () {
-	until [ "$yn" =~ ^[Yy](es)?$ ]; do
+	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
 		echo "Delete user initiated" >> $TACLOG
 		echo " You have chosen to delete a user."
 		echo " Please enter their username"
@@ -123,11 +123,11 @@ tacdeleteprompt () {
 		echo " Your current entries are:"
 		echo -e " $USERNAME, $USERMAIL, and $FULLNAME"
 		yesnocancel
-		if [ "$yn" =~ ^[Cc](ancel)?$ ]; then
+		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
 			echo -e "Delete user cancelled" >> $TACLOG
 			break
 		fi
-		if [ "$yn" =~ ^[Yy](es)?$ ]; then
+		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 			echo "Deleting user" >> $TACLOG
 			tacdelete
 		fi

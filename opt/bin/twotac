@@ -21,7 +21,7 @@ askfirstsetup () {
 	echo " Would you like to run first time setup?"
 	echo ""
 	yesno
-	if [ "$yn" =~ ^[Nn](o)?$ ]; then
+	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		:
 	else
 		echo "...Running first time setup..." >> $TACLOG
