@@ -67,11 +67,9 @@ tacuserprompt () {
 		echo -e "Username= $USERNAME" >> $TACLOG
 		password=""
 		passconf=""
-		until [ "$PASSWORD" ] &&  [ "$PASSCONF" ] && [ "$PASSWORD" == "$PASSCONF" ]; do
-			if  [ "$PASSWORD" ]; then
-				if [ "$PASSWORD" -ne "$PASSCONF" ]; then
-					echo " The passwords do not match, please try again"
-				fi
+		until [ "$PASSWORD" ] && [ "$PASSWORD" == "$PASSCONF" ]; do
+			if [ "$PASSWORD" -ne "$PASSCONF" ]; then
+				echo " The passwords do not match, please try again"
 			fi
 			echo " Please enter the new password"
 			read -s password
