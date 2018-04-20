@@ -16,6 +16,7 @@ echo "Started twotacsetup" >> $TACLOG
 ### Functions
 twotacconfigurations () {
 	if [ $FIRSTSETUP=true ]; then
+		echo "FIRSTSETUP=$FIRSTSETUP" >> $TACLOG
 		title="                                  Twotac Configurations                                  "
 		echo ${titlebanner// /=}
 		echo "$title"
@@ -432,6 +433,7 @@ exit1 () {
 echo "Running setup" >> $TACLOG
 while [[ $COMMIT=false ]]; do
 if [[ $FIRSTSETUP=false ]]; then
+	echo "FIRSTSETUP=$FIRSTSETUP" >> $TACLOG
 	firstsetup
 	if [ $GOBACK ]; then
 		return 0

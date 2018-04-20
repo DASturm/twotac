@@ -52,6 +52,7 @@ while true
 do
 	source $TACCONF
 	if  [ $FIRSTSETUP=false ]; then
+		echo "FIRSTSETUP=$FIRSTSETUP" >> $TACLOG
 		askfirstsetup
 	fi
 	clear
