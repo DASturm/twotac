@@ -59,7 +59,7 @@ tacuserline () {
 	tacuser
 }
 tacuserprompt () {
-	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+	until [ "$yn" =~ ^[Yy](es)?$ ]; do
 		echo "Add user initiated" >> $TACLOG
 		echo " You have chosen to add a user."
 		echo " Please enter the new username"
@@ -67,9 +67,9 @@ tacuserprompt () {
 		echo -e "Username= $USERNAME" >> $TACLOG
 		password=""
 		passconf=""
-		until [[ $PASSWORD ]] &&  [[ $PASSCONF ]] && [[ $PASSWORD == $PASSCONF ]]; do
-			if  [[ $PASSWORD ]]; then
-				if [[ $PASSWORD -ne $PASSCONF ]]; then
+		until [ "$PASSWORD" ] &&  [ "$PASSCONF" ] && [ "$PASSWORD" == "$PASSCONF" ]; do
+			if  [ "$PASSWORD" ]; then
+				if [ "$PASSWORD" -ne "$PASSCONF" ]; then
 					echo " The passwords do not match, please try again"
 				fi
 			fi
@@ -87,11 +87,11 @@ tacuserprompt () {
 		echo " Your current entries are:"
 		echo -e " $USERNAME, $USERMAIL, and $FULLNAME"
 		yesnocancel
-		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+		if [ "$yn" =~ ^[Cc](ancel)?$ ]; then
 			echo -e "Add user cancelled" >> $TACLOG
 			break
 		fi
-		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		if [ "$yn" =~ ^[Yy](es)?$ ]; then
 			echo "Adding user" >> $TACLOG
 			tacuser
 		fi
@@ -108,7 +108,7 @@ tacdeleteline () {
 	tacdelete
 }
 tacdeleteprompt () {
-	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+	until [ "$yn" =~ ^[Yy](es)?$ ]; do
 		echo "Delete user initiated" >> $TACLOG
 		echo " You have chosen to delete a user."
 		echo " Please enter their username"
@@ -123,11 +123,11 @@ tacdeleteprompt () {
 		echo " Your current entries are:"
 		echo -e " $USERNAME, $USERMAIL, and $FULLNAME"
 		yesnocancel
-		if [[ "$yn" =~ ^[Cc](ancel)?$ ]]; then
+		if [ "$yn" =~ ^[Cc](ancel)?$ ]; then
 			echo -e "Delete user cancelled" >> $TACLOG
 			break
 		fi
-		if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		if [ "$yn" =~ ^[Yy](es)?$ ]; then
 			echo "Deleting user" >> $TACLOG
 			tacdelete
 		fi
@@ -206,7 +206,7 @@ tacuser () {
 	echo '#END FILE' >> $TACCONF
 	
 	#If there is no tacacs configuration file, then you have a bad problem and need to contact an administrator
-	if [ ! -f $TACCONF ]; then
+	if [ ! -f "$TACCONF" ]; then
 		echo $errorconfig | tee -a $TACLOG
 		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
 		echo "" | tee -a $TACLOG
@@ -229,7 +229,7 @@ tacdelete () {
 	echo $TACCONF
 	sed -i -e "/$USERNAME/d" $TACCONF
 	#If there is no tacacs configuration file, then you have a bad problem and need to contact an administrator
-	if [ ! -f $TACCONF ]; then
+	if [ ! -f "$TACCONF" ]; then
 		echo $errorconfig | tee -a $TACLOG
 		echo $errortryagain | tee -a $TACLOG
 		echo "<--------------END-LOG--------------->" | tee -a $TACLOG

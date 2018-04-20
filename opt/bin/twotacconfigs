@@ -12,7 +12,7 @@ echo "Started twotacsetup" >> $TACLOG
 viewconfigs () {
 	title="                                      View Configs                                       "
 	echo "Viewing configs" >> $TACLOG
-	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+	until [ "$yn" =~ ^[Yy](es)?$ ]; do
 	clear
 	echo ${titlebanner// /=}
 	echo "$title"
@@ -51,16 +51,16 @@ viewtacacs () {
 	echo ""
 	echo ""
 	echo "Would you like to edit this file? (y/n)"
-	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+	until [ "$yn" =~ ^[Yy](es)?$ ] || [ "$yn" =~ ^[Cc](ancel)?$ ] || [ "$yn" =~ ^[Nn](o)?$ ]; do
 	read yn
-	if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+	if ! [ "$yn" =~ ^[Yy](es)?$ ] || [ "$yn" =~ ^[Cc](ancel)?$ ] || [ "$yn" =~ ^[Nn](o)?$ ]; then
 		echo " That output doesn't register, please try again."
 	fi
 	done
-	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+	if [ "$yn" =~ ^[Nn](o)?$ ]; then
 		break
 	fi
-	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+	if [ "$yn" =~ ^[Yy](es)?$ ]; then
 		echo "Editing tacacs+ configuration" >> $TACLOG
 		nano /etc/tacacs+/tac_plus.conf
 	fi
@@ -72,16 +72,16 @@ viewpostfix () {
 	echo ""
 	echo ""
 	echo "Would you like to edit this file? (y/n)"
-	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+	until [ "$yn" =~ ^[Yy](es)?$ ] || [ "$yn" =~ ^[Cc](ancel)?$ ] || [ "$yn" =~ ^[Nn](o)?$ ]; do
 	read yn
-	if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+	if ! [ "$yn" =~ ^[Yy](es)?$ ] || [ "$yn" =~ ^[Cc](ancel)?$ ] || [ "$yn" =~ ^[Nn](o)?$ ]; then
 		echo " That output doesn't register, please try again."
 	fi
 	done
-	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+	if [ "$yn" =~ ^[Nn](o)?$ ]; then
 		break
 	fi
-	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+	if [ "$yn" =~ ^[Yy](es)?$ ]; then
 		echo "Editing postfix configuration" >> $TACLOG
 		nano /etc/postfix/main.cf
 	fi
@@ -93,16 +93,16 @@ viewpam () {
 	echo ""
 	echo ""
 	echo "Would you like to edit this file? (y/n)"
-	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
+	until [ "$yn" =~ ^[Yy](es)?$ ] || [ "$yn" =~ ^[Cc](ancel)?$ ] || [ "$yn" =~ ^[Nn](o)?$ ]; do
 	read yn
-	if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+	if ! [ "$yn" =~ ^[Yy](es)?$ ] || [ "$yn" =~ ^[Cc](ancel)?$ ] || [ "$yn" =~ ^[Nn](o)?$ ]; then
 		echo " That output doesn't register, please try again."
 	fi
 	done
-	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+	if [ "$yn" =~ ^[Nn](o)?$ ]; then
 		break
 	fi
-	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+	if [ "$yn" =~ ^[Yy](es)?$ ]; then
 		echo "Editing pam configuration" >> $TACLOG
 		nano /etc/pam.d/tac_plus
 	fi
@@ -142,66 +142,66 @@ configoverwrite () {
 	echo ""
 	echo "Checking for installed files..."
 	echo "...Checking for installed files..." >> $TACLOG
-	if [[ /etc/tacacs+/tac_plus.conf ]]; then
+	if [ /etc/tacacs+/tac_plus.conf ]; then
 		tacacs="tacacs+" 
 		echo "...tacacs+..." >> $TACLOG
 	else 
 		tacacs="" 
 	fi
-	if [[ /etc/postfix/main.cf ]]; then
+	if [ /etc/postfix/main.cf ]; then
 		postfix="postfix" 
 		echo "...postfix..." >> $TACLOG
 	else 
 		postfix="" 
 	fi
-	if [[ /etc/pam.d/tac_plus ]]; then
+	if [ /etc/pam.d/tac_plus ]; then
 		pam="pam" 
 		echo "...pam..." >> $TACLOG
 	else 
 		pam="" 
 	fi
-	if [[ /etc/apache2/apache2.conf ]]; then
+	if [ /etc/apache2/apache2.conf ]; then
 		apache2="apache2" 
 		echo "...apache2..." >> $TACLOG
 	else 
 		apache2="" 
 	fi
-	if [[ $tacacs ]] || [[ $postfix ]] || [[ $pam ]]; then
+	if [ "$tacacs" ] || [ "$postfix" ] || [ "$pam" ]; then
 		echo ""
 		echo "It looks like these configurations are available to overwrite:"
 		echo ""
-		if [[ $tacacs ]]; then
+		if [ "$tacacs" ]; then
 			echo -e "$tacacs"
 		fi
-		if [[ $postfix ]]; then
+		if [ "$postfix" ]; then
 			echo -e "$postfix"
 		fi
-		if [[ $pam ]]; then
+		if [ "$pam" ]; then
 			echo -e "$pam"
 		fi
 		echo ""
 		echo "Would you like to overwrite your standard configurations for the twotac default configuration? (y/n)"
 		yesnocancel
-		 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+		 	if [ "$yn" =~ ^[Nn](o)?$ ]; then
 		 		echo "...Default config overwrite cancelled..." >> $TACLOG
 		 		break
 		 	fi
-		 	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
+		 	if [ "$yn" =~ ^[Yy](es)?$ ]; then
 		 		echo "...Default config overwrite enabled..." >> $TACLOG
 		 		CONFIGURED=false
-		if [[ $tacacs ]]; then
+		if [ "$tacacs" ]; then
 			echo "...tacacs+ overwritten..." >> $TACLOG
 			tacacs=$(cat /opt/tacconfigs/tacacs+/tac_plus.conf)
 			sudo echo "" > /etc/tacacs+/tac_plus.conf
 			sudo echo "$tacacs" >> /etc/tacacs+/tac_plus.conf
 		fi
-		if [[ $postfix ]]; then
+		if [ "$postfix" ]; then
 			echo "...postfix overwritten..." >> $TACLOG
 			postfix=$(cat /opt/tacconfigs/postfix/main.cf)
 			sudo echo "" > /etc/postfix/main.cf
 			sudo echo "$postfix" >> /etc/postfix/main.cf
 		fi
-		if [[ $pam ]]; then
+		if [ "$pam" ]; then
 			echo "...pam overwritten..." >> $TACLOG
 			pam=$(cat /opt/tacconfigs/pam.d/tac_plus)
 			sudo echo "" > /etc/pam.d/tac_plus
@@ -210,23 +210,23 @@ configoverwrite () {
 		fi
 		echo ""
 		echo ""
-		if ! [[ $apache2 ]] && [[ $tacacs ]] && [[ $postfix ]] && [[ $pam ]]; then
+		if ! [ "$apache2" ] && [ "$tacacs" ] && [ "$postfix" ] && [ "$pam" ]; then
 			echo "Some dependencies still aren't installed"
 			echo "...Some dependencies still aren't installed..." >> $TACLOG
 			echo "Please install"
-			if ! [[ $tacacs ]]; then
+			if ! [ "$tacacs" ]; then
 				echo -e "tacacs+"
 				echo "...tacacs+..." >> $TACLOG
 			fi
-			if ! [[ $postfix ]]; then
+			if ! [ "$postfix" ]; then
 				echo -e "postfix"
 				echo "...postfix..." >> $TACLOG
 			fi
-			if ! [[ $pam ]]; then
+			if ! [ "$pam" ]; then
 				echo -e "pam"
 				echo "...pam..." >> $TACLOG
 			fi
-			if ! [[ $apache2 ]]; then
+			if ! [ "$apache2" ]; then
 				echo -e "apache2"
 				echo "...apache2..." >> $TACLOG
 			fi
@@ -237,16 +237,16 @@ configoverwrite () {
 		echo "...No dependencies installed..." >> $TACLOG
 		echo "Please install"
 		echo "...Please install: tacacs+ postfix pam apache2..." >> $TACLOG
-		if ! [[ $tacacs ]]; then
+		if ! [ "$tacacs" ]; then
 			echo -e "tacacs+"
 		fi
-		if ! [[ $postfix ]]; then
+		if ! [ "$postfix" ]; then
 			echo -e "postfix"
 		fi
-		if ! [[ $pam ]]; then
+		if ! [ "$pam" ]; then
 			echo -e "pam"
 		fi
-		if ! [[ $apache2 ]]; then
+		if ! [ "$apache2" ]; then
 			echo -e "apache2"
 		fi
 		echo "This software will not work as intended until you do."

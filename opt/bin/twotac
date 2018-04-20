@@ -21,7 +21,7 @@ askfirstsetup () {
 	echo " Would you like to run first time setup?"
 	echo ""
 	yesno
-	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
+	if [ "$yn" =~ ^[Nn](o)?$ ]; then
 		:
 	else
 		echo "...Running first time setup..." >> $TACLOG
@@ -51,7 +51,7 @@ exit0 () {
 while true
 do
 	source $TACCONF
-	if  [ $FIRSTSETUP=false ]; then
+	if [ "$FIRSTSETUP" = false ]; then
 		echo "FIRSTSETUP=$FIRSTSETUP" >> $TACLOG
 		askfirstsetup
 	fi
@@ -66,7 +66,7 @@ do
 	echo " To setup or change script information, enter 3"
 	echo " To view or edit configs,               enter 4"
 	echo " To exit this interface,                enter Q"
-	if [ $FIRSTSETUP=false ]; then
+	if [ "$FIRSTSETUP" = false ]; then
 		echo " To stop first time setups,             enter S"
 	fi
 	echo ""

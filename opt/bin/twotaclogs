@@ -14,7 +14,7 @@ printf -v titlebanner '%*s' "$titlelength"
 echo "Started twotacsetup" >> $TACLOG
 ### Functions
 viewlogs () {
-	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+	until [ "$yn" =~ ^[Yy](es)?$ ]; do
 	title="                                       Twotac Logs                                       "
 	echo -e "Viewed logs" >> $TACLOG
 	clear
@@ -29,7 +29,7 @@ viewlogs () {
 	echo ${titlebanner// /=}
 	echo ""
 	read logsearch
-	if ! [[ $logsearch ]]; then
+	if ! [ "$logsearch" ]; then
 		break
 	fi
 	cat /var/log/taclogs/$logsearch 2>/dev/null # || ERROR CODE
