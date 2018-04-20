@@ -431,7 +431,7 @@ exit1 () {
 }
 ### Program Start
 echo "COMMIT=$COMMIT" >> $TACLOG
-while [ "$COMMIT" = false ]; do
+while [ $COMMIT = false ]; do
 if [ "$FIRSTSETUP" = false ]; then
 	echo "FIRSTSETUP=$FIRSTSETUP" >> $TACLOG
 	firstsetup
