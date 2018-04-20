@@ -63,25 +63,25 @@ tacuserprompt () {
 		echo "Add user initiated" >> $TACLOG
 		echo " You have chosen to add a user."
 		echo " Please enter the new username"
-		read username
+		read USERNAME
 		echo -e "Username= $USERNAME" >> $TACLOG
-		password=""
-		passconf=""
+		PASSWORD=""
+		PASSCONF=""
 		until [ "$PASSWORD" ] && [ "$PASSWORD" == "$PASSCONF" ]; do
 			if ! [ "$PASSWORD" == "$PASSCONF" ]; then
 				echo " The passwords do not match, please try again"
 				echo "Passwords don't match" >> $TACLOG
 			fi
 			echo " Please enter the new password"
-			read -s password
+			read -s PASSWORD
 			echo " Please confirm your password"
-			read -s passconf
+			read -s PASSCONF
 		done
 		echo " Please enter the user's e-mail address"
-		read usermail
+		read USERMAIL
 		echo -e "E-mail= $USERMAIL" >> $TACLOG
 		echo " Please enter the user's full name"
-		read fullname
+		read FULLNAME
 		echo -e "Name= $FULLNAME" >> $TACLOG
 		echo " Your current entries are:"
 		echo -e " $USERNAME, $USERMAIL, and $FULLNAME"
@@ -111,13 +111,13 @@ tacdeleteprompt () {
 		echo "Delete user initiated" >> $TACLOG
 		echo " You have chosen to delete a user."
 		echo " Please enter their username"
-		read username
+		read USERNAME
 		echo -e "Username= $USERNAME" >> $TACLOG
 		echo " Please enter the user's e-mail address"
-		read usermail
+		read USERMAIL
 		echo -e "E-mail= $USERMAIL" >> $TACLOG
 		echo " Please enter the user's full name"
-		read fullname
+		read FULLNAME
 		echo -e "Name= $FULLNAME" >> $TACLOG
 		echo " Your current entries are:"
 		echo -e " $USERNAME, $USERMAIL, and $FULLNAME"
