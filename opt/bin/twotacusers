@@ -2,6 +2,7 @@
 ### Twotac Template
 TACLOG="/var/log/taclogs/taclog"
 TACCONF="/etc/twotac/twotac.conf"
+TACACS="/etc/tacacs+/tac_plus.conf"
 title="    Twotac User Management    "
 # Titlebanner is equal to the title length via printf
 titlelength=${#title}
@@ -134,7 +135,7 @@ tacdeleteprompt () {
 }
 usercheck () {
 	#Check if the user is already exists
-	if grep -qe "^$USERNAME:" $TACCONF; then
+	if grep -qe "^$USERNAME:" $TACACS; then
 		echo $errordup | tee -a $TACLOG
 		echo "<--------------END-LOG--------------->" >> $TACLOG
 		echo "" | tee -a $TACLOG
@@ -199,11 +200,11 @@ tacuser () {
 	echo "$USERNAME:$PASSWORD" | chpasswd -e
 	
 	#Adds the user to the tacacs configuration file
-	sed -i "s/#END FILE/user = \"$USERNAME\" { login = PAM member = ADMIN service = exec { priv-lvl = 15 }  }/" $TACCONF
-	echo '#END FILE' >> $TACCONF
+	sed -i "s/#END FILE/user = \"$USERNAME\" { login = PAM member = ADMIN service = exec { priv-lvl = 15 }  }/" $TACACS
+	echo '#END FILE' >> $TACACS
 	
 	#If there is no tacacs configuration file, then you have a bad problem and need to contact an administrator
-	if [ ! -f "$TACCONF" ]; then
+	if [ ! -f "$TACACS" ]; then
 		echo $errorconfig | tee -a $TACLOG
 		echo "<--------------END-LOG--------------->" >> $TACLOG
 		echo "" | tee -a $TACLOG
@@ -223,10 +224,9 @@ tacdelete () {
 	rm -r /home/$USERNAME
 	#Adds the user to the tacacs configuration file
 	echo $USERNAME
-	echo $TACCONF
-	sed -i -e "/$USERNAME/d" $TACCONF
+	sed -i -e "/$USERNAME/d" $TACACS
 	#If there is no tacacs configuration file, then you have a bad problem and need to contact an administrator
-	if [ ! -f "$TACCONF" ]; then
+	if [ ! -f "$TACACS" ]; then
 		echo $errorconfig | tee -a $TACLOG
 		echo $errortryagain | tee -a $TACLOG
 		echo "<--------------END-LOG--------------->" >> $TACLOG
