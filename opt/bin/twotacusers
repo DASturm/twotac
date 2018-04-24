@@ -136,14 +136,14 @@ usercheck () {
 	#Check if the user is already exists
 	if grep -qe "^$USERNAME:" $TACCONF; then
 		echo $errordup | tee -a $TACLOG
-		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "<--------------END-LOG--------------->" >> $TACLOG
 		echo "" | tee -a $TACLOG
 		sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" $MAILDIR/mailusererror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
 		exit 1
 	fi
 	if grep -qe "^$USERNAME:" /etc/passwd; then
 		echo $errordup | tee -a $TACLOG
-		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "<--------------END-LOG--------------->" >> $TACLOG
 		echo "" | tee -a $TACLOG
 		sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" $MAILDIR/mailusererror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
 		exit 1
@@ -170,7 +170,7 @@ userlogout () {
 	if ! lslogins -l $USERNAME | grep "$NAME" | grep $EMAIL; then
 		echo $errornobody | tee -a $TACLOG
 		echo $errortryagain | tee -a $TACLOG
-		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "<--------------END-LOG--------------->" >> $TACLOG
 		echo "" | tee -a $TACLOG
 		sed -e "s/\[NAME\]/$NAME/" -e "s/\[USERNAME\]/$USERNAME/" $MAILDIR/mailusererror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
 		exit 1
@@ -181,13 +181,11 @@ tacacsreset () {
 	systemctl restart tacacs_plus
 	systemctl is-active tacacs_plus
 	if [ $? -eq 0 ]; then
-		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
 		echo "" | tee -a $TACLOG
 		/etc/cron.weekly/backup.sh
-		exit 0
 	else
 		echo $errorrestart | tee -a $TACLOG
-		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "<--------------END-LOG--------------->" >> $TACLOG
 		echo "" | tee -a $TACLOG
 		sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorrestart/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
 		exit 1
@@ -207,7 +205,7 @@ tacuser () {
 	#If there is no tacacs configuration file, then you have a bad problem and need to contact an administrator
 	if [ ! -f "$TACCONF" ]; then
 		echo $errorconfig | tee -a $TACLOG
-		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "<--------------END-LOG--------------->" >> $TACLOG
 		echo "" | tee -a $TACLOG
 		sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorconfig/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
 		exit 1
@@ -219,7 +217,7 @@ tacuser () {
 tacdelete () {
 	userlogout
 	#Backs up important files before user deletion
-	/etc/cron.weeekly/backup.sh
+	/etc/cron.weekly/backup.sh
 	#Deletes the user using provided information
 	deluser $USERNAME
 	rm -r /home/$USERNAME
@@ -231,7 +229,7 @@ tacdelete () {
 	if [ ! -f "$TACCONF" ]; then
 		echo $errorconfig | tee -a $TACLOG
 		echo $errortryagain | tee -a $TACLOG
-		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "<--------------END-LOG--------------->" >> $TACLOG
 		echo "" | tee -a $TACLOG
 		sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorconfig/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
 		exit 1
@@ -242,7 +240,7 @@ tacdelete () {
 }
 formaterror () {
 	echo $errorformat | tee -a $TACLOG
-	echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+	echo "<--------------END-LOG--------------->" >> $TACLOG
 	echo "" | tee -a $TACLOG
 	sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorformat/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
 	exit 1
@@ -301,7 +299,7 @@ elif [ "$#" -le "6" ]; then
 	echo "$0 $1 $2 $3 $4 $5 $6 $7 $8 $9" >> $TACLOG
 	if [ "$#" -lt "6" ] || [ "$1" != "-u" ] || [ "$3" != "-e" ] || [ "$5" != "-n" ]; then
 	    echo $errorformat | tee -a $TACLOG
-	    echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+	    echo "<--------------END-LOG--------------->" >> $TACLOG
 	    echo "" | tee -a $TACLOG
 	    sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorformat/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
 	    exit 1
@@ -314,7 +312,7 @@ elif [ "$#" -le "8" ] ; then
 	echo "$0 $1 $2 $3 $4 $5 $6 $7 $8 $9 $10 $11" >> $TACLOG
 	if [ "$#" -lt "8" ] || [ "$1" != "-u" ] || [ "$3" != "-p" ] || [ "$5" != "-e" ] || [ "$7" != "-n" ]; then
 		echo $errorformat | tee -a $TACLOG
-		echo "<--------------END-LOG--------------->" | tee -a $TACLOG
+		echo "<--------------END-LOG--------------->" >> $TACLOG
 		echo "" | tee -a $TACLOG
 		sed -e "s/\[NAME\]/$NAME/" -e "s/\[ERROR\]/$errorformat/" $MAILDIR/mailscripterror | mail -aFrom:$MAIL -aBCC:$MAIL -s "$ORG Official Tacacs+ Registration" $EMAIL
 		exit 1
