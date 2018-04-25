@@ -70,12 +70,11 @@ viewbackups () {
 yesnocancel () {
 	yn=""
 	while true; do
-		read -p " Would you like to continue? \"No\" will restart this section (y/n/c)" yn
+		read -p " Would you like to continue? \"No\" will restart this section (y/n)" yn
 		case $yn in
 			[Yy]* ) yn="Yes"; return 0;;
 			[Nn]* ) echo "Try again"; return 0;;
-			[Cc]* ) yn="Cancel"; echo "Cancelling..."; return 0;;
-			* ) echo "Please answer yes, no or cancel.";;
+			* ) echo "Please answer yes or no.";;
 		esac
 	done
 }
@@ -90,6 +89,7 @@ exit1 () {
 ### Program Start
 while true; do
 clear
+yn=""
 title="                                 Twotac Logs and Backups                                 "
 echo ${titlebanner// /=}
 echo "$title"
