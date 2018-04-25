@@ -2,7 +2,7 @@
 chmod u+x /opt/bin/*
 chmod u+x /opt/tacbackups/*.sh
 #Set ownership of files to apache2
-chown www-data:www-data /etc/cron.weekly/backup.sh /opt/tacmail/mailbackup /var/log/taclogs/taclog /var/www/html/index.html /var/www/html/style.css /var/www/html/register.php /var/www/html/dereg.php /var/www/html/tacuser.php /var/www/html/tacdelete.php
+chown www-data:www-data /opt/tacbackups/backup.sh /opt/tacmail/mailbackup /var/log/taclogs/taclog /var/www/html/index.html /var/www/html/style.css /var/www/html/register.php /var/www/html/dereg.php /var/www/html/tacuser.php /var/www/html/tacdelete.php
 #No-passwording www-data
 echo "www-data ALL=(ALL:ALL) NOPASSWD: /opt/bin/tacuser" >> /etc/sudoers
 echo "www-data ALL=(ALL:ALL) NOPASSWD: /opt/bin/tacdelete" >> /etc/sudoers
