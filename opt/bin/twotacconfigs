@@ -12,7 +12,7 @@ echo "Started twotacsetup" >> $TACLOG
 viewconfigs () {
 	title="                                      View Configs                                       "
 	echo "Viewing configs" >> $TACLOG
-	until [[ "$yn" =~ ^[Yy](es)?$ ]]; do
+	while true; do
 	clear
 	echo ${titlebanner// /=}
 	echo "$title"
@@ -259,7 +259,6 @@ exit1 () {
 ### Program Start
 echo "Viewing or modifying configurations" >> $TACLOG
 while true; do
-echo "true" >> $TACLOG
 clear
 echo ${titlebanner// /=}
 echo "$title"
