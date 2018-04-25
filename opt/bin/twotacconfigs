@@ -17,7 +17,6 @@ viewconfigs () {
 	echo ${titlebanner// /=}
 	echo "$title"
 	echo ${titlebanner// /=}
-	echo ""
 	echo " Which config would you like to view?"
 	echo " For the tacacs+ config,                enter 1"
 	echo " For the postfix config,                enter 2"
@@ -51,12 +50,7 @@ viewtacacs () {
 	echo ""
 	echo ""
 	echo "Would you like to edit this file? (y/n)"
-	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-	read yn
-	if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-		echo " That output doesn't register, please try again."
-	fi
-	done
+	yesno
 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		break
 	fi
@@ -72,12 +66,7 @@ viewpostfix () {
 	echo ""
 	echo ""
 	echo "Would you like to edit this file? (y/n)"
-	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-	read yn
-	if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-		echo " That output doesn't register, please try again."
-	fi
-	done
+	yesno
 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		break
 	fi
@@ -93,12 +82,7 @@ viewpam () {
 	echo ""
 	echo ""
 	echo "Would you like to edit this file? (y/n)"
-	until [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; do
-	read yn
-	if ! [[ "$yn" =~ ^[Yy](es)?$ ]] || [[ "$yn" =~ ^[Cc](ancel)?$ ]] || [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-		echo " That output doesn't register, please try again."
-	fi
-	done
+	yesno
 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		break
 	fi
@@ -181,7 +165,7 @@ configoverwrite () {
 		fi
 		echo ""
 		echo "Would you like to overwrite your standard configurations for the twotac default configuration? (y/n)"
-		yesnocancel
+		yesno
 		 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
 		 		echo "...Default config overwrite cancelled..." >> $TACLOG
 		 		break
@@ -253,14 +237,13 @@ configoverwrite () {
 	fi
 	echo "Rewriting twotac config data..."
 }
-yesnocancel () {
+yesno () {
 	yn=""
 	while true; do
-		read -p " Would you like to continue? \"No\" will restart this section (y/n/c)" yn
+		read -p " Would you like to continue? \"No\" will cancel (y/n)" yn
 		case $yn in
 			[Yy]* ) yn="Yes"; return 0;;
-			[Nn]* ) echo "Try again"; return 0;;
-			[Cc]* ) yn="Cancel"; echo "Cancelling..."; return 0;;
+			[Nn]* ) yn="No"; echo "Cancelling..."; return 0;;
 			* ) echo "Please answer yes, no or cancel.";;
 		esac
 	done
