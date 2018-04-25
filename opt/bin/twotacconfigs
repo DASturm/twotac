@@ -276,6 +276,7 @@ exit1 () {
 ### Program Start
 echo "Viewing or modifying configurations" >> $TACLOG
 while true; do
+echo "true" >> $TACLOG
 clear
 echo ${titlebanner// /=}
 echo "$title"
