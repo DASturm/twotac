@@ -1,15 +1,12 @@
 #!/bin/bash
-
-######
-### This is super borked right now for some reason. Have a great day!
-######
-
 ### Twotac Template
 TACLOG="/var/log/taclogs/taclog"
 TACCONF="/etc/twotac/twotac.conf"
 # Titlebanner is equal to the title length via printf
 titlelength=${#title}
 printf -v titlebanner '%*s' "$titlelength"
+#Global Variables
+source $TACCONF
 ### Opening log announcement
 echo "Started twotacsetup" >> $TACLOG
 ### Functions
