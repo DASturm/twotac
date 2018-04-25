@@ -54,7 +54,7 @@ viewtacacs () {
 	echo "Would you like to edit this file? (y/n)"
 	yesno
 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-		break
+		:
 	fi
 	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		echo "Editing tacacs+ configuration" >> $TACLOG
@@ -70,7 +70,7 @@ viewpostfix () {
 	echo "Would you like to edit this file? (y/n)"
 	yesno
 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-		break
+		:
 	fi
 	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		echo "Editing postfix configuration" >> $TACLOG
@@ -86,7 +86,7 @@ viewpam () {
 	echo "Would you like to edit this file? (y/n)"
 	yesno
 	if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
-		break
+		:
 	fi
 	if [[ "$yn" =~ ^[Yy](es)?$ ]]; then
 		echo "Editing pam configuration" >> $TACLOG
