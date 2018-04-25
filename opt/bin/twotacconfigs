@@ -24,7 +24,7 @@ viewconfigs () {
 	echo " For the postfix config,                enter 2"
 	echo " For the pam config,                    enter 3"
 	echo " To view default twotac configs,        enter 4"
-	echo " To exit this interface,                enter Q"
+	echo " To go back to the main interface,      enter Q"
 	echo ""
 	echo ${titlebanner// /=}
 	echo " Enter your selection"
@@ -115,7 +115,7 @@ viewdefault () {
 	cat /opt/tacconfigs/pam.d/tac_plus # || ERROR CODE
 	echo ""
 	echo ""
-	read -p "Press any key to continue"
+	read -p "Press \"enter\" to continue"
 			
 }
 configoverwrite () {
@@ -281,6 +281,6 @@ case $answer in
 	2 ) #This case will overwrite standard configurations with the default twotac configuration
 		configoverwrite;;
 	[Qq] ) #Exit the program
-		exit0;;
+		return 0 2>/dev/null || exit0;;
 esac
 done
