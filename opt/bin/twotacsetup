@@ -375,7 +375,7 @@ firstsetup () {
 	if ! [ "$yn"="Yes" ]; then
 		echo ""
 		echo "This looks like your first time running Twotac Setup, "
-		echo "would you like to skip straight to setup? (yes/no)"
+		echo "would you like to skip straight to setup? (y/n)"
 		echo ""
 		yesno
 	fi
@@ -388,7 +388,7 @@ firstsetup () {
 		FIRSTSETUP=true
 		sed -i 's/FIRSTSETUP\=false/FIRSTSETUP\=true/g' $TACCONF
 		echo ""
-		echo "Do you want to go back to the manager?"
+		echo "Do you want to go back to the manager? (y/n)"
 		echo ""
 		yesno
 		if [[ "$yn" =~ ^[Nn](o)?$ ]]; then
@@ -401,7 +401,7 @@ firstsetup () {
 yesno () {
 	yn=""
 	while true; do
-		read -p " Would you like to continue? \"No\" will cancel (y/n)" yn
+		read yn
 		case $yn in
 			[Yy]* ) yn="Yes"; return 0;;
 			[Nn]* ) yn="No"; echo "Cancelling..."; return 0;;

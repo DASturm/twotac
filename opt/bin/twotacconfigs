@@ -240,7 +240,7 @@ configoverwrite () {
 yesno () {
 	yn=""
 	while true; do
-		read -p " Would you like to continue? \"No\" will cancel (y/n)" yn
+		read yn
 		case $yn in
 			[Yy]* ) yn="Yes"; return 0;;
 			[Nn]* ) yn="No"; echo "Cancelling..."; return 0;;
