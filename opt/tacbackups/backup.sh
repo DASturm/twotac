@@ -6,6 +6,10 @@ ALLFILES="/etc/twotac/twotac.conf /etc/apache2/ /etc/tacacs+/tac_plus.conf /etc/
 source $TACCONF
 if [[ $DOBACKUPS ]]; then
 	echo "DOBACKUPS=$DOBACKUPS"
+	if ! [[ $BACKUPDIR ]]; then
+		echo "BACKUPDIR=$BACKUPDIR"
+		sudo mkdir "$BACKUPDIR"
+	fi
 	tar -zcvf "$BACKUPDIR""$DATE"tacbackups.tar.gz $ALLFILES
 	$MAILDIR/mailbackup | mail -aFrom:$MAILER -s "Tacacs+ Backup" -A "$BACKUPDIR""$DATE"tacbackups.tar.gz $MAILER
 else

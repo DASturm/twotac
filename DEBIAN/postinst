@@ -1,6 +1,6 @@
 #Activate scripts
 chmod u+x /opt/bin/*
-chmod u+x /etc/cron.weekly/*.sh
+chmod u+x /opt/tacbackups/*.sh
 #Set ownership of files to apache2
 chown www-data:www-data /etc/cron.weekly/backup.sh /opt/tacmail/mailbackup /var/log/taclogs/taclog /var/www/html/index.html /var/www/html/style.css /var/www/html/register.php /var/www/html/dereg.php /var/www/html/tacuser.php /var/www/html/tacdelete.php
 #No-passwording www-data
@@ -16,3 +16,4 @@ if [ /etc/ssh/sshd_config ]; then
 fi
 #Globalize scripts
 sudo ln -sf /opt/bin/* /usr/bin/
+sudo ln -sf /opt/tacbackups/*.sh /etc/cron.weekly/
