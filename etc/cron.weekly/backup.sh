@@ -8,7 +8,7 @@ if [[ $DOBACKUPS ]]; then
 	echo "DOBACKUPS=$DOBACKUPS"
 	if ! [[ $BACKUPDIR ]]; then
 		echo "BACKUPDIR=$BACKUPDIR"
-		mkdir "$BACKUPDIR"
+		sudo mkdir "$BACKUPDIR"
 	fi
 	tar -zcvf "$BACKUPDIR""$DATE"tacbackups.tar.gz $ALLFILES
 	$MAILDIR/mailbackup | mail -aFrom:$MAILER -s "Tacacs+ Backup" -A "$BACKUPDIR""$DATE"tacbackups.tar.gz $MAILER
