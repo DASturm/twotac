@@ -59,8 +59,8 @@ Twotac utilizes a number of scripts to automate and simplify the TACACS+ and goo
 /opt/bin/tacmanager -- README in progress!
 /opt/bin/tacuser -- README in progress!
 /opt/bin/tacdelete -- README in progress!
-/etc/cron.weekly/backup.sh -- README in progress!
-/etc/cron.weekly/taclogrotate.sh -- README in progress!
+/opt/tacbackups/backup.sh -- README in progress!
+/opt/tacbackups/taclogrotate.sh -- README in progress!
 
 ## Other Components
 README in progress!

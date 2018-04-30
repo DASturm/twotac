@@ -1,6 +1,6 @@
 #!/bin/bash
 #Files variable may need work and may need to automatically gather file names/paths from a function
-DIR=$(find /etc/twotac/twotac.conf /etc/tacacs+/tac_plus.conf /etc/postfix/main.cf /etc/cron.weekly/ /opt/bin/ /opt/tacconfigs/ /opt/tacmail/ /var/www/html/ -type f)
+DIR=$(find /etc/twotac/twotac.conf /etc/tacacs+/tac_plus.conf /etc/postfix/main.cf /opt/bin/ /opt/tacconfigs/ /opt/tacmail/ /var/www/html/ -type f)
 FILES="$DIR"
 TACLOG="/var/log/taclogs/taclog"
 TACCONF="/etc/twotac/twotac.conf"
@@ -602,7 +602,7 @@ do
 					;;
 				2) #This case will run a backup
 					echo -e "Running backup" >> $TACLOG
-					/etc/cron.weekly/backup.sh 2>/dev/null
+					/opt/tacbackups/backup.sh 2>/dev/null
 					echo "Backup ran successfully"
 					echo ""
 					read -p "Press enter to continue"

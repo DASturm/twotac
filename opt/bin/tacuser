@@ -91,7 +91,7 @@ systemctl is-active tacacs_plus
 if [ $? -eq 0 ]; then
     echo "<--------------END-LOG--------------->" | tee -a $TACLOG
     echo "" | tee -a $TACLOG
-    /etc/cron.weekly/backup.sh
+    /opt/tacbackups/backup.sh
     exit 0
 else
     echo $errorrestart | tee -a $TACLOG

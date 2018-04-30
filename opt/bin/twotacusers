@@ -183,7 +183,7 @@ tacacsreset () {
 	systemctl is-active tacacs_plus
 	if [ $? -eq 0 ]; then
 		echo "" | tee -a $TACLOG
-		/etc/cron.weekly/backup.sh
+		/opt/tacbackups/backup.sh
 	else
 		echo $errorrestart | tee -a $TACLOG
 		echo "<--------------END-LOG--------------->" >> $TACLOG
@@ -218,7 +218,7 @@ tacuser () {
 tacdelete () {
 	userlogout
 	#Backs up important files before user deletion
-	/etc/cron.weekly/backup.sh
+	/opt/tacbackups/backup.sh || echo "Backup software missing!" >> $TACLOG && exit1
 	#Deletes the user using provided information
 	deluser $USERNAME
 	rm -r /home/$USERNAME
