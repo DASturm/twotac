@@ -7,8 +7,6 @@ TWOTACUSERS="/opt/bin/twotacusers"
 TWOTACCONFIGS="/opt/bin/twotacconfigs"
 TWOTACLOGS="/opt/bin/twotaclogs"
 CONFIGURED=false
-#This is where the current variables will be stored
-source $TACCONF || {echo "Configuration file missing! Check $TACCONF ASAP" >> $TACLOG && exit 1}
 #trap '' 2
 ### Opening log announcement
 echo "<----`date`---->" >> $TACLOG
@@ -56,6 +54,9 @@ exit1 () {
 	echo "" >> $TACLOG
 	exit 1
 }
+
+#This is where the current variables will be stored
+source $TACCONF || {echo "Configuration file missing! Check $TACCONF ASAP" >> $TACLOG && exit1}
 while true
 do
 	source $TACCONF
