@@ -218,7 +218,7 @@ tacuser () {
 tacdelete () {
 	userlogout
 	#Backs up important files before user deletion
-	/opt/tacbackups/backup.sh || echo "Backup software missing!" >> $TACLOG && exit1
+	/opt/tacbackups/backup.sh || (echo "Backup software missing!" >> $TACLOG && exit1)
 	#Deletes the user using provided information
 	deluser $USERNAME
 	rm -r /home/$USERNAME
