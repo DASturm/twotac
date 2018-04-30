@@ -19,7 +19,7 @@ viewlogs () {
 	echo "$title"
 	echo ${titlebanner// /=}
 	echo " (Weeks without activity will not be logged)"
-	ls -gavA /var/log/taclogs/ || echo "Log folder missing! I wonder where this will go..." >> $TACLOG && exit1
+	ls -gavA /var/log/taclogs/ || (echo "Log folder missing! I wonder where this will go..." >> $TACLOG && exit1)
 	echo ""
 	echo ${titlebanner// /=}
 	echo " Which log would you like to view? (Blank to go back)"
@@ -29,7 +29,7 @@ viewlogs () {
 	if ! [ "$logsearch" ]; then
 		break
 	fi
-	cat /var/log/taclogs/$logsearch 2>/dev/null || echo "File appears to be corrupted!" >> $TACLOG && exit1
+	cat /var/log/taclogs/$logsearch 2>/dev/null || (echo "File appears to be corrupted!" >> $TACLOG && exit1)
 	echo -e "Viewed /var/log/taclogs/$logsearch" >> $TACLOG
 	echo ""
 	echo ""
@@ -43,7 +43,7 @@ viewlogs () {
 }
 runbackup () {
 	echo -e "Running backup" >> $TACLOG
-	/opt/tacbackups/backup.sh 2>/dev/null || echo "Backup software missing!" >> $TACLOG && exit1
+	/opt/tacbackups/backup.sh 2>/dev/null || (echo "Backup software missing!" >> $TACLOG && exit1)
 	echo "Backup ran successfully"
 	echo ""
 	read -p "Press enter to continue"
@@ -57,7 +57,7 @@ viewbackups () {
 	echo " (Weeks without activity will not be logged)"
 	echo ""
 	echo ""
-	ls -gavA /opt/tacbackups/ || echo "Backups directory missing!" >> $TACLOG && exit1
+	ls -gavA /opt/tacbackups/ || (echo "Backups directory missing!" >> $TACLOG && exit1)
 	echo ""
 	echo ""
 	echo ""
