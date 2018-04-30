@@ -1,6 +1,6 @@
 #!/bin/bash
 ### Twotac Template
-TACLOG="/var/log/taclogs/taclog"
+TACLOG="/var/log/twotac/taclog"
 TACCONF="/etc/twotac/twotac.conf"
 TACACS="/etc/tacacs+/tac_plus.conf"
 title="    Twotac User Management    "

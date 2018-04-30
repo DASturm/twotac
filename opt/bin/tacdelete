@@ -4,7 +4,7 @@
 TACCONF="/etc/tacacs+/tac_plus.conf"
 MAILER="MAILPLACEHOLDER"
 ORG="ORGPLACEHOLDER"
-TACLOG="/var/log/taclogs/taclog"
+TACLOG="/var/log/twotac/taclog"
 MAILDIR="/opt/tacmail"
 
 #Error codes

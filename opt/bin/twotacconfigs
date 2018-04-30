@@ -1,6 +1,6 @@
 #!/bin/bash
 ### Twotac Template
-TACLOG="/var/log/taclogs/taclog"
+TACLOG="/var/log/twotac/taclog"
 TACCONF="/etc/twotac/twotac.conf"
 title="                                  Twotac Configurations                                  "
 # Titlebanner is equal to the title length via printf

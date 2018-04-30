@@ -1,5 +1,5 @@
 #!/bin/bash
-TACLOG="/var/log/taclogs/taclog"
+TACLOG="/var/log/twotac/taclog"
 TACCONF="/etc/twotac/twotac.conf"
 #Program Path Variables
 TWOTACSETUP="/opt/bin/twotacsetup"
