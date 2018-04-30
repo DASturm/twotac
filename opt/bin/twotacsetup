@@ -437,6 +437,7 @@ if [ "$FIRSTSETUP" = false ]; then
 	echo "FIRSTSETUP=$FIRSTSETUP" >> $TACLOG
 	firstsetup
 	if [ "$GOBACK" ]; then
+		echo "First time setup complete, returning..." >> $TACLOG
 		return 0
 	fi
 fi
